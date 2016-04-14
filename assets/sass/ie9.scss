@@ -1,0 +1,27 @@
+@import 'libs/vars';
+@import 'libs/functions';
+@import 'libs/mixins';
+
+/*
+	Tessellate by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+
+/* Main Sections */
+
+	.main {
+		> .content {
+			&.style1 {
+				background: url('images/bgtr.svg') top right no-repeat, url('images/bgbl.svg') bottom left no-repeat, url('images/bgbl.svg') bottom left no-repeat, url('images/overlay.png'), url('images/ie/content-style1.svg');
+			}
+
+			&.style2 {
+				background: url('images/bgtr.svg') top right no-repeat, url('images/bgbl.svg') bottom left no-repeat, url('images/bgbl.svg') bottom left no-repeat, url('images/overlay.png'), url('images/ie/content-style2.svg');
+			}
+
+			&.style3 {
+				background: url('images/bgtr.svg') top right no-repeat, url('images/bgbl.svg') bottom left no-repeat, url('images/bgbl.svg') bottom left no-repeat, url('images/overlay.png'), url('images/ie/content-style3.svg');
+			}
+		}
+	}

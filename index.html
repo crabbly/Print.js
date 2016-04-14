@@ -1,0 +1,467 @@
+<!DOCTYPE HTML>
+<!--
+
+  Print.js
+  http://crabbly.com/printJS
+  Version: 1.0
+  Copyright 2016 Rodrigo Vieira (@crabbly)
+  Released under the MIT license
+  https://github.com/crabbly/Print.js/blob/master/LICENSE
+
+-->
+<html>
+	<head>
+		<title>PrintJS</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link href="../src/print.css" rel="stylesheet" type="text/css" />
+
+		<link rel="stylesheet" href="assets/css/github.css">
+
+		<link rel="icon" type="image/ico" href="/assets/favicon.ico">
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body id="pageBody">
+
+		<!-- Header -->
+			<section id="header" class="dark">
+				<header>
+					<h1>PrintJS</h1>
+					<p>A tiny javascript library to help printing from the web.</p>
+				</header>
+				<footer>
+					<a href="#download" download="print.js" class="button scrolly">Download v1.0</a>
+				</footer>
+			</section>
+
+		<!-- PDF Printing -->
+		<section class="main">
+				<div class="content">
+					<div class="container">
+
+						<section>
+							<h3>PDF Printing</h3>
+							<p>PrintJS was primarily written to help us print PDF files directly within our app, without leaving the interface, and no use of embeds. For unique situations where there is no need for users to open or download the PDF files, and instead, we just need to print them.</p>
+                            <p>One scneario where this is useful, for example, is when users request to print reports that are generated on the server side. These reports are sent back as PDF files. There is no need to open these files before priting them. PrintJS offers a quick way to print these files within our apps.</p>
+						</section>
+
+					</div>
+				</div>
+
+
+				<div class="content dark style5">
+					<div class="container">
+
+						<section>
+							<h3>Example</h3>
+
+							<p>Add a button to print a PDF file located on your hosting server:</p>
+
+<!-- pdf code -->
+<pre><code data-language="html">
+ <button type="button" onclick="printJS('docs/printjs.pdf')">
+    Print PDF
+ </button>
+
+</code></pre>
+
+							<p>Result:</p>
+							<button type="button" onclick="printJS('docs/printjs.pdf')">
+								Print PDF
+							</button>
+
+						</section>
+
+						<section>
+							<blockquote>PDF files must be served from the same domain as your app is hosted under. PrintJS uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
+						</section>
+					</div>
+				</div>
+			</section>
+
+
+		<!-- HTML Printing -->
+		<section class="main">
+			<div class="content">
+				<div class="container">
+					<section>
+						<header>
+							<h3>HTML Printing</h3>
+						</header>
+						<p>Sometimes we just want to print selected parts of a HTML page, and that can be tricky. With PrintJS, we can easily pass the id of the element that we want to print. The element can be of any tag, as long it has a unique id. The library will try to print it very close to how it looks on screen, and at the same time, it will create a printer friendly format for it.</p>
+					</section>
+				</div>
+			</div>
+
+
+			<!-- Example HTML 1 -->
+			<div class="content dark style5">
+				<div class="container">
+					<section>
+						<header>
+							<h3>Example</h3>
+							<p>Add a print button to a HTML form:</p>
+						</header>
+
+<!-- html code -->
+<pre><code data-language="html">
+ <form method="post" action="#" id="printJS-form">
+	...
+ </form>
+
+ <button type="button" onclick="printJS('printJS-form', 'html')">
+    Print Form
+ </button>
+
+</code></pre>
+						<p>Result:</p>
+
+						<form method="post" action="#" id="printJS-form">
+							<div class="row 50%">
+								<div class="6u 12u(narrow)">
+									<input type="text" name="name" id="name" value="" placeholder="John Doe" />
+								</div>
+								<div class="6u 12u(narrow)">
+									<input type="text" name="email" id="email" value="" placeholder="john@doe.com" />
+								</div>
+							</div>
+							<div class="row 50%">
+								<div class="12u">
+									<textarea name="message" id="message" placeholder="Print HTML Elements."></textarea>
+								</div>
+							</div>
+						</form>
+
+						<button type="button" onclick="printJS('printJS-form', 'html')">
+							Print Form
+						</button>
+
+						<hr/>
+
+						<p>PrintJS accepts an object with arguments. Let's print the form again, but now we will add a header to the page:</p>
+
+<!-- html code -->
+<pre><code data-language="html">
+ <button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">
+    Print Form with Header
+ </button>
+
+</code></pre>
+                        <p>Result:</p>
+
+						<button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">
+							Print Form with Header
+						</button>
+
+					</section>
+				</div>
+			</div>
+		</section>
+
+
+        <!-- Image Printing -->
+        <section class="main">
+            <div class="content">
+                <div class="container">
+                    <section>
+                        <header>
+                            <h3>Image Printing</h3>
+                        </header>
+                        <p>PrintJS can be used to quickly print any image on your page, by passing the image url. This can be usefull when you have multiple images on the screen, using a low resolution version of the images. When users try to print the selected image, you can pass the high resolution url to PrintJS.</p>
+                    </section>
+                </div>
+            </div>
+
+            <div class="content dark style5">
+                <div class="container">
+                    <section>
+                        <header>
+                            <h3>Example</h3>
+                        </header>
+
+                        <p>Load images on your page with just the necessary resolution you need on screen:</p>
+
+<pre><code data-language="html">
+ <img src="images/pic01.jpg" />
+
+</code></pre>
+
+                        <p>In your javascript, pass the highest resolution image url to PringJS for a better print quality:</p>
+
+<pre><code data-language="generic">
+ printJS('images/pic01-highres.jpg', 'image');
+
+</code></pre>
+
+                        <p>Result:</p>
+
+                        <div class="imgGallery">
+                            <div>
+                                <div>
+                                    <img src="images/pic01.jpg" />
+                                    <a href="#" onclick="printJS('images/pic01-highres.jpg', 'image');return false;">
+                                        <i class="fa fa-print"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <img src="images/pic02.jpg" />
+                                    <a href="#" onclick="printJS('images/pic02-highres.jpg', 'image');return false;">
+                                        <i class="fa fa-print"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <img src="images/pic03.jpg" />
+                                    <a href="#" onclick="printJS('images/pic03-highres.jpg', 'image');return false;">
+                                        <i class="fa fa-print"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <img src="images/pic04.jpg" />
+                                    <a href="#" onclick="printJS('images/pic04-highres.jpg', 'image');return false;">
+                                        <i class="fa fa-print"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <img src="images/pic05.jpg" />
+                                    <a href="#" onclick="printJS('images/pic05-highres.jpg', 'image');return false;">
+                                        <i class="fa fa-print"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <img src="images/pic06.jpg" />
+                                    <a href="#" onclick="printJS('images/pic06-highres.jpg', 'image');return false;">
+                                        <i class="fa fa-print"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+					<section>
+						<blockquote>PrintJS uses promises to make sure the images are loaded before trying to print. This is useful when printing high resolution images that were are not yet loaded, like the example above.</blockquote>
+					</section>
+
+					<section>
+						<p>You can also add a header to the image being printed:</p>
+
+<pre><code data-language="generic">
+ printJS({printable: 'images/pic01-highres.jpg', type: 'image', header: 'My cool image header'});
+
+</code></pre>
+					</section>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- JSON Printing -->
+		<section class="main">
+			<div class="content">
+				<div class="container">
+					<section>
+						<header>
+							<h3>JSON Printing</h3>
+						</header>
+						<p>We are adding HTML templates for printing dynamic data from javascript objects. Contributions are welcome. Please fork the <a href="https://github.com/crabbly/Print.js" target="_blank">github repository</a>.</p>
+					</section>
+				</div>
+			</div>
+
+			<div class="content dark style5">
+				<div class="container">
+					<section>
+						<header>
+							<h3>Example</h3>
+							<p></p>
+						</header>
+
+						<p>We have the following data set in our javascript code. This would probably come from an AJAX call to a server API:</p>
+
+<!-- json code -->
+<pre><code data-language="generic">
+ someJSONdata = [
+    {
+       name: 'John Doe',
+       email: 'john@doe.com',
+       phone: '111-111-1111'
+    },
+    {
+       name: 'Barry Allen',
+       email: 'barry@flash.com',
+       phone: '222-222-2222'
+    },
+    {
+       name: 'Cool Dude',
+       email: 'cool@dude.com',
+       phone: '333-333-3333'
+    }
+ ];
+
+</code></pre>
+
+						<p>We can pass it to printJS:</p>
+
+<pre><code data-language="html">
+ <button type="button" onclick="printJS({printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json'})">
+    Print JSON Data
+ </button>
+
+</code></pre>
+						<p>Result:</p>
+
+						<button type="button" onclick="printJS({printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json'})">
+							Print JSON Data
+						</button>
+					</section>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="main" id="docs">
+			<div class="content download">
+				<div class="container" id="download">
+					<section>
+						<header>
+							<h3>Download and Install</h3>
+						</header>
+						<p>Download the latest release here, or fork the repository on <a href="https://github.com/crabbly/Print.js">Github</a>.</p>
+						<p><button type="button" class="button">Download v1.0</button></p>
+
+						<hr />
+
+						<h3>Getting Started</h3>
+						<p>First we need to include the Print.js library on the page. The library occupies a global variable of <code>printJS</code>.</p>
+<pre><code data-language="html">
+ <script src="Print.js"></script>
+
+</code></pre>
+						<p>If you will use the modal feature, also include the Print.css on the page.</p>
+<pre><code data-language="html">
+ <link rel="stylesheet" type="text/css" href="Print.css">
+
+</code></pre>
+						<p>That's it. You can now use PrintJS in your pages.</p>
+
+						<h3>Using PringJS</h3>
+						<p>There are four print document types available: <code>'pdf'</code>, <code>'html'</code>, <code>'image'</code> and <code>'json'</code>.</p>
+						<p>The default type is <code>'pdf'</code>.</p>
+						<p>It's basic usage is to call <code>printJS()</code> and just pass in a PDF document url: <code>printJS('docs/PrintJS.pdf')</code>.</p>
+						<p>For image files, the idea is the same, but you need to pass a second argument: <code>printJS('images/PringJS.jpg', 'image')</code>.</p>
+						<p>To print HTML elements, in a similar way, pass in the element id and type: <code>printJS('myElementId', 'html')</code>.</p>
+						<p>When printing JSON data, pass in the data and type: <code>printJS(myData, 'json')</code>;</p>
+
+						<h3>Configuration</h3>
+						<p>PringJS will accept an object as argument, where you can configure some options:</p>
+						<div class="grid">
+							<div class="grid-row" style="color: #3971A5; font-weight:400;">
+								<div class="g1">Argument</div>
+								<div class="g1">Default Value</div>
+								<div class="g2">Description</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">printable</div>
+								<div class="g1">null</div>
+								<div class="g2">Document source: pdf or image url, html element id or json data object.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">type</div>
+								<div class="g1">'pdf'</div>
+								<div class="g2">Document type.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">header</div>
+								<div class="g1">null</div>
+								<div class="g2">Optional header to be used with HTML, Image or JSON printing. It will be placed on the top of the page.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">maxWidth</div>
+								<div class="g1">800</div>
+								<div class="g2">Max document width in pixels. Many people would recommend this to be around 600px. We tested many prints with 800 and it fits well for us. Change this as you need.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">font</div>
+								<div class="g1">'TimesNewRoman'</div>
+								<div class="g2">Typeface used when printing HTML or JSON.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">honorMarginPadding</div>
+								<div class="g1">true</div>
+								<div class="g2">This is used to keep or remove padding and margin from elements that are being printed. Sometimes these styling settings are great on screen but it looks pretty bad when printing. You can remove it by setting this to false.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">properties</div>
+								<div class="g1">null</div>
+								<div class="g2">Used when printing JSON. These are the object property names.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">showModal</div>
+								<div class="g1">null</div>
+								<div class="g2">Enable this option to show user feedback when retrieving or processing large PDF files.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">modalMessage</div>
+								<div class="g1">'Retrieving Document...'</div>
+								<div class="g2">Message displayed to users when <code>showModal</code> is set to <code>true</code>.</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+
+			<div class="content dark style5">
+				<div class="container">
+					<section class="support">
+						<header>
+							<h3>Development and Support</h3>
+							<p></p>
+						</header>
+						<p><i class="fa fa-bug fa-2x rm10" aria-hidden="true"></i><span>Please report issues and feature requests in <a href="https://github.com/crabbly/Print.js/issues">GitHub Issues</a>.</span></p>
+						<p><i class="fa fa-question-circle fa-2x rm10" aria-hidden="true"></i><span>If you have questions implenting this, ask about it in <a href="http://www.stackoverflow.com">StackOverflow</a>.</span></p>
+						<p><i class="fa fa-code fa-2x rm10" aria-hidden="true"></i><span>Pull requests are very welcome! Make sure your patches are well tested: <a href="https://github.com/crabbly/Print.js/blob/master/README.md">README.md</a>.</span></p>
+					</section>
+				</div>
+			</div>
+		</section>
+
+
+		<!-- Footer -->
+			<section id="footer">
+				<ul class="icons">
+					<li><a href="https://twitter.com/crabbly" class="icon fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
+					<!-- <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li> -->
+					<!-- <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li> -->
+					<!-- <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li> -->
+					<li><a href="https://github.com/crabbly/Print.js" class="icon fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+				</ul>
+				<div class="copyright">
+					<ul class="menu">
+						<li>&copy; 2016 Crabbly.com</li><li>Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></li><li>HTML Page Template by <a href="http://html5up.net" target="_blank">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</section>
+
+
+		<!-- Scripts -->
+		<script src="../src/print.js"></script>
+		<script src="../src/html2canvas.js"></script>
+
+		<script src="assets/js/rainbow.js"></script>
+		<script src="assets/js/language/generic.js"></script>
+		<script src="assets/js/language/javascript.js"></script>
+		<script src="assets/js/language/html.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

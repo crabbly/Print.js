@@ -1443,12 +1443,12 @@
 		}
 
 	.dark a {
-		color: #fff;
+		color: #D2D2D2;
 		border-bottom-color: rgba(255, 255, 255, 0.5);
 	}
 
 		.dark a:hover {
-			color: #C1C1C1 !important;
+			color: #71B8DC !important;
 			border-bottom-color: rgba(255, 255, 255, 0);
 		}
 

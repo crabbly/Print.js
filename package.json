@@ -1,0 +1,22 @@
+{
+  "name": "print.js",
+  "homepage": "http://printjs.crabbly.com",
+  "description": "A tiny javascript library to help printing from the web.",
+  "version": "1.0.0",
+  "main": "Print.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crabbly/Print.js"
+  },
+  "license": "MIT",
+  "dependences": {},
+  "devDependencies": {
+    "gulp": "3.9.x",
+    "gulp-uglify": "~1.5.x",
+    "gulp-rename": "1.2.x",
+    "gulp-clean-css": "2.0.x"
+  },
+  "spm": {
+    "main": "Print.js"
+  }
+}

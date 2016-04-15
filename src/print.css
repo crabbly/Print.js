@@ -1,6 +1,6 @@
 /*
  * Print.js
- * http://printJS.crabbly.com
+ * http://printjs.crabbly.com
  * Version: 1.0.0
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)

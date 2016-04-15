@@ -1,4 +1,4 @@
-# printJS
+# Print.js
 A tiny javascript library to help printing from the web.
 
 For documentation and examples please visit: [printjs.crabbly.com](http://printjs.crabbly.com)

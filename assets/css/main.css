@@ -1326,6 +1326,10 @@
 	bottom:5px;
 }
 
+.imgGallery a:hover {
+	color: #C1C1C1;
+}
+
 /* Documentation */
 .grid {
 	display:flex;
@@ -1438,19 +1442,22 @@
 		text-decoration: none;
 	}
 
-		a:hover {
-			color: #616161 !important;
-		}
-
 	.dark a {
-		color: #D2D2D2;
+		color: #fff;
 		border-bottom-color: rgba(255, 255, 255, 0.5);
 	}
 
-		.dark a:hover {
-			color: #71B8DC !important;
+	.dark a:hover {
 			border-bottom-color: rgba(255, 255, 255, 0);
-		}
+	}
+
+    .in-link a {
+        color: #D2D2D2;
+    }
+
+    .in-link a:hover {
+        color: #71B8DC !important;
+    }
 
 	sub {
 		position: relative;
@@ -2086,6 +2093,7 @@
 		#header footer {
 			padding-top: 1.5em;
 		}
+
 
 /* Main Sections */
 

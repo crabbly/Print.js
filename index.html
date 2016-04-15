@@ -1,18 +1,9 @@
 <!DOCTYPE HTML>
-<!--
-
-  Print.js
-  http://crabbly.com/printJS
-  Version: 1.0
-  Copyright 2016 Rodrigo Vieira (@crabbly)
-  Released under the MIT license
-  https://github.com/crabbly/Print.js/blob/master/LICENSE
-
--->
 <html>
 	<head>
-		<title>PrintJS</title>
+		<title>Print.js</title>
 		<meta charset="utf-8" />
+		<meta name="description" content="Print.js - A tiny javascript library to help printing from the web.">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -29,7 +20,7 @@
 		<!-- Header -->
 			<section id="header" class="dark">
 				<header>
-					<h1>PrintJS</h1>
+					<h1>Print.js</h1>
 					<p>A tiny javascript library to help printing from the web.</p>
 				</header>
 				<footer>
@@ -44,8 +35,8 @@
 
 						<section>
 							<h3>PDF Printing</h3>
-							<p>PrintJS was primarily written to help us print PDF files directly within our app, without leaving the interface, and no use of embeds. For unique situations where there is no need for users to open or download the PDF files, and instead, we just need to print them.</p>
-                            <p>One scneario where this is useful, for example, is when users request to print reports that are generated on the server side. These reports are sent back as PDF files. There is no need to open these files before priting them. PrintJS offers a quick way to print these files within our apps.</p>
+							<p>Print.js was primarily written to help us print PDF files directly within our apps, without leaving the interface, and no use of embeds. For unique situations where there is no need for users to open or download the PDF files, and instead, they just need to print them.</p>
+                            <p>One scneario where this is useful, for example, is when users request to print reports that are generated on the server side. These reports are sent back as PDF files. There is no need to open these files before priting them. Print.js offers a quick way to print these files within our apps.</p>
 						</section>
 
 					</div>
@@ -76,7 +67,7 @@
 						</section>
 
 						<section class="in-link">
-							<blockquote>PDF files must be served from the same domain as your app is hosted under. PrintJS uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
+							<blockquote>PDF files must be served from the same domain as your app is hosted under. Print.js uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
 						</section>
 					</div>
 				</div>
@@ -91,7 +82,7 @@
 						<header>
 							<h3>HTML Printing</h3>
 						</header>
-						<p>Sometimes we just want to print selected parts of a HTML page, and that can be tricky. With PrintJS, we can easily pass the id of the element that we want to print. The element can be of any tag, as long it has a unique id. The library will try to print it very close to how it looks on screen, and at the same time, it will create a printer friendly format for it.</p>
+						<p>Sometimes we just want to print selected parts of a HTML page, and that can be tricky. With Print.js, we can easily pass the id of the element that we want to print. The element can be of any tag, as long it has a unique id. The library will try to print it very close to how it looks on screen, and at the same time, it will create a printer friendly format for it.</p>
 					</section>
 				</div>
 			</div>
@@ -141,7 +132,7 @@
 
 						<hr/>
 
-						<p>PrintJS accepts an object with arguments. Let's print the form again, but now we will add a header to the page:</p>
+						<p>Print.js accepts an object with arguments. Let's print the form again, but now we will add a header to the page:</p>
 
 <!-- html code -->
 <pre><code data-language="html">
@@ -170,7 +161,7 @@
                         <header>
                             <h3>Image Printing</h3>
                         </header>
-                        <p>PrintJS can be used to quickly print any image on your page, by passing the image url. This can be usefull when you have multiple images on the screen, using a low resolution version of the images. When users try to print the selected image, you can pass the high resolution url to PrintJS.</p>
+                        <p>Print.js can be used to quickly print any image on your page, by passing the image url. This can be usefull when you have multiple images on the screen, using a low resolution version of the images. When users try to print the selected image, you can pass the high resolution url to Print.js.</p>
                     </section>
                 </div>
             </div>
@@ -244,7 +235,7 @@
                     </section>
 
 					<section>
-						<blockquote>PrintJS uses promises to make sure the images are loaded before trying to print. This is useful when printing high resolution images that were are not yet loaded, like the example above.</blockquote>
+						<blockquote>Print.js uses promises to make sure the images are loaded before trying to print. This is useful when printing high resolution images that were are not yet loaded, like the example above.</blockquote>
 					</section>
 
 					<section>
@@ -305,7 +296,7 @@
 
 </code></pre>
 
-						<p>We can pass it to printJS:</p>
+						<p>We can pass it to Print.js:</p>
 
 <pre><code data-language="html">
  <button type="button" onclick="printJS({printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json'})">
@@ -347,7 +338,7 @@
  <link rel="stylesheet" type="text/css" href="print.css">
 
 </code></pre>
-						<p>That's it. You can now use PrintJS in your pages.</p>
+						<p>That's it. You can now use Print.js in your pages.</p>
 
 						<h3>Using PringJS</h3>
 						<p>There are four print document types available: <code>'pdf'</code>, <code>'html'</code>, <code>'image'</code> and <code>'json'</code>.</p>

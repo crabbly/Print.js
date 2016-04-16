@@ -27,7 +27,7 @@
 
     //print friendly defaults
     var printFriendlyElement = 'max-width: ' + defaultParams.maxWidth + 'px !important;' + defaultParams.font_size + ' !important;';
-    var bodyStyle = 'font-family:' + defaultParams.font + '; font-size: ' + defaultParams.font_size + ' !important;';
+    var bodyStyle = 'font-family:' + defaultParams.font + ' !important; font-size: ' + defaultParams.font_size + ' !important; width:100%;';
     var headerStyle = 'font-weight:300;';
 
     //get document body
@@ -125,7 +125,7 @@
     PrintJS.prototype.pdf = function() {
         this.printFrame.setAttribute('src', this.params.printable);
 
-        this.send(this.printFrame, this.params);
+        this.print(this.printFrame, this.params);
     };
 
 
@@ -148,6 +148,7 @@
             }
         });
 
+        //assign this to a variable, to be used in the promise
         var print = this;
 
         loadImage.then(function(result) {
@@ -163,7 +164,7 @@
 
             print.printFrame.setAttribute('srcdoc', printableElement.outerHTML);
 
-            print.send(print.printFrame, print.params);
+            print.print(print.printFrame, print.params);
         });
     };
 
@@ -206,25 +207,23 @@
         }
 
         //pass printable HTML to iframe
-        this.printFrame.srcdoc = printableElement.innerHTML;
+        this.printFrame.srcdoc = addWrapper(printableElement.innerHTML);
 
         //remove DOM printableElement
         printableElement.parentNode.removeChild(printableElement);
 
-        this.send(this.printFrame, this.params);
+        this.print(this.printFrame, this.params);
     };
 
 
     PrintJS.prototype.json = function() {
-        var print = this;
-
         //check if we received proper data
-        if (!print.params.printable || typeof print.params.printable !== 'object') {
+        if (!this.params.printable || typeof this.params.printable !== 'object') {
             throw new Error('Invalid javascript data object (JSON).');
         }
 
         //check if properties were provided
-        if (!print.params.properties || typeof print.params.properties !== 'object') {
+        if (!this.params.properties || typeof this.params.properties !== 'object') {
             throw new Error('Invalid properties array for your JSON data.');
         }
 
@@ -232,20 +231,22 @@
         var htmlData = '';
 
         //check print has header
-        if (print.params.header) {
-            htmlData += '<h1 style="' + headerStyle + '">' + print.params.header + '</h1>';
+        if (this.params.header) {
+            htmlData += '<h1 style="' + headerStyle + '">' + this.params.header + '</h1>';
         }
 
-        htmlData += print.jsonToHTML();
+        //function to build html templates for json data
+        htmlData += this.jsonToHTML();
 
-        //create function to build html templates for json data
-        print.printFrame.setAttribute('srcdoc', htmlData);
+        htmlData = addWrapper(htmlData);
 
-        print.send(print.printFrame, print.params);
+        this.printFrame.setAttribute('srcdoc', htmlData);
+
+        this.print(this.printFrame, this.params);
     };
 
 
-    PrintJS.prototype.send = function() {
+    PrintJS.prototype.print = function() {
         //append iframe element to document body
         documentBody.appendChild(this.printFrame);
 
@@ -258,12 +259,6 @@
 
             //initiates print once content has been loaded into iframe
             var printJS = document.getElementById(frameId);
-
-            //if printing HTML or JSON, set body style
-            if (type == 'html' || type == 'json') {
-                var printDocument = printJS.contentDocument;
-                printDocument.body.style = bodyStyle;
-            }
 
             printJS.focus();
             printJS.contentWindow.print();
@@ -428,6 +423,9 @@
         printFrame.parentNode.removeChild(print.printFrame);
     };
 
+    function addWrapper(htmlData) {
+        return '<div style="' + bodyStyle + '">' + htmlData + '</div>';
+    }
 
     //update default print.params with user input
     function extend(a, b) {

@@ -125,7 +125,7 @@
     PrintJS.prototype.pdf = function() {
         this.printFrame.setAttribute('src', this.params.printable);
 
-        this.print(this.printFrame, this.params);
+        this.print();
     };
 
 
@@ -184,7 +184,7 @@
         var printableElement = document.createElement('div');
         printableElement.appendChild(printElement.cloneNode(true));
 
-        //add cloned element to DOM, to have DOM element methods available. It will also be easier to colect the correct elements styles
+        //add cloned element to DOM, to have DOM element methods available. It will also be easier to colect styles
         printableElement.setAttribute('style', 'display:none;');
         printableElement.setAttribute('id', 'printJS-html');
         printElement.parentNode.appendChild(printableElement);
@@ -193,13 +193,13 @@
         printableElement = document.getElementById('printJS-html');
 
         //get main element styling
-        printableElement.setAttribute('style', this.collectStyles(printableElement, this.params) + 'margin:0 !important;');
+        printableElement.setAttribute('style', this.collectStyles(printableElement) + 'margin:0 !important;');
 
         //get all children elements
         var elements = printableElement.children;
 
         //get styles for all children elements
-        this.loopNodesCollectStyles(elements, this.params);
+        this.loopNodesCollectStyles(elements);
 
         //add header if any
         if (this.params.header) {
@@ -212,7 +212,7 @@
         //remove DOM printableElement
         printableElement.parentNode.removeChild(printableElement);
 
-        this.print(this.printFrame, this.params);
+        this.print();
     };
 
 
@@ -242,7 +242,7 @@
 
         this.printFrame.setAttribute('srcdoc', htmlData);
 
-        this.print(this.printFrame, this.params);
+        this.print();
     };
 
 
@@ -284,19 +284,12 @@
             style = win.getComputedStyle(element, '');
 
             for (var i = 0; i < style.length; i++) {
-                //no need to receive many of the computed styles, let's skip some
-                if (style[i] != 'font-family' && style[i].indexOf( 'animation' ) === -1 && style[i].indexOf( 'background' ) === -1 && style[i].indexOf( 'image' ) === -1 && style[i].indexOf( 'transition' ) === -1 && style[i].indexOf( 'text-fill' ) === -1) {
-
-                    //optionaly dismiss margin and padding
-                    if (this.params.honorMarginPadding) {
-                        elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';';
-                    }
-                    else {
-                        if (style[i].indexOf( 'margin' ) === -1 && style[i].indexOf( 'padding' ) === -1) {
-
-                            elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';';
-                        }
-                    }
+                if (style[i].indexOf('border') === -1 || style[i].indexOf('color') === -1) {
+                    elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';';
+                }
+                //optionaly include margin and padding
+                if (this.params.honorMarginPadding && style[i].indexOf( 'margin' ) !== -1 && style[i].indexOf( 'padding' ) !== -1) {
+                    elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';';
                 }
             }
         } else if (element.currentStyle) { //IE
@@ -322,8 +315,31 @@
 
             var currentElement = elements[n];
 
-            //get all styling for print element
-            currentElement.setAttribute('style', this.collectStyles(currentElement));
+            //Form Printing - check if is element Input
+            var tag = currentElement.tagName;
+            if (tag == 'INPUT' || tag == 'TEXTAREA' || tag == 'SELECT') {
+                //save style to variable
+                var textStyle = this.collectStyles(currentElement);
+                //remove INPUT element and insert a text node
+                var parent = currentElement.parentNode;
+                //get text value
+                var textNode = tag == 'SELECT' ?
+                    document.createTextNode(currentElement.options[currentElement.selectedIndex].text)
+                    : document.createTextNode(currentElement.value);
+                //create text element
+                var textElement = document.createElement('div');
+                textElement.appendChild(textNode);
+                //add style to text
+                textElement.setAttribute('style', textStyle);
+                //add text
+                parent.appendChild(textElement);
+                //remove input
+                parent.removeChild(currentElement);
+            }
+            else {
+                //get all styling for print element
+                currentElement.setAttribute('style', this.collectStyles(currentElement));
+            }
 
             //check if more elements in tree
             var children = currentElement.children;

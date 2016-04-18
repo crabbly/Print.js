@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<link href="assets/css/print.min.css" rel="stylesheet" type="text/css" />
+		<link href="print.css" rel="stylesheet" type="text/css" />
 
 		<link rel="stylesheet" href="assets/css/github.css">
 
@@ -113,15 +113,18 @@
 						<form method="post" action="#" id="printJS-form">
 							<div class="row 50%">
 								<div class="6u 12u(narrow)">
-									<input type="text" name="name" id="name" value="" placeholder="John Doe" />
+									Name:
+									<input type="text" name="name" id="name" value="John Doe" placeholder="Name" />
 								</div>
 								<div class="6u 12u(narrow)">
-									<input type="text" name="email" id="email" value="" placeholder="john@doe.com" />
+									Email:
+									<input type="text" name="email" id="email" value="john@doe.com" placeholder="Email" />
 								</div>
 							</div>
 							<div class="row 50%">
 								<div class="12u">
-									<textarea name="message" id="message" placeholder="Print HTML Elements."></textarea>
+									Message:
+									<textarea name="message" id="message" placeholder="Message">Print HTML Elements</textarea>
 								</div>
 							</div>
 						</form>
@@ -440,7 +443,7 @@
 
 
 		<!-- Scripts -->
-		<script src="assets/js/print.min.js"></script>
+		<script src="print.js"></script>
 		<script src="assets/js/rainbow.js"></script>
 		<script src="assets/js/language/generic.js"></script>
 		<script src="assets/js/language/javascript.js"></script>

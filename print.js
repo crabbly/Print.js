@@ -11,6 +11,8 @@
 (function(window, document) {
     'use strict';
 
+    var printTypes = ['pdf', 'html', 'image', 'json'];
+
     var defaultParams = {
         printable: null,
         type: 'pdf',
@@ -19,6 +21,7 @@
         font: 'TimesNewRoman',
         font_size: '12pt',
         honorMarginPadding: true,
+        honorColor: false,
         properties: null,
         showModal: false,
         modalMessage: 'Retrieving Document...',
@@ -77,8 +80,12 @@
                 break;
 
             default:
-                throw new Error('Unexpected type of argument! Expected "string" or "object", got ' + typeof args[0]);
+                throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args[0]);
         }
+
+        //some validation
+        print.validateInput();
+
 
         //check if showing feedback to user (useful for large files)
         if (print.params.showModal) {
@@ -218,7 +225,7 @@
 
     PrintJS.prototype.json = function() {
         //check if we received proper data
-        if (!this.params.printable || typeof this.params.printable !== 'object') {
+        if (typeof this.params.printable !== 'object') {
             throw new Error('Invalid javascript data object (JSON).');
         }
 
@@ -284,12 +291,26 @@
             style = win.getComputedStyle(element, '');
 
             for (var i = 0; i < style.length; i++) {
-                if (style[i].indexOf('border') === -1 || style[i].indexOf('color') === -1) {
-                    elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';';
+
+                //styles including
+                var targetStyles = ['border', 'float', 'box'];
+                //exact
+                var targetStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'];
+
+                //optinal - include margin and padding
+                if (this.params.honorMarginPadding) {
+                    targetStyle.push('margin', 'padding');
                 }
-                //optionaly include margin and padding
-                if (this.params.honorMarginPadding && style[i].indexOf( 'margin' ) !== -1 && style[i].indexOf( 'padding' ) !== -1) {
-                    elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';';
+
+                //optinal - include color
+                if (this.params.honorColor) {
+                    targetStyle.push('color');
+                }
+
+                for(var s = 0; s < targetStyle.length; s++) {
+                    if (style[i].indexOf(targetStyles[s]) !== -1 || style[i].indexOf(targetStyle[s]) === 0) {
+                        elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';';
+                    }
                 }
             }
         } else if (element.currentStyle) { //IE
@@ -297,13 +318,13 @@
             style = element.currentStyle;
 
             for (var name in style) {
-                if (style != 'font-family' && style.indexOf( 'animation' ) === -1 && style.indexOf( 'background' ) === -1 && style.indexOf( 'image' ) === -1 && style.indexOf( 'transition' ) === -1 && style[i].indexOf( 'text-fill' ) === -1) {
+                if (style.indexOf( 'border' ) !== -1 && style.indexOf( 'color' ) !== -1) {
                     elementStyle +=  name + ':' + style[name] + ';';
                 }
             }
         }
 
-        //make sure it is printer friendly
+        //add printer friendly
         elementStyle += printFriendlyElement;
 
         return elementStyle;
@@ -401,6 +422,16 @@
         return htmlData;
     };
 
+    PrintJS.prototype.validateInput = function() {
+        if (!this.params.printable) {
+            throw new Error('Missing printable information.');
+        }
+
+        if (!this.params.type || typeof this.params.type !== 'string' || printTypes.indexOf(this.params.type.toLowerCase()) == -1) {
+            throw new Error('Invalid print type. Available types are: pdf, html, image and json.');
+        }
+    };
+
 
     PrintJS.prototype.showModal = function() {
         //build modal
@@ -439,9 +470,11 @@
         printFrame.parentNode.removeChild(print.printFrame);
     };
 
+
     function addWrapper(htmlData) {
         return '<div style="' + bodyStyle + '">' + htmlData + '</div>';
     }
+
 
     //update default print.params with user input
     function extend(a, b) {

@@ -36,7 +36,7 @@
     //get document body
     var documentBody = document.getElementsByTagName("body")[0];
 
-    //Occupy the global variable of printJS, and create a simple base class
+    //Occupy the global variable of printJS
     window.printJS = function() {
 
         //check if a printable document or object was supplied
@@ -137,7 +137,7 @@
 
 
     PrintJS.prototype.image = function() {
-        //create image element (with wrapper)
+        //create the image element
         var img = document.createElement('img');
         img.setAttribute('style', 'width:100%;');
         img.src = this.params.printable;
@@ -162,6 +162,20 @@
             //create wrapper
             var printableElement = document.createElement('div');
             printableElement.setAttribute('style', 'width:100%');
+
+            //to prevent firefox from not loading the image within iframe, we can use a base64-encoded data URL of the image pixel data
+            if (isFirefox) {
+                //let's make firefox happy
+                var canvas = document.createElement('canvas');
+                canvas.setAttribute('width', img.width);
+                canvas.setAttribute('height', img.height);
+                var context = canvas.getContext('2d');
+                context.drawImage(img, 0, 0);
+
+                //reset img src attribute with canvas dataURL
+                img.setAttribute('src', canvas.toDataURL('JPEG', 1.0));
+            }
+
             printableElement.appendChild(img);
 
             //add header if any
@@ -171,7 +185,7 @@
 
             print.printFrame.setAttribute('srcdoc', printableElement.outerHTML);
 
-            print.print(print.printFrame, print.params);
+            print.print();
         });
     };
 
@@ -259,7 +273,6 @@
 
         //set variables to use within .onload
         var frameId = this.params.frameId;
-        var type = this.params.type;
         
         //wait for iframe to load all content
         this.printFrame.onload = function() {
@@ -269,11 +282,9 @@
 
             printJS.focus();
             printJS.contentWindow.print();
-
-            //reset stuff
         };
 
-        //if showing feedback to user, remove processing message
+        //if showing feedback to user, remove processing message (close modal)
         if (this.params.showModal) {
             this.disablePrintModal();
         }
@@ -491,6 +502,11 @@
     //capitalize string
     function capitalizePrint(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    //check user's browser
+    function isFirefox() {
+        return typeof InstallTrigger !== 'undefined';
     }
 
 })(window, document);

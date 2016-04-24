@@ -129,7 +129,7 @@
     };
 
 
-    PrintJS.prototype.pdf = function(message) { alert(message);
+    PrintJS.prototype.pdf = function(message) {
         var pdf = this.params.printable;
         var print = this;
 

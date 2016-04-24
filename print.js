@@ -129,9 +129,18 @@
     };
 
 
-    PrintJS.prototype.pdf = function() {
-        this.printFrame.setAttribute('src', this.params.printable);
+    PrintJS.prototype.pdf = function(message) { alert(message);
+        var pdf = this.params.printable;
+        var print = this;
 
+        //if showing feedback to user, pre load pdf files
+        if (print.params.showModal) {
+            getPDF(pdf, function() {
+                print.printFrame.setAttribute('src', print.params.printable);
+            });
+        }
+
+        //print document
         this.print();
     };
 
@@ -268,6 +277,8 @@
 
 
     PrintJS.prototype.print = function() {
+        var print = this;
+
         //append iframe element to document body
         documentBody.appendChild(this.printFrame);
 
@@ -277,17 +288,17 @@
         //wait for iframe to load all content
         this.printFrame.onload = function() {
 
-            //initiates print once content has been loaded into iframe
             var printJS = document.getElementById(frameId);
 
             printJS.focus();
             printJS.contentWindow.print();
-        };
 
-        //if showing feedback to user, remove processing message (close modal)
-        if (this.params.showModal) {
-            this.disablePrintModal();
-        }
+            //if showing feedback to user, remove processing message (close modal)
+            if (print.params.showModal) {
+
+                print.disablePrintModal();
+            }
+        };
     };
 
 
@@ -433,6 +444,7 @@
         return htmlData;
     };
 
+
     PrintJS.prototype.validateInput = function() {
         if (!this.params.printable) {
             throw new Error('Missing printable information.');
@@ -446,7 +458,19 @@
 
     PrintJS.prototype.showModal = function() {
         //build modal
-        var modalStyle = 'font-family:sans-serif; display:flex; text-align:center; font-weight:300; font-size:30px; left:0; top:0;position:absolute; color: #0460B5; width: 100%; height: 100%; background-color:rgba(255, 255, 255, 0.91);';
+        var modalStyle = 'font-family:sans-serif; ' +
+            'display:table; ' +
+            'text-align:center; ' +
+            'font-weight:300; ' +
+            'font-size:30px; ' +
+            'left:0; top:0;' +
+            'position:fixed; ' +
+            'z-index: 9990;' +
+            'color: #0460B5; ' +
+            'width: 100%; ' +
+            'height: 100%; ' +
+            'background-color:rgba(255,255,255,.9);' +
+            'transition: opacity .3s ease;';
 
         //create wrapper
         var printModal = document.createElement('div');
@@ -455,7 +479,7 @@
 
         //create content div
         var contentDiv = document.createElement('div');
-        contentDiv.setAttribute('style', 'flex:1; margin:auto;');
+        contentDiv.setAttribute('style', 'display:table-cell; vertical-align:middle; padding-bottom:100px;');
 
         //add spinner
         var spinner = document.createElement('span');
@@ -478,7 +502,7 @@
 
         var printFrame = document.getElementById('printJS-Modal');
 
-        printFrame.parentNode.removeChild(print.printFrame);
+        printFrame.parentNode.removeChild(printFrame);
     };
 
 
@@ -486,6 +510,13 @@
         return '<div style="' + bodyStyle + '">' + htmlData + '</div>';
     }
 
+    //hacky function to pre-load PDF files
+    function getPDF(url) {
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.open('GET', url);
+        xhr.send();
+    }
 
     //update default print.params with user input
     function extend(a, b) {
@@ -497,7 +528,6 @@
 
         return a;
     }
-
 
     //capitalize string
     function capitalizePrint(string) {

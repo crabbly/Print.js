@@ -129,19 +129,30 @@
     };
 
 
-    PrintJS.prototype.pdf = function(message) { alert(message);
+    PrintJS.prototype.pdf = function() {
         var pdf = this.params.printable;
         var print = this;
 
-        //if showing feedback to user, pre load pdf files
+        //if showing feedback to user, pre load pdf files (hacky)
         if (print.params.showModal) {
-            getPDF(pdf, function() {
+
+            var getPDF = new Promise(function(resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = 'blob';
+                xhr.open('GET', print.params.printable);
+                xhr.send();
+                resolve('PDF Loaded!');
+            });
+
+            getPDF.then(function() {
                 print.printFrame.setAttribute('src', print.params.printable);
+                print.print();
             });
         }
-
-        //print document
-        this.print();
+        else {
+            print.printFrame.setAttribute('src', print.params.printable);
+            print.print();
+        }
     };
 
 
@@ -510,13 +521,6 @@
         return '<div style="' + bodyStyle + '">' + htmlData + '</div>';
     }
 
-    //hacky function to pre-load PDF files
-    function getPDF(url) {
-        var xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.open('GET', url);
-        xhr.send();
-    }
 
     //update default print.params with user input
     function extend(a, b) {

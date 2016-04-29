@@ -25,6 +25,29 @@
     background-color:rgba(255, 255, 255, 0.91);
 }
 
+/* === Print Modal Close Button === */
+.printClose {
+    position:absolute;
+    right:10px;
+    top:10px;'
+}
+
+.printClose:before {
+    content: "\00D7";
+    font-family: "Helvetica Neue", sans-serif;
+    font-weight: 100;
+    line-height: 1px;
+    padding-top: 0.5em;
+    display: block;
+    font-size: 2em;
+    text-indent: 1px;
+    overflow: hidden;
+    height: 1.25em;
+    width: 1.25em;
+    text-align: center;
+    cursor: pointer;
+}
+
 /* === Print Modal Spinner */
 .printSpinner {
   margin-top: 3px;

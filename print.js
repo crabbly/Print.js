@@ -492,7 +492,13 @@
         var contentDiv = document.createElement('div');
         contentDiv.setAttribute('style', 'display:table-cell; vertical-align:middle; padding-bottom:100px;');
 
-        //add spinner
+        //add close button (requires print.css)
+        var closeButton = document.createElement('div');
+        closeButton.setAttribute('class', 'printClose');
+        closeButton.setAttribute('id', 'printClose');
+        contentDiv.appendChild(closeButton);
+
+        //add spinner (requires print.css)
         var spinner = document.createElement('span');
         spinner.setAttribute('class', 'printSpinner');
         contentDiv.appendChild(spinner);
@@ -506,11 +512,16 @@
 
         //append print modal element to document body
         documentBody.appendChild(printModal);
+
+        //add event listener to close button
+        var print = this;
+        document.getElementById('printClose').addEventListener('click', function() {
+            print.disablePrintModal();
+        });
     };
 
 
     PrintJS.prototype.disablePrintModal = function() {
-
         var printFrame = document.getElementById('printJS-Modal');
 
         printFrame.parentNode.removeChild(printFrame);

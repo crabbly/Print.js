@@ -1,7 +1,7 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.0
+ * Version: 1.0.2
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)
  * Released under the MIT license
@@ -544,14 +544,17 @@
         return a;
     }
 
+
     //capitalize string
     function capitalizePrint(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+
     //check user's browser
     function isFirefox() {
         return typeof InstallTrigger !== 'undefined';
     }
+    
 
 })(window, document);

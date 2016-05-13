@@ -24,9 +24,8 @@ Well structured, detailed bug reports are hugely valuable for the project.
 
  - Check the issue search to see if it has already been reported
  - Isolate the problem to a simple test case
- - Provide a demonstration of the problem on [JS Bin](http://jsbin.com), [JSFiddle](http://jsfiddle.net) or similar
 
-Please provide any additional details associated with the bug, if it's browser or screen density specific, or only happens with a certain configuration or data.
+Please provide any additional details associated with the bug.
 
 
 #####Pull requests

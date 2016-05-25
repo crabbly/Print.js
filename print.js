@@ -1,11 +1,11 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.0
+ * Version: 1.0.2
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)
  * Released under the MIT license
- * https://github.com/crabbly/print.js/LICENSE.md
+ * https://github.com/crabbly/Print.js/blob/master/LICENSE
  */
 
 (function(window, document) {
@@ -25,7 +25,8 @@
         properties: null,
         showModal: false,
         modalMessage: 'Retrieving Document...',
-        frameId: 'printJS'
+        frameId: 'printJS',
+        border: true
     };
 
     //print friendly defaults
@@ -111,7 +112,6 @@
             case 'pdf':
                     print.pdf();
                 break;
-
             case 'image':
                     print.image();
                 break;
@@ -121,7 +121,6 @@
             case 'json':
                     print.json();
                 break;
-
             default:
                 throw new Error('Invalid printable type');
                 break;
@@ -436,11 +435,12 @@
 
         htmlData += '</div>';
 
-
         //create html data
         for (var i = 0; i < data.length; i++) {
 
-            htmlData += '<div style="flex:1; display:flex; border:1px solid lightgray;">';
+            htmlData += '<div style="flex:1; display:flex;';
+            htmlData += this.params.border ? 'border:1px solid lightgray;' : '';
+            htmlData += '">';
 
             for (var n = 0; n < properties.length; n++) {
 
@@ -544,14 +544,17 @@
         return a;
     }
 
+
     //capitalize string
     function capitalizePrint(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+
     //check user's browser
     function isFirefox() {
         return typeof InstallTrigger !== 'undefined';
     }
+    
 
 })(window, document);

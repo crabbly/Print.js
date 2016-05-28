@@ -39,6 +39,10 @@
                             <p>One scneario where this is useful, for example, is when users request to print reports that are generated on the server side. These reports are sent back as PDF files. There is no need to open these files before priting them. Print.js offers a quick way to print these files within our apps.</p>
 						</section>
 
+						<section class="in-link">
+							<blockquote>PDF files must be served from the same domain as your app is hosted under. Print.js uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
+						</section>
+
 					</div>
 				</div>
 
@@ -67,7 +71,7 @@
 						</section>
 
 						<section class="in-link">
-							<blockquote>PDF files must be served from the same domain as your app is hosted under. Print.js uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
+							<blockquote>Firefox currently doesn't allow printing PDF documents using iframes. Tere is an open <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=911444">bug</a> in Mozilla's website about this.</blockquote>
 						</section>
 
 						<section>

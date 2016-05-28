@@ -1459,6 +1459,10 @@
         color: #71B8DC !important;
     }
 
+	.in-link.light a {
+		color: #9E9E9E;
+	}
+
 	sub {
 		position: relative;
 		top: 0.5em;

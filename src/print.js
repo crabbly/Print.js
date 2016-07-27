@@ -34,9 +34,6 @@
     var bodyStyle = 'font-family:' + defaultParams.font + ' !important; font-size: ' + defaultParams.font_size + ' !important; width:100%;';
     var headerStyle = 'font-weight:300;';
 
-    //get document body
-    var documentBody = document.getElementsByTagName("body")[0];
-
     //Occupy the global variable of printJS
     window.printJS = function() {
 
@@ -290,7 +287,7 @@
         var print = this;
 
         //append iframe element to document body
-        documentBody.appendChild(this.printFrame);
+        document.getElementsByTagName("body")[0].appendChild(this.printFrame);
 
         //set variables to use within .onload
         var frameId = this.params.frameId;
@@ -511,7 +508,7 @@
         printModal.appendChild(contentDiv);
 
         //append print modal element to document body
-        documentBody.appendChild(printModal);
+        document.getElementsByTagName("body")[0].appendChild(printModal);
 
         //add event listener to close button
         var print = this;

@@ -1,7 +1,7 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.2
+ * Version: 1.0.3
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)
  * Released under the MIT license
@@ -33,9 +33,6 @@
     var printFriendlyElement = 'max-width: ' + defaultParams.maxWidth + 'px !important;' + defaultParams.font_size + ' !important;';
     var bodyStyle = 'font-family:' + defaultParams.font + ' !important; font-size: ' + defaultParams.font_size + ' !important; width:100%;';
     var headerStyle = 'font-weight:300;';
-
-    //get document body
-    var documentBody = document.getElementsByTagName("body")[0];
 
     //Occupy the global variable of printJS
     window.printJS = function() {
@@ -290,7 +287,7 @@
         var print = this;
 
         //append iframe element to document body
-        documentBody.appendChild(this.printFrame);
+        document.getElementsByTagName("body")[0].appendChild(this.printFrame);
 
         //set variables to use within .onload
         var frameId = this.params.frameId;
@@ -511,7 +508,7 @@
         printModal.appendChild(contentDiv);
 
         //append print modal element to document body
-        documentBody.appendChild(printModal);
+        document.getElementsByTagName("body")[0].appendChild(printModal);
 
         //add event listener to close button
         var print = this;

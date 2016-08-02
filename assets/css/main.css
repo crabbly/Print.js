@@ -1407,10 +1407,10 @@
 		font-weight: 100;
 		line-height: 1.5em;
 	}
-	h1, h2, h4, h5, h6 {
+	h1, h3, h4, h5, h6 {
 		color: #666;
 	}
-	h3 {
+	h2 {
 		color: #3971A5;
 	}
 
@@ -2129,7 +2129,7 @@
 			padding: 6em 0 6em 0;
 		}
 
-			.main > .content h3 {
+			.main > .content h2 {
 				font-size: 1.5em;
 			}
 
@@ -2394,7 +2394,7 @@
 				padding: 3em 20px 3em 20px;
 			}
 
-				.main > .content h3 {
+				.main > .content h2 {
 					font-size: 1.25em;
 				}
 

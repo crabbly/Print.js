@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Print.js</title>
+		<title>Print.js - Javascript library for HTML elements, PDF and image files printing.</title>
 		<meta charset="utf-8" />
-		<meta name="description" content="Print.js - A tiny javascript library to help printing from the web.">
+		<meta name="description" content="Print.js is a tiny javascript library to help printing from the web. Print friendly support for HTML elements, image files and JSON data. Print PDF files directly form page.">
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" type="text/css"/>
@@ -33,7 +33,7 @@
 					<div class="container">
 
 						<section>
-							<h3>PDF Printing</h3>
+							<h2>PDF Printing</h2>
 							<p>Print.js was primarily written to help us print PDF files directly within our apps, without leaving the interface, and no use of embeds. For unique situations where there is no need for users to open or download the PDF files, and instead, they just need to print them.</p>
                             <p>One scneario where this is useful, for example, is when users request to print reports that are generated on the server side. These reports are sent back as PDF files. There is no need to open these files before priting them. Print.js offers a quick way to print these files within our apps.</p>
 						</section>
@@ -50,7 +50,7 @@
 					<div class="container">
 
 						<section>
-							<h3>Example</h3>
+							<h2>Example</h2>
 
 							<p>Add a button to print a PDF file located on your hosting server:</p>
 
@@ -101,7 +101,7 @@
 				<div class="container">
 					<section>
 						<header>
-							<h3>HTML Printing</h3>
+							<h2>HTML Printing</h2>
 						</header>
 						<p>Sometimes we just want to print selected parts of a HTML page, and that can be tricky. With Print.js, we can easily pass the id of the element that we want to print. The element can be of any tag, as long it has a unique id. The library will try to print it very close to how it looks on screen, and at the same time, it will create a printer friendly format for it.</p>
 					</section>
@@ -114,7 +114,7 @@
 				<div class="container">
 					<section>
 						<header>
-							<h3>Example</h3>
+							<h2>Example</h2>
 							<p>Add a print button to a HTML form:</p>
 						</header>
 
@@ -183,7 +183,7 @@
                 <div class="container">
                     <section>
                         <header>
-                            <h3>Image Printing</h3>
+                            <h2>Image Printing</h2>
                         </header>
                         <p>Print.js can be used to quickly print any image on your page, by passing the image url. This can be usefull when you have multiple images on the screen, using a low resolution version of the images. When users try to print the selected image, you can pass the high resolution url to Print.js.</p>
                     </section>
@@ -194,20 +194,20 @@
                 <div class="container">
                     <section>
                         <header>
-                            <h3>Example</h3>
+                            <h2>Example</h2>
                         </header>
 
                         <p>Load images on your page with just the necessary resolution you need on screen:</p>
 
 <pre><code data-language="html">
- <img src="images/pic01.jpg" />
+ <img src="images/print-01.jpg" />
 
 </code></pre>
 
                         <p>In your javascript, pass the highest resolution image url to PringJS for a better print quality:</p>
 
 <pre><code data-language="generic">
- printJS('images/pic01-highres.jpg', 'image');
+ printJS('images/print-01-highres.jpg', 'image');
 
 </code></pre>
 
@@ -216,40 +216,40 @@
                         <div class="imgGallery">
                             <div>
                                 <div>
-                                    <img src="images/pic01.jpg" />
-                                    <a href="#" onclick="printJS('images/pic01-highres.jpg', 'image');return false;">
+                                    <img src="images/print-01.jpg" alt=""/>
+                                    <a href="#" onclick="printJS('images/print-01-highres.jpg', 'image');return false;">
                                         <i class="fa fa-print"></i>
                                     </a>
                                 </div>
                                 <div>
-                                    <img src="images/pic02.jpg" />
-                                    <a href="#" onclick="printJS('images/pic02-highres.jpg', 'image');return false;">
+                                    <img src="images/print-02.jpg" />
+                                    <a href="#" onclick="printJS('images/print-02-highres.jpg', 'image');return false;">
                                         <i class="fa fa-print"></i>
                                     </a>
                                 </div>
                                 <div>
-                                    <img src="images/pic03.jpg" />
-                                    <a href="#" onclick="printJS('images/pic03-highres.jpg', 'image');return false;">
+                                    <img src="images/print-03.jpg" />
+                                    <a href="#" onclick="printJS('images/print-03-highres.jpg', 'image');return false;">
                                         <i class="fa fa-print"></i>
                                     </a>
                                 </div>
                             </div>
                             <div>
                                 <div>
-                                    <img src="images/pic04.jpg" />
-                                    <a href="#" onclick="printJS('images/pic04-highres.jpg', 'image');return false;">
+                                    <img src="images/print-04.jpg" />
+                                    <a href="#" onclick="printJS('images/print-04-highres.jpg', 'image');return false;">
                                         <i class="fa fa-print"></i>
                                     </a>
                                 </div>
                                 <div>
-                                    <img src="images/pic05.jpg" />
-                                    <a href="#" onclick="printJS('images/pic05-highres.jpg', 'image');return false;">
+                                    <img src="images/print-05.jpg" />
+                                    <a href="#" onclick="printJS('images/print-05-highres.jpg', 'image');return false;">
                                         <i class="fa fa-print"></i>
                                     </a>
                                 </div>
                                 <div>
-                                    <img src="images/pic06.jpg" />
-                                    <a href="#" onclick="printJS('images/pic06-highres.jpg', 'image');return false;">
+                                    <img src="images/print-06.jpg" />
+                                    <a href="#" onclick="printJS('images/print-06-highres.jpg', 'image');return false;">
                                         <i class="fa fa-print"></i>
                                     </a>
                                 </div>
@@ -266,7 +266,7 @@
 						<p>You can also add a header to the image being printed:</p>
 
 <pre><code data-language="generic">
- printJS({printable: 'images/pic01-highres.jpg', type: 'image', header: 'My cool image header'});
+ printJS({printable: 'images/print-01-highres.jpg', type: 'image', header: 'My cool image header'});
 
 </code></pre>
 					</section>
@@ -281,7 +281,7 @@
 				<div class="container">
 					<section>
 						<header>
-							<h3>JSON Printing</h3>
+							<h2>JSON Printing</h2>
 						</header>
 						<p>We are adding HTML templates for printing dynamic data from javascript objects. Contributions are welcome. Please fork the <a href="https://github.com/crabbly/Print.js" target="_blank">github repository</a>.</p>
 					</section>
@@ -292,7 +292,7 @@
 				<div class="container">
 					<section>
 						<header>
-							<h3>Example</h3>
+							<h2>Example</h2>
 							<p></p>
 						</header>
 
@@ -344,14 +344,14 @@
 				<div class="container" id="download">
 					<section>
 						<header>
-							<h3>Download and Install</h3>
+							<h2>Download and Install</h2>
 						</header>
 						<p>Download the latest release here, or fork the repository on <a href="https://github.com/crabbly/Print.js">Github</a>.</p>
 						<p><a href="https://github.com/crabbly/Print.js/archive/v1.0.3.zip" class="button">Download v1.0.3</a></p>
 
 						<hr />
 
-						<h3>Getting Started</h3>
+						<h2>Getting Started</h2>
 						<p>First we need to include the Print.js library on the page. The library occupies a global variable of <code>printJS</code>.</p>
 <pre><code data-language="html">
  <script src="print.js"></script>
@@ -364,7 +364,7 @@
 </code></pre>
 						<p>That's it. You can now use Print.js in your pages.</p>
 
-						<h3>Using PringJS</h3>
+						<h2>Using PringJS</h2>
 						<p>There are four print document types available: <code>'pdf'</code>, <code>'html'</code>, <code>'image'</code> and <code>'json'</code>.</p>
 						<p>The default type is <code>'pdf'</code>.</p>
 						<p>It's basic usage is to call <code>printJS()</code> and just pass in a PDF document url: <code>printJS('docs/PrintJS.pdf')</code>.</p>
@@ -372,7 +372,7 @@
 						<p>To print HTML elements, in a similar way, pass in the element id and type: <code>printJS('myElementId', 'html')</code>.</p>
 						<p>When printing JSON data, pass in the data, type and the data properties that you want to print: <br/><code>printJS({printable: myData, type: 'json', properties: ['prop1', 'prop2', 'prop3']})</code>;</p>
 
-						<h3>Configuration</h3>
+						<h2>Configuration</h2>
 						<p>PringJS will accept an object as argument, where you can configure some options:</p>
 						<div class="grid">
 							<div class="grid-row" style="color: #3971A5; font-weight:400;">
@@ -439,7 +439,7 @@
 				<div class="container">
 					<section class="support in-link">
 						<header>
-							<h3>Development and Support</h3>
+							<h2>Development and Support</h2>
 							<p></p>
 						</header>
 						<p><i class="fa fa-bug fa-2x rm10" aria-hidden="true"></i><span>Please report issues and feature requests in <a href="https://github.com/crabbly/Print.js/issues">GitHub Issues</a>.</span></p>

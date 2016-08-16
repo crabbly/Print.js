@@ -3,7 +3,7 @@
   "homepage": "http://printjs.crabbly.com",
   "description": "A tiny javascript library to help printing from the web.",
   "version": "1.0.3",
-  "main": "Print.js",
+  "main": "src/print.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/crabbly/Print.js"

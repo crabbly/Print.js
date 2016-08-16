@@ -44,4 +44,4 @@ Clear, concise pull requests are excellent at continuing the project's community
 
 ##License
 
-Print.js is available under the [MIT license](https://github.com/crabbly/Print.js/blob/master/LICENSE.md).
+Print.js is available under the [MIT license](https://github.com/crabbly/Print.js/blob/master/LICENSE).

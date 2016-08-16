@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - 6.1.x
+  - 6.0.x
+  - 5.11.x
+  - 5.10.x
+branches:
+  only:
+    - master

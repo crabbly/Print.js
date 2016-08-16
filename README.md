@@ -1,4 +1,7 @@
 # Print.js
+
+[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
+
 A tiny javascript library to help printing from the web.
 
 >For documentation and examples please visit: [printjs.crabbly.com](http://printjs.crabbly.com)

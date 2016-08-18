@@ -13,6 +13,7 @@
 		<link rel="icon" type="image/ico" href="/assets/favicon.ico">
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!-- Analytics -->
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 						(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -22,6 +23,21 @@
 			ga('create', 'UA-76626003-2', 'auto');
 			ga('send', 'pageview');
 		</script>
+		<!-- Scripts -->
+		<script src="print.js"></script>
+		<script src="assets/js/rainbow.js"></script>
+		<script src="assets/js/language/generic.js"></script>
+		<script src="assets/js/language/javascript.js"></script>
+		<script src="assets/js/language/html.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
+		<!-- github svg -->
+		<a href="https://github.com/crabbly/print.js" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
 	</head>
 	<body id="pageBody">
 
@@ -368,7 +384,7 @@
 </code></pre>
 
 						<p>CDN is also available, thanks to <a href="https://www.keycdn.com" target="_blank">KeyCDN:</a></p>
-<pre><code data-language="html">
+<pre><code data-language="javascript">
   https://printjs-4de6.kxcdn.com/print.min.js
   https://printjs-4de6.kxcdn.com/print.min.css
 
@@ -379,7 +395,7 @@
 						<h2>Getting Started</h2>
 						<p>First we need to include the Print.js library on the page.</p>
 <pre><code data-language="html">
-  <script src="path/print.js"></script>
+  <script src="print.js"></script>
 
 </code></pre>
 						<p>If you will use the modal feature, also include Print.css on the page.</p>
@@ -387,6 +403,14 @@
  <link rel="stylesheet" type="text/css" href="print.css">
 
 </code></pre>
+
+						<p>Or if you are using the CDN:</p>
+<pre><code data-language="html">
+  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+  <script src="https://printjs-4de6.kxcdn.com/print.min.css"></script>
+
+</code></pre>
+
 						<p>That's it. You can now use Print.js in your pages.</p>
 						<p>When writing your javascript code, remember that the library occupies a global variable of <code>printJS</code>.</p>
 
@@ -488,25 +512,9 @@
 				</ul>
 				<div class="copyright">
 					<ul class="menu">
-						<li>&copy; 2016 Crabbly.com</li><li>Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></li><li>HTML Page Template by <a href="http://html5up.net" target="_blank">HTML5 UP</a></li><li>CDN sponsed by <a href="https://www.keycdn.com/" target="_blank">KeyCDN</a></li>
+						<li>&copy; 2016 Crabbly.com</li><li>Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></li><li>HTML Template by <a href="http://html5up.net" target="_blank">HTML5 UP</a></li><li>CDN by <a href="https://www.keycdn.com/" target="_blank">KeyCDN</a></li>
 					</ul>
 				</div>
 			</section>
-
-
-		<!-- Scripts -->
-		<script src="print.js"></script>
-		<script src="assets/js/rainbow.js"></script>
-		<script src="assets/js/language/generic.js"></script>
-		<script src="assets/js/language/javascript.js"></script>
-		<script src="assets/js/language/html.js"></script>
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/jquery.scrolly.min.js"></script>
-		<script src="assets/js/skel.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-		<script src="assets/js/main.js"></script>
-		<!-- github svg -->
-		<a href="https://github.com/crabbly/print.js" class="github-corner"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 	</body>
 </html>

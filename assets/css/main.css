@@ -1648,7 +1648,7 @@
 	}
 
 		ul.menu li {
-			display: inline-block;
+			display: inline;
 			line-height: 1em;
 			border-left: solid 1px #e6e6e6;
 			padding: 0 0 0 0.5em;

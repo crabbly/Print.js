@@ -1306,6 +1306,7 @@
 	display:flex;
 	flex-direction: column;
 	max-width:960px;
+	height:430px;
 	overflow:hidden;
 	border:2px solid white;
 }

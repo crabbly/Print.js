@@ -48,10 +48,10 @@
     // check printable type
     switch (printJS.params.type) {
       case 'pdf':
-        //firefox doesn't support iframe printing, we will just open the pdf file instead
+        // firefox doesn't support iframe printing, we will just open the pdf file instead
         if (isFirefox()) {
           console.log('PrintJS doesn\'t support PDF printing in Firefox.')
-          let win = window.open(printJS.params.printable, '_blank');
+          let win = window.open(printJS.params.printable, '_blank')
           win.focus()
           // make sure there is no message modal opened
           if (printJS.params.showModal) printJS.disablePrintModal()
@@ -555,9 +555,4 @@
   function isIE () {
     return !!document.documentMode
   }
-
-  function isEdge () {
-    return !isIE() && !!window.StyleMedia
-  }
-
 })(window, document)

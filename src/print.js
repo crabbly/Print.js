@@ -1,7 +1,7 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.3
+ * Version: 1.0.4
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)
  * Released under the MIT license
@@ -48,7 +48,16 @@
     // check printable type
     switch (printJS.params.type) {
       case 'pdf':
-        printJS.pdf()
+        //firefox doesn't support iframe printing, we will just open the pdf file instead
+        if (isFirefox()) {
+          console.log('PrintJS doesn\'t support PDF printing in Firefox.')
+          let win = window.open(printJS.params.printable, '_blank');
+          win.focus()
+          // make sure there is no message modal opened
+          if (printJS.params.showModal) printJS.disablePrintModal()
+        } else {
+          printJS.pdf()
+        }
         break
       case 'image':
         printJS.image()
@@ -546,4 +555,9 @@
   function isIE () {
     return !!document.documentMode
   }
+
+  function isEdge () {
+    return !isIE() && !!window.StyleMedia
+  }
+
 })(window, document)

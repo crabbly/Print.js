@@ -18,7 +18,7 @@ The [issue tracker](https://github.com/crabbly/Print.js/issues) is the preferred
 
 Keep in mind that we would like to keep this a lightweight library.
 
-Please do not use issues for support requests. For help using Print.js, please ask questions on Stack Overflow and use the tag `printjs`.
+Please do not use the issues channel for support requests. For help using Print.js, please ask questions on Stack Overflow and use the tag `print.js`.
 
 
 #####Reporting bugs

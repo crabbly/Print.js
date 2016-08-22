@@ -7,6 +7,21 @@ A tiny javascript library to help printing from the web.
 >For documentation and examples please visit: [printjs.crabbly.com](http://printjs.crabbly.com)
 
 
+## Installation
+
+You can download the latest version of [Print.js on GitHub](https://github.com/crabbly/Print.js/releases/latest) or just use the [Print.js CDN](http://printjs.crabbly.com/#cdn) links available on the documentation page.
+
+To install via npm:
+
+```bash
+npm install print.js --save
+```
+
+## Documentation
+
+You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com).
+
+
 ##Contributing to Print.js
 
 Contributions to Print.js are welcome and encouraged.

@@ -19,7 +19,7 @@ npm install print.js --save
 
 ## Documentation
 
-You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com).
+You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#documentation).
 
 
 ##Contributing to Print.js

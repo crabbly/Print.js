@@ -217,7 +217,7 @@
         print.addHeader(printableElement)
       }
 
-      //store html data
+      // store html data
       print.params.htmlData = printableElement.outerHTML
 
       print.print()
@@ -292,7 +292,7 @@
     // function to build html templates for json data
     htmlData += this.jsonToHTML()
 
-    //stor html data
+    // store html data
     this.params.htmlData = addWrapper(htmlData)
 
     this.print()

@@ -26,7 +26,8 @@
     showModal: false,
     modalMessage: 'Retrieving Document...',
     frameId: 'printJS',
-    border: true
+    border: true,
+    htmlData: ''
   }
 
   // print friendly defaults
@@ -126,6 +127,8 @@
     // set iframe attributes
     print.printFrame.setAttribute('style', 'display:none;')
     print.printFrame.setAttribute('id', print.params.frameId)
+    // empty html document
+    print.printFrame.srcdoc = '<html><head></head><body></body></html>'
   }
 
   PrintJS.prototype.pdf = function () {
@@ -214,7 +217,8 @@
         print.addHeader(printableElement)
       }
 
-      print.printFrame.setAttribute('srcdoc', printableElement.outerHTML)
+      //store html data
+      print.params.htmlData = printableElement.outerHTML
 
       print.print()
     }
@@ -257,13 +261,13 @@
       this.addHeader(printableElement)
     }
 
-    // pass printable HTML to iframe
-    this.printFrame.srcdoc = '<html><head></head><body></body></html>'
-
     // remove DOM printableElement
     printableElement.parentNode.removeChild(printableElement)
 
-    this.print(addWrapper(printableElement.innerHTML))
+    // store html data
+    this.params.htmlData = addWrapper(printableElement.innerHTML)
+
+    this.print()
   }
 
   PrintJS.prototype.json = function () {
@@ -288,14 +292,13 @@
     // function to build html templates for json data
     htmlData += this.jsonToHTML()
 
-    htmlData = addWrapper(htmlData)
-
-    this.printFrame.setAttribute('srcdoc', htmlData)
+    //stor html data
+    this.params.htmlData = addWrapper(htmlData)
 
     this.print()
   }
 
-  PrintJS.prototype.print = function (data) {
+  PrintJS.prototype.print = function () {
     let print = this
 
     // append iframe element to document body
@@ -314,7 +317,7 @@
         if (printDocument.document) printDocument = printDocument.document
 
         // inject printable html into iframe body
-        printDocument.body.innerHTML = data
+        printDocument.body.innerHTML = print.params.htmlData
 
         finishPrint()
       }

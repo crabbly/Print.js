@@ -1,7 +1,7 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.4
+ * Version: 1.0.5
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)
  * Released under the MIT license
@@ -34,7 +34,7 @@
   let bodyStyle = 'font-family:' + defaultParams.font + ' !important; font-size: ' + defaultParams.font_size + ' !important; width:100%;'
   let headerStyle = 'font-weight:300;'
 
-  // Occupy the global variable of printJS
+  // occupy the global variable of printJS
   window.printJS = function () {
     // check if a printable document or object was supplied
     if (arguments[0] === undefined) {
@@ -113,7 +113,7 @@
       print.showModal()
     }
 
-    // To prevent duplication and "onload" issues, remove print.printFrame from DOM, if it exists.
+    // to prevent duplication and issues, remove print.printFrame from DOM, if it exists.
     let usedFrame = document.getElementById(print.params.frameId)
 
     if (usedFrame) {
@@ -129,7 +129,7 @@
   }
 
   PrintJS.prototype.pdf = function () {
-    let print = this
+    const print = this
 
     // if showing feedback to user, pre load pdf files (hacky)
     // since we will be using promises, we can't use this feature in IE
@@ -258,12 +258,12 @@
     }
 
     // pass printable HTML to iframe
-    this.printFrame.srcdoc = addWrapper(printableElement.innerHTML)
+    this.printFrame.srcdoc = '<html><head></head><body></body></html>'
 
     // remove DOM printableElement
     printableElement.parentNode.removeChild(printableElement)
 
-    this.print()
+    this.print(addWrapper(printableElement.innerHTML))
   }
 
   PrintJS.prototype.json = function () {
@@ -295,21 +295,40 @@
     this.print()
   }
 
-  PrintJS.prototype.print = function () {
+  PrintJS.prototype.print = function (data) {
     let print = this
 
     // append iframe element to document body
-    document.getElementsByTagName('body')[0].appendChild(this.printFrame)
+    document.getElementsByTagName('body')[0].appendChild(print.printFrame)
 
-    // set variables to use within .onload
-    let frameId = this.params.frameId
+    // get iframe element
+    let printJS = document.getElementById(print.params.frameId)
 
     // wait for iframe to load all content
-    this.printFrame.onload = function () {
-      let printJS = document.getElementById(frameId)
+    print.printFrame.onload = function () {
+      if (print.params.type === 'pdf') {
+        finishPrint()
+      } else {
+        // get iframe document
+        let printDocument = (printJS.contentWindow || printJS.contentDocument)
+        if (printDocument.document) printDocument = printDocument.document
 
+        // inject printable html into iframe body
+        printDocument.body.innerHTML = data
+
+        finishPrint()
+      }
+    }
+
+    function finishPrint () {
+      // print iframe document
       printJS.focus()
-      printJS.contentWindow.print()
+
+      try {
+        printJS.contentWindow.document.execCommand('print', false, null)
+      } catch (e) {
+        printJS.contentWindow.print()
+      }
 
       // if showing feedback to user, remove processing message (close modal)
       if (print.params.showModal) {

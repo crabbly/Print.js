@@ -50,8 +50,8 @@
     switch (printJS.params.type) {
       case 'pdf':
         // firefox doesn't support iframe printing, we will just open the pdf file instead
-        if (isFirefox()) {
-          console.log('PrintJS doesn\'t support PDF printing in Firefox.')
+        if (isFirefox() || isIE()) {
+          console.log('PrintJS doesn\'t support PDF printing in ' + (isIE() ? 'Internet Explorer.' : 'Firefox.'))
           let win = window.open(printJS.params.printable, '_blank')
           win.focus()
           // make sure there is no message modal opened

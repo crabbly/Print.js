@@ -127,8 +127,9 @@
     // set iframe attributes
     print.printFrame.setAttribute('style', 'display:none;')
     print.printFrame.setAttribute('id', print.params.frameId)
-    // empty html document
-    print.printFrame.srcdoc = '<html><head></head><body></body></html>'
+
+    // for non pdf printing, pass empty html document to srcdoc (force onload callback)
+    if (print.params.type !== 'pdf') print.printFrame.srcdoc = '<html><head></head><body></body></html>'
   }
 
   PrintJS.prototype.pdf = function () {
@@ -306,9 +307,9 @@
 
     // get iframe element
     let printJS = document.getElementById(print.params.frameId)
-
     // wait for iframe to load all content
     print.printFrame.onload = function () {
+      console.log('inside onload')
       if (print.params.type === 'pdf') {
         finishPrint()
       } else {
@@ -327,9 +328,14 @@
       // print iframe document
       printJS.focus()
 
-      try {
-        printJS.contentWindow.document.execCommand('print', false, null)
-      } catch (e) {
+      // if IE, try catch with execCommand
+      if (isIE()) {
+        try {
+          printJS.contentWindow.document.execCommand('print', false, null)
+        } catch (e) {
+          printJS.contentWindow.print()
+        }
+      } else {
         printJS.contentWindow.print()
       }
 

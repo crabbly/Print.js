@@ -50,8 +50,8 @@
     switch (printJS.params.type) {
       case 'pdf':
         // firefox doesn't support iframe printing, we will just open the pdf file instead
-        if (isFirefox() || isIE()) {
-          console.log('PrintJS doesn\'t support PDF printing in ' + (isIE() ? 'Internet Explorer.' : 'Firefox.'))
+        if (isFirefox()) {
+          console.log('PrintJS doesn\'t support PDF printing in Firefox.')
           let win = window.open(printJS.params.printable, '_blank')
           win.focus()
           // make sure there is no message modal opened
@@ -124,8 +124,16 @@
     // create a new iframe element
     print.printFrame = document.createElement('iframe')
 
-    // set iframe attributes
-    print.printFrame.setAttribute('style', 'display:none;')
+    // when printing pdf in IE, we use embed instead
+    if (isIE() && print.params.type === 'pdf') {
+      print.printFrame = document.createElement('embed')
+      print.printFrame.setAttribute('type', 'application/pdf')
+    }
+
+    // hide element (when using embed, can't use display:none, set height and width to 0 instead)
+    (isIE() && print.params.type === 'pdf') ? print.printFrame.setAttribute('style', 'width:0px;height:0px;') : print.printFrame.setAttribute('style', 'display:none;')
+
+    // set element id
     print.printFrame.setAttribute('id', print.params.frameId)
 
     // for non pdf printing, pass empty html document to srcdoc (force onload callback)
@@ -307,20 +315,25 @@
 
     // get iframe element
     let printJS = document.getElementById(print.params.frameId)
-    // wait for iframe to load all content
-    print.printFrame.onload = function () {
-      console.log('inside onload')
-      if (print.params.type === 'pdf') {
-        finishPrint()
-      } else {
-        // get iframe document
-        let printDocument = (printJS.contentWindow || printJS.contentDocument)
-        if (printDocument.document) printDocument = printDocument.document
 
-        // inject printable html into iframe body
-        printDocument.body.innerHTML = print.params.htmlData
+    // if printing pdf in IE
+    if (isIE() && print.params.type === 'pdf') {
+      finishPrintPdfIe()
+    } else {
+      // wait for iframe to load all content
+      print.printFrame.onload = function () {
+        if (print.params.type === 'pdf') {
+          finishPrint()
+        } else {
+          // get iframe element document
+          let printDocument = (printJS.contentWindow || printJS.contentDocument)
+          if (printDocument.document) printDocument = printDocument.document
 
-        finishPrint()
+          // inject printable html into iframe body
+          printDocument.body.innerHTML = print.params.htmlData
+
+          finishPrint()
+        }
       }
     }
 
@@ -329,7 +342,7 @@
       printJS.focus()
 
       // if IE, try catch with execCommand
-      if (isIE()) {
+      if (isIE() && print.params.type !== 'pdf') {
         try {
           printJS.contentWindow.document.execCommand('print', false, null)
         } catch (e) {
@@ -342,6 +355,18 @@
       // if showing feedback to user, remove processing message (close modal)
       if (print.params.showModal) {
         print.disablePrintModal()
+      }
+    }
+
+    function finishPrintPdfIe () {
+      // wait until pdf is ready to print
+      if (typeof printJS.print === 'undefined') {
+        setTimeout(function () { finishPrintPdfIe() }, 1000)
+      } else {
+        printJS.print()
+
+        // remove embed (just because it isn't 100% hidden when using h/w = 0)
+        setTimeout(function () { printJS.parentNode.removeChild(printJS) }, 2000)
       }
     }
   }

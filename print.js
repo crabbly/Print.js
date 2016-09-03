@@ -1,7 +1,7 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.4
+ * Version: 1.0.8
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)
  * Released under the MIT license
@@ -26,7 +26,8 @@
     showModal: false,
     modalMessage: 'Retrieving Document...',
     frameId: 'printJS',
-    border: true
+    border: true,
+    htmlData: ''
   }
 
   // print friendly defaults
@@ -34,7 +35,7 @@
   let bodyStyle = 'font-family:' + defaultParams.font + ' !important; font-size: ' + defaultParams.font_size + ' !important; width:100%;'
   let headerStyle = 'font-weight:300;'
 
-  // Occupy the global variable of printJS
+  // occupy the global variable of printJS
   window.printJS = function () {
     // check if a printable document or object was supplied
     if (arguments[0] === undefined) {
@@ -48,10 +49,10 @@
     // check printable type
     switch (printJS.params.type) {
       case 'pdf':
-        //firefox doesn't support iframe printing, we will just open the pdf file instead
+        // firefox doesn't support iframe printing, we will just open the pdf file instead
         if (isFirefox()) {
           console.log('PrintJS doesn\'t support PDF printing in Firefox.')
-          let win = window.open(printJS.params.printable, '_blank');
+          let win = window.open(printJS.params.printable, '_blank')
           win.focus()
           // make sure there is no message modal opened
           if (printJS.params.showModal) printJS.disablePrintModal()
@@ -113,7 +114,7 @@
       print.showModal()
     }
 
-    // To prevent duplication and "onload" issues, remove print.printFrame from DOM, if it exists.
+    // to prevent duplication and issues, remove print.printFrame from DOM, if it exists.
     let usedFrame = document.getElementById(print.params.frameId)
 
     if (usedFrame) {
@@ -123,13 +124,24 @@
     // create a new iframe element
     print.printFrame = document.createElement('iframe')
 
-    // set iframe attributes
-    print.printFrame.setAttribute('style', 'display:none;')
+    // when printing pdf in IE, we use embed instead
+    if (isIE() && print.params.type === 'pdf') {
+      print.printFrame = document.createElement('embed')
+      print.printFrame.setAttribute('type', 'application/pdf')
+    }
+
+    // hide element (when using embed, can't use display:none, set height and width to 0 instead)
+    (isIE() && print.params.type === 'pdf') ? print.printFrame.setAttribute('style', 'width:0px;height:0px;') : print.printFrame.setAttribute('style', 'display:none;')
+
+    // set element id
     print.printFrame.setAttribute('id', print.params.frameId)
+
+    // for non pdf printing, pass empty html document to srcdoc (force onload callback)
+    if (print.params.type !== 'pdf') print.printFrame.srcdoc = '<html><head></head><body></body></html>'
   }
 
   PrintJS.prototype.pdf = function () {
-    let print = this
+    const print = this
 
     // if showing feedback to user, pre load pdf files (hacky)
     // since we will be using promises, we can't use this feature in IE
@@ -214,7 +226,8 @@
         print.addHeader(printableElement)
       }
 
-      print.printFrame.setAttribute('srcdoc', printableElement.outerHTML)
+      // store html data
+      print.params.htmlData = printableElement.outerHTML
 
       print.print()
     }
@@ -257,11 +270,11 @@
       this.addHeader(printableElement)
     }
 
-    // pass printable HTML to iframe
-    this.printFrame.srcdoc = addWrapper(printableElement.innerHTML)
-
     // remove DOM printableElement
     printableElement.parentNode.removeChild(printableElement)
+
+    // store html data
+    this.params.htmlData = addWrapper(printableElement.innerHTML)
 
     this.print()
   }
@@ -288,9 +301,8 @@
     // function to build html templates for json data
     htmlData += this.jsonToHTML()
 
-    htmlData = addWrapper(htmlData)
-
-    this.printFrame.setAttribute('srcdoc', htmlData)
+    // store html data
+    this.params.htmlData = addWrapper(htmlData)
 
     this.print()
   }
@@ -299,21 +311,62 @@
     let print = this
 
     // append iframe element to document body
-    document.getElementsByTagName('body')[0].appendChild(this.printFrame)
+    document.getElementsByTagName('body')[0].appendChild(print.printFrame)
 
-    // set variables to use within .onload
-    let frameId = this.params.frameId
+    // get iframe element
+    let printJS = document.getElementById(print.params.frameId)
 
-    // wait for iframe to load all content
-    this.printFrame.onload = function () {
-      let printJS = document.getElementById(frameId)
+    // if printing pdf in IE
+    if (isIE() && print.params.type === 'pdf') {
+      finishPrintPdfIe()
+    } else {
+      // wait for iframe to load all content
+      print.printFrame.onload = function () {
+        if (print.params.type === 'pdf') {
+          finishPrint()
+        } else {
+          // get iframe element document
+          let printDocument = (printJS.contentWindow || printJS.contentDocument)
+          if (printDocument.document) printDocument = printDocument.document
 
+          // inject printable html into iframe body
+          printDocument.body.innerHTML = print.params.htmlData
+
+          finishPrint()
+        }
+      }
+    }
+
+    function finishPrint () {
+      // print iframe document
       printJS.focus()
-      printJS.contentWindow.print()
+
+      // if IE, try catch with execCommand
+      if (isIE() && print.params.type !== 'pdf') {
+        try {
+          printJS.contentWindow.document.execCommand('print', false, null)
+        } catch (e) {
+          printJS.contentWindow.print()
+        }
+      } else {
+        printJS.contentWindow.print()
+      }
 
       // if showing feedback to user, remove processing message (close modal)
       if (print.params.showModal) {
         print.disablePrintModal()
+      }
+    }
+
+    function finishPrintPdfIe () {
+      // wait until pdf is ready to print
+      if (typeof printJS.print === 'undefined') {
+        setTimeout(function () { finishPrintPdfIe() }, 1000)
+      } else {
+        printJS.print()
+
+        // remove embed (just because it isn't 100% hidden when using h/w = 0)
+        setTimeout(function () { printJS.parentNode.removeChild(printJS) }, 2000)
       }
     }
   }
@@ -555,9 +608,4 @@
   function isIE () {
     return !!document.documentMode
   }
-
-  function isEdge () {
-    return !isIE() && !!window.StyleMedia
-  }
-
 })(window, document)

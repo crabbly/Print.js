@@ -1,7 +1,7 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.5
+ * Version: 1.0.8
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)
  * Released under the MIT license
@@ -54,7 +54,7 @@
           console.log('PrintJS doesn\'t support PDF printing in Firefox.')
           let win = window.open(printJS.params.printable, '_blank')
           win.focus()
-          // make sure there is no message modal opened
+          // make sure there is no loading modal opened
           if (printJS.params.showModal) printJS.disablePrintModal()
         } else {
           printJS.pdf()
@@ -70,7 +70,8 @@
         printJS.json()
         break
       default:
-        throw new Error('Invalid printable type')
+        // throw invalid type error
+        throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
     }
   }
 
@@ -114,24 +115,28 @@
       print.showModal()
     }
 
-    // to prevent duplication and issues, remove print.printFrame from DOM, if it exists.
+    // to prevent duplication and issues, remove print.printFrame from DOM, if it exists
     let usedFrame = document.getElementById(print.params.frameId)
 
     if (usedFrame) {
       usedFrame.parentNode.removeChild(usedFrame)
     }
 
-    // create a new iframe element
-    print.printFrame = document.createElement('iframe')
-
-    // when printing pdf in IE, we use embed instead
+    // create a new iframe or embed element (IE prints blank pdf's if we use iframe)
     if (isIE() && print.params.type === 'pdf') {
+      // create embed element
       print.printFrame = document.createElement('embed')
       print.printFrame.setAttribute('type', 'application/pdf')
-    }
 
-    // hide element (when using embed, can't use display:none, set height and width to 0 instead)
-    (isIE() && print.params.type === 'pdf') ? print.printFrame.setAttribute('style', 'width:0px;height:0px;') : print.printFrame.setAttribute('style', 'display:none;')
+      // hide embed
+      print.printFrame.setAttribute('style', 'width:0px;height:0px;')
+    } else {
+      // create iframe element
+      print.printFrame = document.createElement('iframe')
+
+      // hide iframe
+      print.printFrame.setAttribute('style', 'display:none;')
+    }
 
     // set element id
     print.printFrame.setAttribute('id', print.params.frameId)
@@ -162,11 +167,17 @@
 
       pdf.then(function (result) {
         console.log(result)
+        // set iframe src with pdf document url
         print.printFrame.setAttribute('src', print.params.printable)
+
+        // print pdf document
         print.print()
       })
     } else {
+      // set iframe src with pdf document url
       print.printFrame.setAttribute('src', print.params.printable)
+
+      // print pdf
       print.print()
     }
   }
@@ -175,6 +186,8 @@
     // create the image element
     let img = document.createElement('img')
     img.setAttribute('style', 'width:100%;')
+
+    // set image src with image file url
     img.src = this.params.printable
 
     // assign `this` to a variable, to be used within the promise
@@ -206,7 +219,7 @@
       let printableElement = document.createElement('div')
       printableElement.setAttribute('style', 'width:100%')
 
-      // to prevent firefox from not loading the image within iframe, we can use a base64-encoded data URL of the image pixel data
+      // to prevent firefox from not loading images within iframe, we can use base64-encoded data URL of images pixel data
       if (isFirefox) {
         // let's make firefox happy
         let canvas = document.createElement('canvas')
@@ -229,6 +242,7 @@
       // store html data
       print.params.htmlData = printableElement.outerHTML
 
+      // print image
       print.print()
     }
   }
@@ -276,6 +290,7 @@
     // store html data
     this.params.htmlData = addWrapper(printableElement.innerHTML)
 
+    // print html element contents
     this.print()
   }
 
@@ -304,6 +319,7 @@
     // store html data
     this.params.htmlData = addWrapper(htmlData)
 
+    // print json data
     this.print()
   }
 

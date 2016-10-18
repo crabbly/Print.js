@@ -415,7 +415,7 @@
 
       for (var key in style) {
           if (targetStyles.indexOf(key) > -1 || targetStyle.indexOf(key) > -1) {
-              elementStyle += style[key] + ':' + style.getPropertyValue(style[key]) + ';';
+              elementStyle += key + ':' + style[key] + ';';
           }
       }
     } else if (element.currentStyle) { // IE

@@ -398,27 +398,25 @@
     if (win.getComputedStyle) { // modern browsers
       style = win.getComputedStyle(element, '')
 
-      for (let i = 0; i < style.length; i++) {
-        // styles including
-        let targetStyles = ['border', 'float', 'box']
-        // exact
-        let targetStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
+      // styles including
+      var targetStyles = ['border', 'float', 'box'];
+      // exact
+      var targetStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'];
 
-        // optinal - include margin and padding
-        if (this.params.honorMarginPadding) {
-          targetStyle.push('margin', 'padding')
-        }
+      // optinal - include margin and padding
+      if (this.params.honorMarginPadding) {
+          targetStyle.push('margin', 'padding');
+      }
 
-        // optinal - include color
-        if (this.params.honorColor) {
-          targetStyle.push('color')
-        }
+      // optinal - include color
+      if (this.params.honorColor) {
+          targetStyle.push('color');
+      }
 
-        for (let s = 0; s < targetStyle.length; s++) {
-          if (style[i].indexOf(targetStyles[s]) !== -1 || style[i].indexOf(targetStyle[s]) === 0) {
-            elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';'
+      for (var key in style) {
+          if (targetStyles.indexOf(key) > -1 || targetStyle.indexOf(key) > -1) {
+              elementStyle += style[key] + ':' + style.getPropertyValue(style[key]) + ';';
           }
-        }
       }
     } else if (element.currentStyle) { // IE
       style = element.currentStyle

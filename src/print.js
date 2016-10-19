@@ -399,23 +399,20 @@
       style = win.getComputedStyle(element, '')
 
       // styles including
-      var targetStyles = ['border', 'float', 'box'];
+      var targetIncludingStyles = this.params.honorColor ? /border|float|box|color/gi : /border|float|box/gi
+
       // exact
-      var targetStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'];
+      var targetExactStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
 
       // optinal - include margin and padding
       if (this.params.honorMarginPadding) {
-          targetStyle.push('margin', 'padding');
+          targetExactStyle.push('margin', 'padding')
       }
 
-      // optinal - include color
-      if (this.params.honorColor) {
-          targetStyle.push('color');
-      }
-
-      for (var key in style) {
-          if (targetStyles.indexOf(key) > -1 || targetStyle.indexOf(key) > -1) {
-              elementStyle += key + ':' + style[key] + ';';
+      for (var i = 0; i < style.length; i++) {
+          var styleKey = style[i]
+          if (styleKey.match(targetIncludingStyles) || targetExactStyle.indexOf(styleKey) > -1) {
+              elementStyle += styleKey + ':' + style.getPropertyValue(styleKey) + ';'
           }
       }
     } else if (element.currentStyle) { // IE

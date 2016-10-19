@@ -398,27 +398,22 @@
     if (win.getComputedStyle) { // modern browsers
       style = win.getComputedStyle(element, '')
 
-      for (let i = 0; i < style.length; i++) {
-        // styles including
-        let targetStyles = ['border', 'float', 'box']
-        // exact
-        let targetStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
+      // styles including
+      var targetIncludingStyles = this.params.honorColor ? /border|float|box|color/gi : /border|float|box/gi
 
-        // optinal - include margin and padding
-        if (this.params.honorMarginPadding) {
-          targetStyle.push('margin', 'padding')
-        }
+      // exact
+      var targetExactStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
 
-        // optinal - include color
-        if (this.params.honorColor) {
-          targetStyle.push('color')
-        }
+      // optinal - include margin and padding
+      if (this.params.honorMarginPadding) {
+          targetExactStyle.push('margin', 'padding')
+      }
 
-        for (let s = 0; s < targetStyle.length; s++) {
-          if (style[i].indexOf(targetStyles[s]) !== -1 || style[i].indexOf(targetStyle[s]) === 0) {
-            elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';'
+      for (var i = 0; i < style.length; i++) {
+          var styleKey = style[i]
+          if (styleKey.match(targetIncludingStyles) || targetExactStyle.indexOf(styleKey) > -1) {
+              elementStyle += styleKey + ':' + style.getPropertyValue(styleKey) + ';'
           }
-        }
       }
     } else if (element.currentStyle) { // IE
       style = element.currentStyle

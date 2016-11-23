@@ -4,5 +4,6 @@ elixir.config.js.folder = ''
 elixir.config.css.folder = ''
 
 elixir(function (mix) {
-  mix.browserify('print.js', 'dist/print.min.js').styles('print.css', 'dist/print.min.css')
+  mix.browserify('print.js', 'dist/print.min.js')
+      .styles('css/print.css', 'dist/print.min.css')
 })

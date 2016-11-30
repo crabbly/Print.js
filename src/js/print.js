@@ -21,7 +21,7 @@ let defaultParams = {
   htmlData: ''
 }
 
-let printFriendlyElement, bodyStyle, headerStyle;
+let printFriendlyElement, bodyStyle, headerStyle
 
 export function print () {
   // check if a printable document or object was supplied

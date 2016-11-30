@@ -21,10 +21,7 @@ let defaultParams = {
   htmlData: ''
 }
 
-// print friendly defaults
-let printFriendlyElement = 'max-width: ' + defaultParams.maxWidth + 'px !important;' + defaultParams.font_size + ' !important;'
-let bodyStyle = 'font-family:' + defaultParams.font + ' !important; font-size: ' + defaultParams.font_size + ' !important; width:100%;'
-let headerStyle = 'font-weight:300;'
+let printFriendlyElement, bodyStyle, headerStyle;
 
 export function print () {
   // check if a printable document or object was supplied
@@ -35,6 +32,11 @@ export function print () {
 
   // instantiate print object
   let printJS = new PrintJS(arguments)
+
+  // print friendly defaults
+  printFriendlyElement = 'max-width: ' + printJS.params.maxWidth + 'px !important;' + printJS.params.font_size + ' !important;'
+  bodyStyle = 'font-family:' + printJS.params.font + ' !important; font-size: ' + printJS.params.font_size + ' !important; width:100%;'
+  headerStyle = 'font-weight:300;'
 
   // check printable type
   switch (printJS.params.type) {

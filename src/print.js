@@ -8,6 +8,4 @@
  * https://github.com/crabbly/Print.js/blob/master/LICENSE
  */
 
-import { print } from './js/print'
-
-window.printJS = print
+window.printJS = require('./js/print')

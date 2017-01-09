@@ -1,6 +1,6 @@
 'use strict'
 
-import * as browser from './browser'
+let browser = require('./browser')
 
 let printTypes = ['pdf', 'html', 'image', 'json']
 
@@ -23,7 +23,7 @@ let defaultParams = {
 
 let printFriendlyElement, bodyStyle, headerStyle
 
-export function print () {
+module.exports = function() {
   // check if a printable document or object was supplied
   if (arguments[0] === undefined) {
     window.console.error('printJS expects at least 1 attribute.')
@@ -68,7 +68,7 @@ export function print () {
 }
 
 // printJS class
-export let PrintJS = function () {
+let PrintJS = function () {
   let args = arguments[0]
 
   let print = this

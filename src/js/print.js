@@ -23,7 +23,7 @@ let defaultParams = {
 
 let printFriendlyElement, bodyStyle, headerStyle
 
-module.exports = function() {
+module.exports = function () {
   // check if a printable document or object was supplied
   if (arguments[0] === undefined) {
     window.console.error('printJS expects at least 1 attribute.')

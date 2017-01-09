@@ -1,7 +1,7 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.10
+ * Version: 1.0.11
  *
  * Copyright 2016 Rodrigo Vieira (@crabbly)
  * Released under the MIT license

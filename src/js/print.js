@@ -193,13 +193,13 @@ PrintJS.prototype.image = function () {
       function checkImgLoad () {
         if (img.complete) {
           window.clearInterval(loadPrintableImg)
-          resolve('PrintJS: Image loaded. Read to print.')
+          resolve()
         }
       }
     })
 
-    loadImage.then(function (result) {
-      console.log(result)
+    loadImage.then(function () {
+      console.log('PrintJS: Image loaded. Read to print.')
       printImage()
     })
   } else {

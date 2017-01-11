@@ -116,17 +116,17 @@ let PrintJS = function () {
 
   // create a new iframe or embed element (IE prints blank pdf's if we use iframe)
   if (browser.isIE() && print.params.type === 'pdf') {
-      // create embed element
+    // create embed element
     print.printFrame = document.createElement('embed')
     print.printFrame.setAttribute('type', 'application/pdf')
 
-      // hide embed
+    // hide embed
     print.printFrame.setAttribute('style', 'width:0px;height:0px;')
   } else {
-      // create iframe element
+    // create iframe element
     print.printFrame = document.createElement('iframe')
 
-      // hide iframe
+    // hide iframe
     print.printFrame.setAttribute('style', 'display:none;')
   }
 
@@ -159,88 +159,66 @@ PrintJS.prototype.pdf = function () {
 
     pdf.then(function (result) {
       console.log(result)
-          // set iframe src with pdf document url
+      // set iframe src with pdf document url
       print.printFrame.setAttribute('src', print.params.printable)
 
-          // print pdf document
+      // print pdf document
       print.print()
     })
   } else {
-      // set iframe src with pdf document url
+    // set iframe src with pdf document url
     print.printFrame.setAttribute('src', print.params.printable)
 
-      // print pdf
+    // print pdf
     print.print()
   }
 }
 
 PrintJS.prototype.image = function () {
-   // create the image element
+  // create the image element
   let img = document.createElement('img')
   img.setAttribute('style', 'width:100%;')
+  img.setAttribute('id', 'printableImage')
 
   // set image src with image file url
   img.src = this.params.printable
 
-  // assign `this` to a variable, to be used within the promise
-  let print = this
+  // assign `this` to a variable, to be used within the promise, and functions
+  let self = this
 
-  // if browser isn't IE, load image using promises
-  if (!browser.isIE()) {
-    let loadImage = new Promise(function (resolve, reject) {
-      let loadPrintableImg = setInterval(checkImgLoad, 100)
+  // create wrapper
+  let printableElement = document.createElement('div')
+  printableElement.setAttribute('style', 'width:100%')
 
-      function checkImgLoad () {
-        if (img.complete) {
-          window.clearInterval(loadPrintableImg)
-          resolve()
-        }
-      }
-    })
-
-    loadImage.then(function () {
-      console.log('PrintJS: Image loaded. Read to print.')
-      printImage()
-    })
-  } else {
-    printImage()
-  }
-
-  function printImage () {
-      // create wrapper
-    let printableElement = document.createElement('div')
-    printableElement.setAttribute('style', 'width:100%')
-
-      // to prevent firefox from not loading images within iframe, we can use base64-encoded data URL of images pixel data
-    if (browser.isFirefox()) {
-          // let's make firefox happy
+  // to prevent firefox from not loading images within iframe, we can use base64-encoded data URL of images pixel data
+  if (browser.isFirefox()) {
+      // let's make firefox happy
       let canvas = document.createElement('canvas')
       canvas.setAttribute('width', img.width)
       canvas.setAttribute('height', img.height)
       let context = canvas.getContext('2d')
       context.drawImage(img, 0, 0)
 
-          // reset img src attribute with canvas dataURL
+      // reset img src attribute with canvas dataURL
       img.setAttribute('src', canvas.toDataURL('JPEG', 1.0))
-    }
-
-    printableElement.appendChild(img)
-
-      // add header if any
-    if (print.params.header) {
-      print.addHeader(printableElement)
-    }
-
-      // store html data
-    print.params.htmlData = printableElement.outerHTML
-
-      // print image
-    print.print()
   }
+
+  printableElement.appendChild(img)
+
+  // add header if any
+  if (self.params.header) {
+      self.addHeader(printableElement)
+  }
+
+  // store html data
+  self.params.htmlData = printableElement.outerHTML
+
+  // print image
+  self.print()
 }
 
 PrintJS.prototype.html = function () {
-   // get HTML printable element
+  // get HTML printable element
   let printElement = document.getElementById(this.params.printable)
 
   // check if element exists
@@ -328,28 +306,35 @@ PrintJS.prototype.print = function () {
   if (browser.isIE() && print.params.type === 'pdf') {
     finishPrintPdfIe()
   } else {
-      // wait for iframe to load all content
+    // wait for iframe to load all content
     print.printFrame.onload = function () {
       if (print.params.type === 'pdf') {
         finishPrint()
       } else {
-              // get iframe element document
+        // get iframe element document
         let printDocument = (printJS.contentWindow || printJS.contentDocument)
         if (printDocument.document) printDocument = printDocument.document
 
-              // inject printable html into iframe body
+        // inject printable html into iframe body
         printDocument.body.innerHTML = print.params.htmlData
 
-        finishPrint()
+        // wait for image to load inside iframe
+        if (print.params.type === 'image') {
+            printDocument.getElementById('printableImage').onload = function () {
+                finishPrint()
+            }
+        } else {
+            finishPrint()
+        }
       }
     }
   }
 
   function finishPrint () {
-      // print iframe document
+    // print iframe document
     printJS.focus()
 
-      // if IE, try catch with execCommand
+    // if IE, try catch with execCommand
     if (browser.isIE() && print.params.type !== 'pdf') {
       try {
         printJS.contentWindow.document.execCommand('print', false, null)
@@ -360,20 +345,20 @@ PrintJS.prototype.print = function () {
       printJS.contentWindow.print()
     }
 
-      // if showing feedback to user, remove processing message (close modal)
+    // if showing feedback to user, remove processing message (close modal)
     if (print.params.showModal) {
       print.disablePrintModal()
     }
   }
 
   function finishPrintPdfIe () {
-      // wait until pdf is ready to print
+    // wait until pdf is ready to print
     if (typeof printJS.print === 'undefined') {
       setTimeout(function () { finishPrintPdfIe() }, 1000)
     } else {
       printJS.print()
 
-          // remove embed (just because it isn't 100% hidden when using h/w = 0)
+      // remove embed (just because it isn't 100% hidden when using h/w = 0)
       setTimeout(function () { printJS.parentNode.removeChild(printJS) }, 2000)
     }
   }
@@ -391,17 +376,18 @@ PrintJS.prototype.collectStyles = function (element) {
     style = win.getComputedStyle(element, '')
 
     for (let i = 0; i < style.length; i++) {
-          // styles including
+      // styles including
       let targetStyles = ['border', 'float', 'box']
-          // exact
+
+      // exact
       let targetStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
 
-          // optinal - include margin and padding
+      // optinal - include margin and padding
       if (this.params.honorMarginPadding) {
         targetStyle.push('margin', 'padding')
       }
 
-          // optinal - include color
+      // optinal - include color
       if (this.params.honorColor) {
         targetStyle.push('color')
       }
@@ -432,38 +418,38 @@ PrintJS.prototype.loopNodesCollectStyles = function (elements) {
   for (let n = 0; n < elements.length; n++) {
     let currentElement = elements[n]
 
-      // Form Printing - check if is element Input
+    // Form Printing - check if is element Input
     let tag = currentElement.tagName
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
-          // save style to variable
+      // save style to variable
       let textStyle = this.collectStyles(currentElement)
 
-          // remove INPUT element and insert a text node
+      // remove INPUT element and insert a text node
       let parent = currentElement.parentNode
 
-          // get text value
+      // get text value
       let textNode = tag === 'SELECT'
               ? document.createTextNode(currentElement.options[currentElement.selectedIndex].text)
               : document.createTextNode(currentElement.value)
 
-          // create text element
+      // create text element
       let textElement = document.createElement('div')
       textElement.appendChild(textNode)
 
-          // add style to text
+      // add style to text
       textElement.setAttribute('style', textStyle)
 
-          // add text
+      // add text
       parent.appendChild(textElement)
 
-          // remove input
+      // remove input
       parent.removeChild(currentElement)
     } else {
-          // get all styling for print element
+      // get all styling for print element
       currentElement.setAttribute('style', this.collectStyles(currentElement))
     }
 
-      // check if more elements in tree
+    // check if more elements in tree
     let children = currentElement.children
 
     if (children.length) {
@@ -530,7 +516,7 @@ PrintJS.prototype.validateInput = function () {
 }
 
 PrintJS.prototype.showModal = function () {
-    // build modal
+  // build modal
   let modalStyle = 'font-family:sans-serif; ' +
       'display:table; ' +
       'text-align:center; ' +

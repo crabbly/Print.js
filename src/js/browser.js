@@ -7,6 +7,11 @@ module.exports = {
   // Internet Explorer 6-11
   isIE () {
     return !!document.documentMode
+  },
+
+  // Chrome 1+
+  isChrome () {
+    return !!window.chrome && !!window.chrome.webstore
   }
 
   // Opera 8.0+
@@ -17,7 +22,4 @@ module.exports = {
 
   // Edge 20+
   // let isEdge = !isIE && !!window.StyleMedia
-
-  // Chrome 1+
-  // let isChrome = !!window.chrome && !!window.chrome.webstore
 }

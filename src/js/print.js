@@ -318,8 +318,8 @@ PrintJS.prototype.print = function () {
         // inject printable html into iframe body
         printDocument.body.innerHTML = print.params.htmlData
 
-        // wait for image to load inside iframe
-        if (print.params.type === 'image') {
+        // wait for image to load inside iframe (chrome only)
+        if (print.params.type === 'image' && browser.isChrome()) {
           printDocument.getElementById('printableImage').onload = function () {
             finishPrint()
           }

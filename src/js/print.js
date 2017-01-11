@@ -192,22 +192,22 @@ PrintJS.prototype.image = function () {
 
   // to prevent firefox from not loading images within iframe, we can use base64-encoded data URL of images pixel data
   if (browser.isFirefox()) {
-      // let's make firefox happy
-      let canvas = document.createElement('canvas')
-      canvas.setAttribute('width', img.width)
-      canvas.setAttribute('height', img.height)
-      let context = canvas.getContext('2d')
-      context.drawImage(img, 0, 0)
+    // let's make firefox happy
+    let canvas = document.createElement('canvas')
+    canvas.setAttribute('width', img.width)
+    canvas.setAttribute('height', img.height)
+    let context = canvas.getContext('2d')
+    context.drawImage(img, 0, 0)
 
-      // reset img src attribute with canvas dataURL
-      img.setAttribute('src', canvas.toDataURL('JPEG', 1.0))
+    // reset img src attribute with canvas dataURL
+    img.setAttribute('src', canvas.toDataURL('JPEG', 1.0))
   }
 
   printableElement.appendChild(img)
 
   // add header if any
   if (self.params.header) {
-      self.addHeader(printableElement)
+    self.addHeader(printableElement)
   }
 
   // store html data
@@ -320,11 +320,11 @@ PrintJS.prototype.print = function () {
 
         // wait for image to load inside iframe
         if (print.params.type === 'image') {
-            printDocument.getElementById('printableImage').onload = function () {
-                finishPrint()
-            }
-        } else {
+          printDocument.getElementById('printableImage').onload = function () {
             finishPrint()
+          }
+        } else {
+          finishPrint()
         }
       }
     }

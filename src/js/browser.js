@@ -9,6 +9,11 @@ module.exports = {
     return !!document.documentMode
   },
 
+  // Edge 20+
+  isEdge() {
+    return !this.isIE() && !!window.StyleMedia
+  },
+
   // Chrome 1+
   isChrome () {
     return !!window.chrome && !!window.chrome.webstore
@@ -19,7 +24,4 @@ module.exports = {
 
   // At least Safari 3+: "[object HTMLElementConstructor]"
   // let isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0
-
-  // Edge 20+
-  // let isEdge = !isIE && !!window.StyleMedia
 }

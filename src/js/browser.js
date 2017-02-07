@@ -1,16 +1,16 @@
 // Firefox 1.0+
 module.exports = {
-  isFirefox () {
+  isFirefox: function () {
     return typeof InstallTrigger !== 'undefined'
   },
 
   // Internet Explorer 6-11
-  isIE () {
+  isIE: function () {
     return !!document.documentMode
   },
 
   // Chrome 1+
-  isChrome () {
+  isChrome: function () {
     return !!window.chrome && !!window.chrome.webstore
   }
 

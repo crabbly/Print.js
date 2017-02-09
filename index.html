@@ -77,9 +77,9 @@
 							<p>Add a button to print a PDF file located on your hosting server:</p>
 <!-- pdf code -->
 <pre><code data-language="html">
- <button type="button" onclick="printJS('docs/printjs.pdf')">
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS('docs/printjs.pdf')&quot;&gt;
     Print PDF
- </button>
+ &lt;/button&gt;
 
 </code></pre>
 
@@ -98,9 +98,9 @@
 							<p>For large files, you can show a message to the user when loading files.
 								<!-- pdf code -->
 <pre><code data-language="html">
- <button type="button" onclick="printJS({printable:'docs/xx_large_printjs.pdf', type:'pdf', showModal:true})">
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS({printable:'docs/xx_large_printjs.pdf', type:'pdf', showModal:true})&quot;&gt;
     Print PDF with Message
- </button>
+ &lt;/button&gt;
 
 </code></pre>
 							<p>Result:</p>
@@ -141,13 +141,13 @@
 
 <!-- html code -->
 <pre><code data-language="html">
- <form method="post" action="#" id="printJS-form">
-	...
- </form>
+ &lt;form method=&quot;post&quot; action=&quot;#&quot; id=&quot;printJS-form&quot;&gt;
+    ...
+ &lt;/form&gt;
 
- <button type="button" onclick="printJS('printJS-form', 'html')">
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS('printJS-form', 'html')&quot;&gt;
     Print Form
- </button>
+ &lt;/button&gt;
 
 </code></pre>
 						<p>Result:</p>
@@ -181,9 +181,9 @@
 
 <!-- html code -->
 <pre><code data-language="html">
- <button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })&quot;&gt;
     Print Form with Header
- </button>
+ &lt;/button&gt;
 
 </code></pre>
                         <p>Result:</p>
@@ -221,7 +221,7 @@
                         <p>Load images on your page with just the necessary resolution you need on screen:</p>
 
 <pre><code data-language="html">
- <img src="images/print-01.jpg" />
+ &lt;img src=&quot;images/print-01.jpg&quot; /&gt;
 
 </code></pre>
 
@@ -344,9 +344,9 @@
 						<p>We can pass it to Print.js:</p>
 
 <pre><code data-language="html">
- <button type="button" onclick="printJS({printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json'})">
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS({printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json'})&quot;&gt;
     Print JSON Data
- </button>
+ &lt;/button&gt;
 
 </code></pre>
 						<p>Result:</p>

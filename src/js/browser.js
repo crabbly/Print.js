@@ -10,7 +10,7 @@ module.exports = {
   },
 
   // Edge 20+
-  isEdge() {
+  isEdge: function () {
     return !this.isIE() && !!window.StyleMedia
   },
 

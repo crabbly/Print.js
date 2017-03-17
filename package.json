@@ -18,7 +18,7 @@
   },
   "scripts": {
     "cjs": "rm -rf cjs && BABEL_ENV=cjs babel src/js -d cjs",
-    "test": "standard"
+    "test": "standard \"!cjs/**/*\""
   },
   "spm": {
     "main": "Print.js"

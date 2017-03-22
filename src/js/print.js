@@ -41,7 +41,7 @@ module.exports = function () {
   // check printable type
   switch (printJS.params.type) {
     case 'pdf':
-          // firefox doesn't support iframe printing, we will just open the pdf file instead
+          // firefox doesn't support iframe pdf printing, we will just open the pdf file instead
       if (browser.isFirefox()) {
         console.log('PrintJS doesn\'t support PDF printing in Firefox.')
         let win = window.open(printJS.params.printable, '_blank')
@@ -191,17 +191,17 @@ PrintJS.prototype.image = function () {
   printableElement.setAttribute('style', 'width:100%')
 
   // to prevent firefox from not loading images within iframe, we can use base64-encoded data URL of images pixel data
-  if (browser.isFirefox()) {
-    // let's make firefox happy
-    let canvas = document.createElement('canvas')
-    canvas.setAttribute('width', img.width)
-    canvas.setAttribute('height', img.height)
-    let context = canvas.getContext('2d')
-    context.drawImage(img, 0, 0)
-
-    // reset img src attribute with canvas dataURL
-    img.setAttribute('src', canvas.toDataURL('JPEG', 1.0))
-  }
+  // if (browser.isFirefox()) {
+  //   // let's make firefox happy
+  //   let canvas = document.createElement('canvas')
+  //   canvas.setAttribute('width', img.width)
+  //   canvas.setAttribute('height', img.height)
+  //   let context = canvas.getContext('2d')
+  //   context.drawImage(img, 0, 0)
+  //
+  //   // reset img src attribute with canvas dataURL
+  //   img.setAttribute('src', canvas.toDataURL('JPEG', 1.0))
+  // }
 
   printableElement.appendChild(img)
 
@@ -334,8 +334,8 @@ PrintJS.prototype.print = function () {
     // print iframe document
     printJS.focus()
 
-    // if IE, try catch with execCommand
-    if (browser.isIE() && print.params.type !== 'pdf') {
+    // if IE or Edge, try catch with execCommand
+    if (browser.isIE() || browser.isEdge()) {
       try {
         printJS.contentWindow.document.execCommand('print', false, null)
       } catch (e) {
@@ -345,7 +345,7 @@ PrintJS.prototype.print = function () {
       printJS.contentWindow.print()
     }
 
-    // if showing feedback to user, remove processing message (close modal)
+    // if showing feedback to user, close modal (printing / processing message)
     if (print.params.showModal) {
       print.disablePrintModal()
     }
@@ -452,7 +452,7 @@ PrintJS.prototype.loopNodesCollectStyles = function (elements) {
     // check if more elements in tree
     let children = currentElement.children
 
-    if (children.length) {
+    if (children && children.length) {
       this.loopNodesCollectStyles(children)
     }
   }

@@ -27,7 +27,7 @@ You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#
 Contributions to Print.js are welcome and encouraged.
 
 
-#####Using issues
+##### Using issues
 
 The [issue tracker](https://github.com/crabbly/Print.js/issues) is the preferred channel for reporting bugs, requesting new features and submitting pull requests.
 

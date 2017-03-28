@@ -22,7 +22,7 @@ npm install print.js --save
 You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#documentation).
 
 
-##Contributing to Print.js
+## Contributing to Print.js
 
 Contributions to Print.js are welcome and encouraged.
 
@@ -36,7 +36,7 @@ Keep in mind that we would like to keep this a lightweight library.
 Please do not use the issues channel for support requests. For help using Print.js, please ask questions on Stack Overflow and use the tag `print.js`.
 
 
-#####Reporting bugs
+##### Reporting bugs
 
 Well structured, detailed bug reports are hugely valuable for the project.
 
@@ -46,7 +46,7 @@ Well structured, detailed bug reports are hugely valuable for the project.
 Please provide any additional details associated with the bug.
 
 
-#####Pull requests
+##### Pull requests
 
 Clear, concise pull requests are excellent at continuing the project's community driven growth.
 
@@ -57,6 +57,6 @@ Clear, concise pull requests are excellent at continuing the project's community
  - Please make your commits in logical sections with clear commit messages
 
 
-##License
+## License
 
 Print.js is available under the [MIT license](https://github.com/crabbly/Print.js/blob/master/LICENSE).

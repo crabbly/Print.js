@@ -1345,6 +1345,9 @@
 .grid>div>.g1 {
 	flex:1;
 }
+.grid>div>.g15 {
+	flex:1.5;
+}
 .grid>div>.g2 {
 	flex:2;
 }
@@ -2400,3 +2403,13 @@
 				}
 
 	}
+
+.mgr5 {
+	margin-right:5px;
+}
+.success {
+	color: #239833;
+}
+.danger {
+	color: #e26f6f;
+}

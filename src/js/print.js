@@ -482,7 +482,7 @@ PrintJS.prototype.jsonToHTML = function () {
   htmlData += '<div style="flex:1; display:flex;">'
 
   for (let a = 0; a < properties.length; a++) {
-    htmlData += '<div style="flex:1; padding:5px;">' + capitalizePrint(properties[a]) + '</div>'
+    htmlData += '<div style="flex:1; padding:5px;">' + capitalizePrint(properties[a]['displayName'] || properties[a]) + '</div>'
   }
 
   htmlData += '</div>'
@@ -494,7 +494,7 @@ PrintJS.prototype.jsonToHTML = function () {
     htmlData += '">'
 
     for (let n = 0; n < properties.length; n++) {
-      htmlData += '<div style="flex:1; padding:5px;">' + data[i][properties[n]] + '</div>'
+      htmlData += '<div style="flex:1; padding:5px;">' + data[i][properties[n]['field'] || properties[n]] + '</div>'
     }
 
     htmlData += '</div>'

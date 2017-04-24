@@ -1,7 +1,7 @@
 /*
  * Print.js
  * http://printjs.crabbly.com
- * Version: 1.0.15
+ * Version: 1.0.16
  *
  * Copyright 2017 Rodrigo Vieira (@crabbly)
  * Released under the MIT license
@@ -10,7 +10,7 @@
 
 import printJS from './js/init'
 
-module.exports = printJS
+export default printJS
 
 if (typeof window !== 'undefined') {
   window.printJS = printJS

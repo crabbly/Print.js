@@ -11,13 +11,17 @@
   "license": "MIT",
   "dependences": {},
   "devDependencies": {
-    "gulp": "3.9.x",
-    "laravel-elixir": "^6.0.0-10",
-    "laravel-elixir-webpack-official": "^1.0.10",
+    "cross-env": "^3.2.3",
+    "laravel-mix": "^0.8.3",
     "standard": "^7.1.2"
   },
   "scripts": {
-    "test": "standard"
+    "test": "standard",
+    "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --watch-poll --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "spm": {
     "main": "Print.js"

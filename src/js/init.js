@@ -35,75 +35,78 @@ let defaultParams = {
   htmlData: ''
 }
 
-export default function () {
-  // Check if a printable document or object was supplied
-  let args = arguments[0]
-  if (args === undefined) {
-    throw new Error('printJS expects at least 1 attribute.')
-  }
-
-  let params = extend({}, defaultParams)
-
-  switch (typeof args) {
-    case 'string':
-      params.printable = encodeURI(args)
-      params.type = arguments[1] || defaultParams.type
-      break
-
-    case 'object':
-      params.printable = args.printable
-      params.type = args.type || defaultParams.type
-      params.frameId = args.frameId || defaultParams.frameId
-      params.header = args.header || defaultParams.header
-      params.maxWidth = args.maxWidth || defaultParams.maxWidth
-      params.font = args.font || defaultParams.font
-      params.font_size = args.font_size || defaultParams.font_size
-      params.honorMarginPadding = (typeof args.honorMarginPadding !== 'undefined') ? args.honorMarginPadding : defaultParams.honorMarginPadding
-      params.properties = args.properties || defaultParams.properties
-      params.showModal = (typeof args.showModal !== 'undefined') ? args.showModal : defaultParams.showModal
-      params.modalMessage = args.modalMessage || defaultParams.modalMessage
-      break
-
-    default:
-      throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)
-  }
-
-  if (!params.printable) {
-    throw new Error('Missing printable information.')
-  }
-
-  if (!params.type || typeof params.type !== 'string' || printTypes.indexOf(params.type.toLowerCase()) === -1) {
-    throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
-  }
-
-  // Instantiate print object
-  let printJS = new PrintJS(params)
-
-  // Check printable type
-  switch (params.type) {
-    case 'pdf':
-      // Firefox doesn't support iframe pdf printing, we will just open the pdf file instead
-      if (browser.isFirefox()) {
-        console.log('PrintJS doesn\'t support PDF printing in Firefox.')
-        let win = window.open(params.printable, '_blank')
-        win.focus()
-        // Make sure there is no loading modal opened
-        if (params.showModal) printJS.disablePrintModal()
-      } else {
-        printJS.pdf()
+export default {
+  init() {
+      // Check if a printable document or object was supplied
+      let args = arguments[0]
+      if (args === undefined) {
+          throw new Error('printJS expects at least 1 attribute.')
       }
-      break
-    case 'image':
-      printJS.image()
-      break
-    case 'html':
-      printJS.html()
-      break
-    case 'json':
-      printJS.json()
-      break
-    default:
-      throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
+
+      let params = extend({}, defaultParams)
+
+      switch (typeof args) {
+          case 'string':
+              params.printable = encodeURI(args)
+              params.type = arguments[1] || defaultParams.type
+              break
+
+          case 'object':
+              params.printable = args.printable
+              params.type = args.type || defaultParams.type
+              params.frameId = args.frameId || defaultParams.frameId
+              params.header = args.header || defaultParams.header
+              params.maxWidth = args.maxWidth || defaultParams.maxWidth
+              params.font = args.font || defaultParams.font
+              params.font_size = args.font_size || defaultParams.font_size
+              params.honorMarginPadding = (typeof args.honorMarginPadding !== 'undefined') ? args.honorMarginPadding : defaultParams.honorMarginPadding
+              params.properties = args.properties || defaultParams.properties
+              params.showModal = (typeof args.showModal !== 'undefined') ? args.showModal : defaultParams.showModal
+              params.modalMessage = args.modalMessage || defaultParams.modalMessage
+              break
+
+          default:
+              throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)
+      }
+
+      if (!params.printable) {
+          throw new Error('Missing printable information.')
+      }
+
+      if (!params.type || typeof params.type !== 'string' || printTypes.indexOf(params.type.toLowerCase()) === -1) {
+          throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
+      }
+
+      // Instantiate print object
+      let printJS = new PrintJS(params)
+
+      // Check printable type
+      switch (params.type) {
+          case 'pdf':
+              // Firefox doesn't support iframe pdf printing, we will just open the pdf file instead
+              if (browser.isFirefox()) {
+                  console.log('PrintJS doesn\'t support PDF printing in Firefox.')
+                  let win = window.open(params.printable, '_blank')
+                  win.focus()
+                  // Make sure there is no loading modal opened
+                  if (params.showModal) printJS.disablePrintModal()
+              } else {
+                  printJS.pdf()
+              }
+              break
+          case 'image':
+              printJS.image()
+              break
+          case 'html':
+              printJS.html()
+              break
+          case 'json':
+              printJS.json()
+              break
+          default:
+              throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
+      }
   }
 }
+
 

@@ -13,33 +13,52 @@
 	});
 
 	$(function() {
-
-		var	$window = $(window),
-			$body = $('body');
+		var	$window = $(window), $body = $('body');
 
 		// Disable animations/transitions until the page has loaded.
-			$body.addClass('is-loading');
+		$body.addClass('is-loading');
 
-			$window.on('load', function() {
-				$body.removeClass('is-loading');
-			});
+		$window.on('load', function() {
+			$body.removeClass('is-loading');
+
+		});
 
 		// Fix: Placeholder polyfill.
-			$('form').placeholder();
+		$('form').placeholder();
 
 		// CSS polyfills (IE<9).
-			if (skel.vars.IEVersion < 9)
-				$(':last-child').addClass('last-child');
+		if (skel.vars.IEVersion < 9) $(':last-child').addClass('last-child');
 
 		// Scrolly links.
-			$('.scrolly').scrolly();
+		$('.scrolly').scrolly();
 
 		// Prioritize "important" elements on narrow.
-			skel.on('+narrow -narrow', function() {
-				$.prioritize(
-					'.important\\28 narrow\\29',
-					skel.breakpoint('narrow').active
-				);
-			});
-	});
+		skel.on('+narrow -narrow', function() {
+			$.prioritize(
+				'.important\\28 narrow\\29',
+				skel.breakpoint('narrow').active
+			);
+		});
+
+        someJSONdata = [
+            {
+                name: 'John Doe',
+                email: 'john@doe.com',
+                phone: '111-111-1111'
+            },
+            {
+                name: 'Barry Allen',
+                email: 'barry@flash.com',
+                phone: '222-222-2222'
+            },
+            {
+                name: 'Cool Dude',
+                email: 'cool@dude.com',
+                phone: '333-333-3333'
+            }
+        ];
+
+        properties = ['name', 'email', 'phone'];
+
+    });
 })(jQuery);

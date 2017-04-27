@@ -1,24 +1,15 @@
 'use strict'
 
-import browser from './browser'
-import { extend } from './functions'
-import PrintJS from './class'
-import pdf from './pdf'
-import html from './html'
-import image from './image'
-import json from './json'
-import print from './print'
-import modal from './modal'
-pdf(PrintJS)
-image(PrintJS)
-html(PrintJS)
-json(PrintJS)
-print(PrintJS)
-modal(PrintJS)
+import Browser from './browser'
+import Modal from './modal'
+import Pdf from './pdf'
+import Html from './html'
+import Image from './image'
+import Json from './json'
 
 let printTypes = ['pdf', 'html', 'image', 'json']
 
-let defaultParams = {
+let params = {
   printable: null,
   type: 'pdf',
   header: null,
@@ -37,32 +28,30 @@ let defaultParams = {
 
 export default {
   init () {
-      // Check if a printable document or object was supplied
+    // Check if a printable document or object was supplied
     let args = arguments[0]
     if (args === undefined) {
       throw new Error('printJS expects at least 1 attribute.')
     }
 
-    let params = extend({}, defaultParams)
-
     switch (typeof args) {
       case 'string':
         params.printable = encodeURI(args)
-        params.type = arguments[1] || defaultParams.type
+        params.type = arguments[1] || params.type
         break
 
       case 'object':
         params.printable = args.printable
-        params.type = args.type || defaultParams.type
-        params.frameId = args.frameId || defaultParams.frameId
-        params.header = args.header || defaultParams.header
-        params.maxWidth = args.maxWidth || defaultParams.maxWidth
-        params.font = args.font || defaultParams.font
-        params.font_size = args.font_size || defaultParams.font_size
-        params.honorMarginPadding = (typeof args.honorMarginPadding !== 'undefined') ? args.honorMarginPadding : defaultParams.honorMarginPadding
-        params.properties = args.properties || defaultParams.properties
-        params.showModal = (typeof args.showModal !== 'undefined') ? args.showModal : defaultParams.showModal
-        params.modalMessage = args.modalMessage || defaultParams.modalMessage
+        params.type = args.type || params.type
+        params.frameId = args.frameId || params.frameId
+        params.header = (typeof args.header !== 'undefined') ? args.header : params.header
+        params.maxWidth = args.maxWidth || params.maxWidth
+        params.font = args.font || params.font
+        params.font_size = args.font_size || params.font_size
+        params.honorMarginPadding = (typeof args.honorMarginPadding !== 'undefined') ? args.honorMarginPadding : params.honorMarginPadding
+        params.properties = args.properties || params.properties
+        params.showModal = (typeof args.showModal !== 'undefined') ? args.showModal : params.showModal
+        params.modalMessage = (typeof args.modalMessage !== 'undefined') ? args.modalMessage : params.modalMessage
         break
 
       default:
@@ -77,31 +66,64 @@ export default {
       throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
     }
 
-      // Instantiate print object
-    let printJS = new PrintJS(params)
+    // Check if we are showing a feedback message to the user (useful for large files)
+    if (params.showModal) {
+      Modal.show(params)
+    }
 
-      // Check printable type
+    // To prevent duplication and issues, remove printFrame from the DOM, if it exists
+    let usedFrame = document.getElementById(params.frameId)
+
+    if (usedFrame) {
+      usedFrame.parentNode.removeChild(usedFrame)
+    }
+
+    // Create a new iframe or embed element (IE prints blank pdf's if we use iframe)
+    let printFrame
+
+    if (Browser.isIE() && params.type === 'pdf') {
+      // Create embed element
+      printFrame = document.createElement('embed')
+      printFrame.setAttribute('type', 'application/pdf')
+
+      // Hide embed
+      printFrame.setAttribute('style', 'width:0px;height:0px;')
+    } else {
+      // Create iframe element
+      printFrame = document.createElement('iframe')
+
+      // Hide iframe
+      printFrame.setAttribute('style', 'display:none;')
+    }
+
+    // Set element id
+    printFrame.setAttribute('id', params.frameId)
+
+    // For non pdf printing, pass an empty html document to srcdoc (force onload callback)
+    if (params.type !== 'pdf') printFrame.srcdoc = '<html><head></head><body></body></html>'
+
+    // Check printable type
     switch (params.type) {
       case 'pdf':
-              // Firefox doesn't support iframe pdf printing, we will just open the pdf file instead
-        if (browser.isFirefox()) {
+        // Firefox doesn't support iframe pdf printing, we will just open the pdf file instead
+        if (Browser.isFirefox()) {
           console.log('PrintJS doesn\'t support PDF printing in Firefox.')
           let win = window.open(params.printable, '_blank')
           win.focus()
-                  // Make sure there is no loading modal opened
-          if (params.showModal) printJS.disablePrintModal()
+          // Make sure there is no loading modal opened
+          if (params.showModal) Modal.close()
         } else {
-          printJS.pdf()
+          Pdf.print(params, printFrame)
         }
         break
       case 'image':
-        printJS.image()
+        Image.print(params, printFrame)
         break
       case 'html':
-        printJS.html()
+        Html.print(params, printFrame)
         break
       case 'json':
-        printJS.json()
+        Json.print(params, printFrame)
         break
       default:
         throw new Error('Invalid print type. Available types are: pdf, html, image and json.')

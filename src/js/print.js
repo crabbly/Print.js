@@ -1,74 +1,79 @@
-import browser from './browser'
+import Browser from './browser'
+import Modal from './modal'
 
-export default function (PrintJS) {
-  PrintJS.prototype.print = function () {
-    let self = this
+const Print = {
+  send: (params, printFrame) => {
+    // Append iframe element to document body
+    document.getElementsByTagName('body')[0].appendChild(printFrame)
 
-        // append iframe element to document body
-    document.getElementsByTagName('body')[0].appendChild(this.printFrame)
+    // Get iframe element
+    let iframeElement = document.getElementById(params.frameId)
 
-        // get iframe element
-    let printJS = document.getElementById(this.params.frameId)
-
-        // if printing pdf in IE
-    if (browser.isIE() && this.params.type === 'pdf') {
-      finishPrintPdfIe()
+    // If printing pdf in IE
+    if (Browser.isIE() && params.type === 'pdf') {
+      finishPrintPdfIe(iframeElement)
     } else {
-            // wait for iframe to load all content
-      this.printFrame.onload = function () {
-        if (self.params.type === 'pdf') {
-          finishPrint()
+      // Wait for iframe to load all content
+      printFrame.onload = () => {
+        if (params.type === 'pdf') {
+          finishPrint(iframeElement, params)
         } else {
-                    // get iframe element document
-          let printDocument = (printJS.contentWindow || printJS.contentDocument)
+          // Get iframe element document
+          let printDocument = (iframeElement.contentWindow || iframeElement.contentDocument)
           if (printDocument.document) printDocument = printDocument.document
 
-                    // inject printable html into iframe body
-          printDocument.body.innerHTML = self.params.htmlData
+          // Inject printable html into iframe body
+          printDocument.body.innerHTML = params.htmlData
 
-                    // wait for image to load inside iframe (chrome only)
-          if (self.params.type === 'image' && browser.isChrome()) {
-            printDocument.getElementById('printableImage').onload = function () {
-              finishPrint()
+          // If printing image, wait for it to load inside theiframe
+          if (params.type === 'image') {
+            printDocument.getElementById('printableImage').onload = () => {
+              finishPrint(iframeElement, params)
             }
           } else {
-            finishPrint()
+            finishPrint(iframeElement, params)
           }
         }
       }
     }
-
-    function finishPrint () {
-            // print iframe document
-      printJS.focus()
-
-            // if IE or Edge, try catch with execCommand
-      if (browser.isIE() || browser.isEdge()) {
-        try {
-          printJS.contentWindow.document.execCommand('print', false, null)
-        } catch (e) {
-          printJS.contentWindow.print()
-        }
-      } else {
-        printJS.contentWindow.print()
-      }
-
-            // if showing feedback to user, close modal (printing / processing message)
-      if (self.params.showModal) {
-        self.disablePrintModal()
-      }
-    }
-
-    function finishPrintPdfIe () {
-            // wait until pdf is ready to print
-      if (typeof printJS.print === 'undefined') {
-        setTimeout(function () { finishPrintPdfIe() }, 1000)
-      } else {
-        printJS.print()
-
-                // remove embed (just because it isn't 100% hidden when using h/w = 0)
-        setTimeout(function () { printJS.parentNode.removeChild(printJS) }, 2000)
-      }
-    }
   }
 }
+
+function finishPrint (iframeElement, params) {
+  // Print iframe document
+  iframeElement.focus()
+
+  // If IE or Edge, try catch with execCommand
+  if (Browser.isIE() || Browser.isEdge()) {
+    try {
+      iframeElement.contentWindow.document.execCommand('print', false, null)
+    } catch (e) {
+      iframeElement.contentWindow.print()
+    }
+  } else {
+    iframeElement.contentWindow.print()
+  }
+
+  // If we are showing a feedback message to user, remove it
+  if (params.showModal) {
+    Modal.close()
+  }
+}
+
+function finishPrintPdfIe (iframeElement) {
+  // Wait until pdf is ready to print
+  if (typeof iframeElement.print === 'undefined') {
+    setTimeout(() => {
+      finishPrintPdfIe()
+    }, 1000)
+  } else {
+    Print.send()
+
+    // Remove embed (just because it isn't 100% hidden when using h/w = 0)
+    setTimeout(() => {
+      iframeElement.parentNode.removeChild(iframeElement)
+    }, 2000)
+  }
+}
+
+export default Print

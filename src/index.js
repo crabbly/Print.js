@@ -1,9 +1,9 @@
 import print from './js/init'
 
-const printJS = print.init
+const printjs = print.init
 
 if (typeof window !== 'undefined') {
-  window.printJS = printJS
+  window.printjs = printjs
 }
 
-export default printJS
+export default printjs

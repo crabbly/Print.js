@@ -1,38 +1,38 @@
-import browser from './browser'
+import Browser from './browser'
+import Print from './print'
 
-export default function (PrintJS) {
-  PrintJS.prototype.pdf = function () {
-        // if showing feedback to user, pre load pdf files (hacky)
-        // since we will be using promises, we can't use this feature in IE
-    if (this.params.showModal && !browser.isIE()) {
+export default {
+  print: (params, printFrame) => {
+    // If showing feedback to user, pre load pdf files (hacky)
+    // Since we will be using promises, we can't use this feature in IE
+    if (params.showModal && !Browser.isIE()) {
       let pdfObject = document.createElement('img')
-      pdfObject.src = this.params.printable
+      pdfObject.src = params.printable
 
-      let pdf = new Promise(function (resolve, reject) {
+      let pdf = new Promise((resolve, reject) => {
         let loadPDF = setInterval(checkPDFload, 100)
 
         function checkPDFload () {
           if (pdfObject.complete) {
             window.clearInterval(loadPDF)
-            resolve('PrintJS: PDF loaded. Read to this.')
+            resolve('PrintJS: PDF loaded.')
           }
         }
       })
 
-      let self = this
-      pdf.then(function (result) {
-                // set iframe src with pdf document url
-        self.printFrame.setAttribute('src', self.params.printable)
-
-                // print pdf document
-        self.print()
+      pdf.then(result => {
+        send(params, printFrame)
       })
     } else {
-            // set iframe src with pdf document url
-      this.printFrame.setAttribute('src', this.params.printable)
-
-            // print pdf
-      this.print()
+      send(params, printFrame)
     }
   }
+}
+
+function send (params, printFrame) {
+  // Set iframe src with pdf document url
+  printFrame.setAttribute('src', params.printable)
+
+  // Print pdf document
+  Print.send(params, printFrame)
 }

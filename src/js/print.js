@@ -25,11 +25,9 @@ const Print = {
           // Inject printable html into iframe body
           printDocument.body.innerHTML = params.htmlData
 
-          // If printing image, wait for it to load inside theiframe
+          // If printing image, wait for it to load inside the iframe (skip firefox)
           if (params.type === 'image') {
-            printDocument.getElementById('printableImage').onload = () => {
-              finishPrint(iframeElement, params)
-            }
+            loadImageAndFinishPrint(printDocument.getElementById('printableImage'), iframeElement, params)
           } else {
             finishPrint(iframeElement, params)
           }
@@ -73,6 +71,16 @@ function finishPrintPdfIe (iframeElement) {
     setTimeout(() => {
       iframeElement.parentNode.removeChild(iframeElement)
     }, 2000)
+  }
+}
+
+function loadImageAndFinishPrint (img, iframeElement, params) {
+  if (typeof img.naturalWidth === 'undefined' || img.naturalWidth === 0) {
+    setTimeout(() => {
+      loadImageAndFinishPrint(img, iframeElement, params)
+    }, 500)
+  } else {
+    finishPrint(iframeElement, params)
   }
 }
 

@@ -17,7 +17,8 @@ const Browser = {
   },
   // At least Safari 3+: "[object HTMLElementConstructor]"
   isSafari: () => {
-    return Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0
+    return Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 ||
+        navigator.userAgent.toLowerCase().indexOf('safari') !== -1
   }
 }
 

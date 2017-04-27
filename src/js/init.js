@@ -9,25 +9,25 @@ import Json from './json'
 
 let printTypes = ['pdf', 'html', 'image', 'json']
 
-let params = {
-  printable: null,
-  type: 'pdf',
-  header: null,
-  maxWidth: 800,
-  font: 'TimesNewRoman',
-  font_size: '12pt',
-  honorMarginPadding: true,
-  honorColor: false,
-  properties: null,
-  showModal: false,
-  modalMessage: 'Retrieving Document...',
-  frameId: 'printJS',
-  border: true,
-  htmlData: ''
-}
-
 export default {
   init () {
+    let params = {
+      printable: null,
+      type: 'pdf',
+      header: null,
+      maxWidth: 800,
+      font: 'TimesNewRoman',
+      font_size: '12pt',
+      honorMarginPadding: true,
+      honorColor: false,
+      properties: null,
+      showModal: false,
+      modalMessage: 'Retrieving Document...',
+      frameId: 'printJS',
+      border: true,
+      htmlData: ''
+    }
+
     // Check if a printable document or object was supplied
     let args = arguments[0]
     if (args === undefined) {
@@ -42,18 +42,17 @@ export default {
 
       case 'object':
         params.printable = args.printable
-        params.type = args.type || params.type
-        params.frameId = args.frameId || params.frameId
-        params.header = (typeof args.header !== 'undefined') ? args.header : params.header
-        params.maxWidth = args.maxWidth || params.maxWidth
-        params.font = args.font || params.font
-        params.font_size = args.font_size || params.font_size
-        params.honorMarginPadding = (typeof args.honorMarginPadding !== 'undefined') ? args.honorMarginPadding : params.honorMarginPadding
-        params.properties = args.properties || params.properties
-        params.showModal = (typeof args.showModal !== 'undefined') ? args.showModal : params.showModal
-        params.modalMessage = (typeof args.modalMessage !== 'undefined') ? args.modalMessage : params.modalMessage
+        params.type = typeof args.type !== 'undefined' ? args.type : params.type
+        params.frameId = typeof args.frameId !== 'undefined' ? args.frameId : params.frameId
+        params.header = typeof args.header !== 'undefined' ? args.header : params.header
+        params.maxWidth = typeof args.maxWidth !== 'undefined' ? args.maxWidth : params.maxWidth
+        params.font = typeof args.font !== 'undefined' ? args.font : params.font
+        params.font_size = typeof args.font_size !== 'undefined' ? args.font_size : params.font_size
+        params.honorMarginPadding = typeof args.honorMarginPadding !== 'undefined' ? args.honorMarginPadding : params.honorMarginPadding
+        params.properties = typeof args.properties !== 'undefined' ? args.properties : params.properties
+        params.showModal = typeof args.showModal !== 'undefined' ? args.showModal : params.showModal
+        params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
         break
-
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)
     }
@@ -99,15 +98,17 @@ export default {
     // Set element id
     printFrame.setAttribute('id', params.frameId)
 
-    // For non pdf printing, pass an empty html document to srcdoc (force onload callback)
-    if (params.type !== 'pdf') printFrame.srcdoc = '<html><head></head><body></body></html>'
+    // For non pdf printing in Chrome and Safari, pass an empty html document to srcdoc (force onload callback)
+    if (params.type !== 'pdf' && (Browser.isChrome() || Browser.isSafari())) {
+      printFrame.srcdoc = '<html><head></head><body></body></html>'
+    }
 
     // Check printable type
     switch (params.type) {
       case 'pdf':
-        // Firefox doesn't support iframe pdf printing, we will just open the pdf file instead
-        if (Browser.isFirefox()) {
-          console.log('PrintJS doesn\'t support PDF printing in Firefox.')
+        // Check browser support for pdf and if not supported we will just open the pdf file instead
+        if (Browser.isFirefox() || Browser.isIE() || Browser.isEdge()) {
+          console.log('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
           let win = window.open(params.printable, '_blank')
           win.focus()
           // Make sure there is no loading modal opened

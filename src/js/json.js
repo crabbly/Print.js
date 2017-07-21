@@ -39,7 +39,7 @@ function jsonToHTML (params) {
   let htmlData = '<div style="display:flex; flex-direction: column;">'
 
   // Header
-  htmlData += '<div style="flex:1; display:flex;">'
+  htmlData += '<div style="flex:1 1 auto; display:flex;">'
 
   for (let a = 0; a < properties.length; a++) {
     htmlData += '<div style="flex:1; padding:5px;">' + capitalizePrint(properties[a]['displayName'] || properties[a]) + '</div>'
@@ -49,7 +49,7 @@ function jsonToHTML (params) {
 
   // Create html data
   for (let i = 0; i < data.length; i++) {
-    htmlData += '<div style="flex:1; display:flex;'
+    htmlData += '<div style="flex:1 1 auto; display:flex;'
     htmlData += params.border ? 'border:1px solid lightgray;' : ''
     htmlData += '">'
 

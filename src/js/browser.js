@@ -5,7 +5,7 @@ const Browser = {
   },
   // Internet Explorer 6-11
   isIE: () => {
-    return !!document.documentMode
+    return navigator.userAgent.indexOf('MSIE') !== -1 || !!document.documentMode
   },
   // Edge 20+
   isEdge: () => {
@@ -23,3 +23,4 @@ const Browser = {
 }
 
 export default Browser
+

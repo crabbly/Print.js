@@ -1,6 +1,6 @@
 # Print.js
 
-[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![npm](https://img.shields.io/npm/dt/print.js.svg)]()
 
 A tiny javascript library to help printing from the web.
 
@@ -14,7 +14,7 @@ You can download the latest version of [Print.js on GitHub](https://github.com/c
 To install via npm:
 
 ```bash
-npm install print.js --save
+npm install print-js --save
 ```
 
 ## Documentation

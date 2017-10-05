@@ -80,20 +80,11 @@ export default {
     // Create a new iframe or embed element (IE prints blank pdf's if we use iframe)
     let printFrame
 
-    if (Browser.isIE() && params.type === 'pdf') {
-      // Create embed element
-      printFrame = document.createElement('embed')
-      printFrame.setAttribute('type', 'application/pdf')
+    // Create iframe element
+    printFrame = document.createElement('iframe')
 
-      // Hide embed
-      printFrame.setAttribute('style', 'width:0px;height:0px;')
-    } else {
-      // Create iframe element
-      printFrame = document.createElement('iframe')
-
-      // Hide iframe
-      printFrame.setAttribute('style', 'display:none;')
-    }
+    // Hide iframe
+    printFrame.setAttribute('style', 'display:none;')
 
     // Set element id
     printFrame.setAttribute('id', params.frameId)
@@ -107,7 +98,7 @@ export default {
     switch (params.type) {
       case 'pdf':
         // Check browser support for pdf and if not supported we will just open the pdf file instead
-        if (Browser.isFirefox() || Browser.isIE() || Browser.isEdge()) {
+        if (Browser.isFirefox() || Browser.isEdge() || Browser.isIE()) {
           console.log('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
           let win = window.open(params.printable, '_blank')
           win.focus()

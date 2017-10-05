@@ -9,11 +9,10 @@ const Print = {
     // Get iframe element
     let iframeElement = document.getElementById(params.frameId)
 
-    // If printing pdf in IE
-    if (Browser.isIE() && params.type === 'pdf') {
-      finishPrintPdfIe(iframeElement)
+    // Wait for iframe to load all content
+    if (params.type === 'pdf' && (Browser.isIE() || Browser.isEdge())) {
+      iframeElement.setAttribute('onload', finishPrint(iframeElement, params))
     } else {
-      // Wait for iframe to load all content
       printFrame.onload = () => {
         if (params.type === 'pdf') {
           finishPrint(iframeElement, params)
@@ -38,39 +37,32 @@ const Print = {
 }
 
 function finishPrint (iframeElement, params) {
-  // Print iframe document
   iframeElement.focus()
 
-  // If IE or Edge, try catch with execCommand
-  if (Browser.isIE() || Browser.isEdge()) {
+  // If Edge or IE, try catch with execCommand
+  if (Browser.isEdge() || (Browser.isIE())) {
     try {
       iframeElement.contentWindow.document.execCommand('print', false, null)
     } catch (e) {
       iframeElement.contentWindow.print()
     }
-  } else {
+  }
+
+  // Other browsers
+  if (!Browser.isIE() && !Browser.isEdge()) {
     iframeElement.contentWindow.print()
+  }
+
+  // Remove embed on IE (just because it isn't 100% hidden when using h/w = 0)
+  if (Browser.isIE() && params.type === 'pdf') {
+    setTimeout(() => {
+      iframeElement.parentNode.removeChild(iframeElement)
+    }, 2000)
   }
 
   // If we are showing a feedback message to user, remove it
   if (params.showModal) {
     Modal.close()
-  }
-}
-
-function finishPrintPdfIe (iframeElement) {
-  // Wait until pdf is ready to print
-  if (typeof iframeElement.print === 'undefined') {
-    setTimeout(() => {
-      finishPrintPdfIe()
-    }, 1000)
-  } else {
-    Print.send()
-
-    // Remove embed (just because it isn't 100% hidden when using h/w = 0)
-    setTimeout(() => {
-      iframeElement.parentNode.removeChild(iframeElement)
-    }, 2000)
   }
 }
 

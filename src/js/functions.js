@@ -15,11 +15,11 @@ export function collectStyles (element, params) {
   // String variable to hold styling for each element
   let elementStyle = ''
 
-  if (win.getComputedStyle) { // modern browsers
+  if (win.getComputedStyle) { // Modern browsers
     style = win.getComputedStyle(element, '')
 
     // Styles including
-    let targetStyles = ['border', 'float', 'box', 'break', 'text-decoration']
+    let targetStyles = ['border', 'box', 'break', 'text-decoration']
 
     // Exact match
     let targetStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
@@ -35,8 +35,8 @@ export function collectStyles (element, params) {
     }
 
     for (let i = 0; i < style.length; i++) {
-      for (let s = 0; s < targetStyle.length; s++) {
-        if (style[i].indexOf(targetStyles[s]) !== -1 || style[i].indexOf(targetStyle[s]) === 0) {
+      for (let s = 0; s < targetStyles.length; s++) {
+        if (style[i].indexOf(targetStyles[s]) !== -1 || targetStyle.indexOf(style[i]) !== -1) {
           elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';'
         }
       }

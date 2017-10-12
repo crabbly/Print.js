@@ -101,7 +101,7 @@ export function loopNodesCollectStyles (elements, params) {
   }
 }
 
-export function addHeader (printElement, header) {
+export function addHeader (printElement, header, headerStyle) {
   // Create header element
   let headerElement = document.createElement('h1')
 
@@ -110,7 +110,7 @@ export function addHeader (printElement, header) {
 
   // Build and style
   headerElement.appendChild(headerNode)
-  headerElement.setAttribute('style', 'font-weight:300;')
+  headerElement.setAttribute('style', headerStyle)
 
   printElement.insertBefore(headerElement, printElement.childNodes[0])
 }

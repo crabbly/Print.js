@@ -18,7 +18,7 @@ export default {
 
     // Check print has header
     if (params.header) {
-      htmlData += '<h1 style="font-weight:300;">' + params.header + '</h1>'
+      htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
     }
 
     // Function to build html templates for json data

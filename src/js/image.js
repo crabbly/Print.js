@@ -21,7 +21,7 @@ export default {
 
       // Check if we are adding a header for the image
       if (params.header) {
-        addHeader(printableElement)
+        addHeader(printableElement, params.header, params.headerStyle)
       }
 
       // Store html data

@@ -36,7 +36,7 @@ export default {
 
     // Add header if any
     if (params.header) {
-      addHeader(printableElement, params.header)
+      addHeader(printableElement, params.header, params.headerStyle)
     }
 
     // Remove DOM printableElement

@@ -41,7 +41,7 @@
 					<p>A tiny javascript library to help printing from the web.</p>
 				</header>
 				<footer>
-					<a href="#download" download="print.js" class="button scrolly">Download v1.0.21</a>
+					<a href="#download" download="print.js" class="button scrolly">Download v1.0.22</a>
 				</footer>
 			</section>
 
@@ -347,7 +347,7 @@
 </code></pre>
 						<p>Result:</p>
 
-						<button type="button" onclick="printJS({printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json'})">
+						<button type="button" onclick="printJS({ printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json' })">
 							Print JSON Data
 						</button>
 					</section>
@@ -365,7 +365,7 @@
 						</header>
 						<p>Download the latest release here, or fork the repository on <a href="https://github.com/crabbly/Print.js">Github</a>.</p>
 						<p style="margin-bottom:30px;">
-							<a href="https://github.com/crabbly/Print.js/archive/v1.0.21.zip" class="button">Download v1.0.21</a>
+							<a href="https://github.com/crabbly/Print.js/archive/v1.0.22.zip" class="button">Download v1.0.22</a>
 						</p>
 
 						<p>To install using npm:</p>
@@ -478,6 +478,16 @@
 								<div class="g1">properties</div>
 								<div class="g1">null</div>
 								<div class="g2">Used when printing JSON. These are the object property names.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">gridHeaderStyle</div>
+								<div class="g1">'font-weight: bold;'</div>
+								<div class="g2">Optional style for the grid header when printing JSON data.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">gridStyle</div>
+								<div class="g1">'border: 1px solid lightgray; margin-bottom: -1px;'</div>
+								<div class="g2">Optional style for the grid rows when printing JSON data.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">showModal</div>

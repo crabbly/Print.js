@@ -22,10 +22,11 @@ export default {
       honorMarginPadding: true,
       honorColor: false,
       properties: null,
+      gridHeaderStyle: 'font-weight: bold;',
+      gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
       showModal: false,
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
-      border: true,
       htmlData: ''
     }
 
@@ -52,6 +53,8 @@ export default {
         params.font_size = typeof args.font_size !== 'undefined' ? args.font_size : params.font_size
         params.honorMarginPadding = typeof args.honorMarginPadding !== 'undefined' ? args.honorMarginPadding : params.honorMarginPadding
         params.properties = typeof args.properties !== 'undefined' ? args.properties : params.properties
+        params.gridHeaderStyle = typeof args.gridHeaderStyle !== 'undefined' ? args.gridHeaderStyle : params.gridHeaderStyle
+        params.gridStyle = typeof args.gridStyle !== 'undefined' ? args.gridStyle : params.gridStyle
         params.showModal = typeof args.showModal !== 'undefined' ? args.showModal : params.showModal
         params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
         break

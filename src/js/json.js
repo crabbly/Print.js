@@ -49,10 +49,10 @@ function jsonToHTML (params) {
 
   // Create html data
   for (let i = 0; i < data.length; i++) {
-    htmlData += '<div style="flex:1 1 auto; display:flex;' + params.gridStyle + '">'
+    htmlData += '<div style="flex:1 1 auto; display:flex;">'
 
     for (let n = 0; n < properties.length; n++) {
-      htmlData += '<div style="flex:1; padding:5px;">' + data[i][properties[n]['field'] || properties[n]] + '</div>'
+      htmlData += '<div style="flex:1; padding:5px;' + params.gridStyle + '">' + data[i][properties[n]['field'] || properties[n]] + '</div>'
     }
 
     htmlData += '</div>'

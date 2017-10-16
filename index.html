@@ -300,7 +300,7 @@
 						<header>
 							<h2>JSON Printing</h2>
 						</header>
-						<p>We are adding HTML templates for printing dynamic data from javascript objects. Contributions are welcome. Please fork the <a href="https://github.com/crabbly/Print.js" target="_blank">github repository</a>.</p>
+						<p>A simple and quick way to print dynamic data or array of javascript objects.</p>
 					</section>
 				</div>
 			</div>
@@ -349,6 +349,28 @@
 
 						<button type="button" onclick="printJS({ printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json' })">
 							Print JSON Data
+						</button>
+
+						<hr/>
+
+						<p>We can style the data grid by passing some custom css:</p>
+
+<pre><code data-language="html">
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS({
+	    printable: someJSONdata,
+	    properties: ['name', 'email', 'phone'],
+	    type: 'json',
+	    gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;',
+	    gridStyle: 'border: 2px solid #3971A5;'
+	})&quot;&gt;
+    Print JSON Data
+ &lt;/button&gt;
+
+</code></pre>
+						<p>Result:</p>
+
+						<button type="button" onclick="printJS({ printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json', gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;', gridStyle: 'border: 2px solid #3971A5;' })">
+							Print Styled JSON Data
 						</button>
 					</section>
 				</div>

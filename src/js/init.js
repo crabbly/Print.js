@@ -27,7 +27,8 @@ export default {
       showModal: false,
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
-      htmlData: ''
+      htmlData: '',
+      documentTitle: 'Document'
     }
 
     // Check if a printable document or object was supplied
@@ -57,6 +58,7 @@ export default {
         params.gridStyle = typeof args.gridStyle !== 'undefined' ? args.gridStyle : params.gridStyle
         params.showModal = typeof args.showModal !== 'undefined' ? args.showModal : params.showModal
         params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
+        params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)
@@ -94,9 +96,9 @@ export default {
     // Set element id
     printFrame.setAttribute('id', params.frameId)
 
-    // For non pdf printing in Chrome and Safari, pass an empty html document to srcdoc (force onload callback)
-    if (params.type !== 'pdf' && (Browser.isChrome() || Browser.isSafari())) {
-      printFrame.srcdoc = '<html><head></head><body></body></html>'
+    // For non pdf printing, pass an empty html document to srcdoc (force onload callback)
+    if (params.type !== 'pdf') {
+      printFrame.srcdoc = '<html><head><title>' + params.documentTitle + '</title></head><body></body></html>'
     }
 
     // Check printable type

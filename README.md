@@ -53,7 +53,6 @@ Clear, concise pull requests are excellent at continuing the project's community
  - Please create an issue first:
    - For bugs, we can discuss the fixing approach
    - For enhancements, we can discuss if it is within the project scope and avoid duplicate effort
- - Tabs for indentation, not spaces please
  - Please make your commits in logical sections with clear commit messages
 
 

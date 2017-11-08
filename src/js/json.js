@@ -21,7 +21,7 @@ export default {
       htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
     }
 
-    // Function to build html templates for json data
+    // Build html data
     htmlData += jsonToHTML(params)
 
     // Store html data

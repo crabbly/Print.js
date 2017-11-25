@@ -17,6 +17,12 @@ To install via npm:
 npm install print-js --save
 ```
 
+To install via yarn:
+
+```bash
+yarn add print-js
+```
+
 ## Documentation
 
 You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#documentation).
@@ -48,12 +54,9 @@ Please provide any additional details associated with the bug.
 
 ##### Pull requests
 
-Clear, concise pull requests are excellent at continuing the project's community driven growth.
+Clear, concise pull requests are excellent at continuing the project's community driven growth.  
 
- - Please create an issue first:
-   - For bugs, we can discuss the fixing approach
-   - For enhancements, we can discuss if it is within the project scope and avoid duplicate effort
- - Please make your commits in logical sections with clear commit messages
+Please make your commits in logical sections with clear commit messages.  
 
 
 ## License

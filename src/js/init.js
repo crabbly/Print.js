@@ -25,6 +25,8 @@ export default {
       gridHeaderStyle: 'font-weight: bold;',
       gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
       showModal: false,
+      onLoadingStart: function () {},
+      onLoadingEnd: function () {},
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
       htmlData: '',
@@ -57,6 +59,8 @@ export default {
         params.gridHeaderStyle = typeof args.gridHeaderStyle !== 'undefined' ? args.gridHeaderStyle : params.gridHeaderStyle
         params.gridStyle = typeof args.gridStyle !== 'undefined' ? args.gridStyle : params.gridStyle
         params.showModal = typeof args.showModal !== 'undefined' ? args.showModal : params.showModal
+        params.onLoadingStart = typeof args.onLoadingStart !== 'undefined' ? args.onLoadingStart : params.onLoadingStart
+        params.onLoadingEnd = typeof args.onLoadingEnd !== 'undefined' ? args.onLoadingEnd : params.onLoadingEnd
         params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
         params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
         break
@@ -75,6 +79,9 @@ export default {
     // Check if we are showing a feedback message to the user (useful for large files)
     if (params.showModal) {
       Modal.show(params)
+    }
+    if (params.onLoadingStart) {
+      params.onLoadingStart()
     }
 
     // To prevent duplication and issues, remove printFrame from the DOM, if it exists
@@ -111,6 +118,7 @@ export default {
           win.focus()
           // Make sure there is no loading modal opened
           if (params.showModal) Modal.close()
+          if (params.onLoadingEnd) params.onLoadingEnd()
         } else {
           Pdf.print(params, printFrame)
         }

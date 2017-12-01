@@ -60,13 +60,19 @@ Please make your commits in logical sections with clear commit messages.
 
 ##### Setting up dev environment
 
-`npm install`
-
-`npm run watch`
+```
+npm install
+npm run watch
+```
 
 If you want to do a quick test with your modified code:
-`python -m SimpleHTTPServer 9001`
-Navigate to `http://localhost:9001/test.html`
+
+```
+npm install http-server -g
+http-server .
+```
+
+Navigate to `http://localhost:8080/test.html`
 
 When you are ready to put in your PR and want to update the `dist/` with a minified production-ready version, do `npm run production`
 

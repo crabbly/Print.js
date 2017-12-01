@@ -58,6 +58,24 @@ Clear, concise pull requests are excellent at continuing the project's community
 
 Please make your commits in logical sections with clear commit messages.  
 
+##### Setting up dev environment
+
+```
+npm install
+npm run watch
+```
+
+If you want to do a quick test with your modified code:
+
+```
+npm install http-server -g
+http-server .
+```
+
+Navigate to `http://localhost:8080/test.html`
+
+When you are ready to put in your PR and want to update the `dist/` with a minified production-ready version, do `npm run production`
+
 
 ## License
 

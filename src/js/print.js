@@ -64,6 +64,9 @@ function finishPrint (iframeElement, params) {
   if (params.showModal) {
     Modal.close()
   }
+  if (params.onLoadingEnd) {
+    params.onLoadingEnd()
+  }
 }
 
 function loadImageAndFinishPrint (img, iframeElement, params) {

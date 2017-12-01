@@ -4,7 +4,7 @@ import Print from './print'
 export default {
   print: (params, printFrame) => {
     // If showing feedback to user, pre load pdf files (hacky)
-    if (params.showModal || Browser.isIE()) {
+    if (params.showModal || params.onLoadingStart || Browser.isIE()) {
       let req = new window.XMLHttpRequest()
       req.addEventListener('load', send(params, printFrame))
       req.open('GET', window.location.origin + params.printable, true)

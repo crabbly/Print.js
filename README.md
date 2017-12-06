@@ -9,7 +9,7 @@ A tiny javascript library to help printing from the web.
 
 ## Installation
 
-You can download the latest version of [Print.js on GitHub](https://github.com/crabbly/Print.js/releases/latest) or just use the [Print.js CDN](http://printjs.crabbly.com/#cdn) links available on the documentation page.
+You install via npm, yarn or use the [Print.js CDN](http://printjs.crabbly.com/#cdn) links available on the documentation page.
 
 To install via npm:
 
@@ -73,8 +73,6 @@ http-server .
 ```
 
 Navigate to `http://localhost:8080/test.html`
-
-When you are ready to put in your PR and want to update the `dist/` with a minified production-ready version, do `npm run production`
 
 
 ## License

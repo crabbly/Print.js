@@ -13,6 +13,7 @@ export default {
   init () {
     let params = {
       printable: null,
+      fallbackPrintable: null,
       type: 'pdf',
       header: null,
       headerStyle: 'font-weight: 300;',
@@ -42,11 +43,13 @@ export default {
     switch (typeof args) {
       case 'string':
         params.printable = encodeURI(args)
+        params.fallbackPrintable = params.printable
         params.type = arguments[1] || params.type
         break
 
       case 'object':
         params.printable = args.printable
+        params.fallbackPrintable = typeof args.fallbackPrintable !== 'undefined' ? args.fallbackPrintable : params.printable
         params.type = typeof args.type !== 'undefined' ? args.type : params.type
         params.frameId = typeof args.frameId !== 'undefined' ? args.frameId : params.frameId
         params.header = typeof args.header !== 'undefined' ? args.header : params.header
@@ -114,7 +117,7 @@ export default {
         // Check browser support for pdf and if not supported we will just open the pdf file instead
         if (Browser.isFirefox() || Browser.isEdge() || Browser.isIE()) {
           console.log('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
-          let win = window.open(params.printable, '_blank')
+          let win = window.open(params.fallbackPrintable, '_blank')
           win.focus()
           // Make sure there is no loading modal opened
           if (params.showModal) Modal.close()

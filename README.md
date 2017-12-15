@@ -1,6 +1,6 @@
 # Print.js
 
-[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![npm](https://img.shields.io/npm/dt/print.js.svg)]()
+[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![npm](https://img.shields.io/npm/dm/localeval.svg)](https://www.npmjs.com/package/print-js)
 
 A tiny javascript library to help printing from the web.
 

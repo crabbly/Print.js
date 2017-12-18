@@ -1,13 +1,23 @@
 <html>
   <script src='./dist/print.min.js'></script>
   <script type='text/javascript'>
-    function customPrint() {
-      printJS({ printable: "test.pdf" });
+    function printPdf() {
+      printJS('test.pdf');
+    }
+
+    function printHtml() {
+      printJS('test', 'html');
     }
   </script>
   <body>
-    <button onClick='customPrint();'>
-      Print PDF
-    </button>
+    <section id="test">
+      <h1>Print.js Test Page</h1>
+      <button onClick='printPdf();'>
+        Print PDF
+      </button>
+      <button onClick='printHtml();'>
+        Print HTML
+      </button>
+    </section>
   </body>
 </html>

@@ -13,7 +13,7 @@ export default {
       throw new Error('Invalid properties array for your JSON data.')
     }
 
-    // Variable to hold html string
+    // Variable to hold the html string
     let htmlData = ''
 
     // Check print has header
@@ -42,17 +42,30 @@ function jsonToHTML (params) {
   htmlData += '<div style="flex:1 1 auto; display:flex;">'
 
   for (let a = 0; a < properties.length; a++) {
-    htmlData += '<div style="flex:1; padding:5px;' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a]['displayName'] || properties[a]) + '</div>'
+    htmlData += '<div style="flex:1; padding:5px;' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a]) + '</div>'
   }
 
   htmlData += '</div>'
 
-  // Create html data
+  // Data
   for (let i = 0; i < data.length; i++) {
     htmlData += '<div style="flex:1 1 auto; display:flex;">'
 
+    // Print selected properties only
     for (let n = 0; n < properties.length; n++) {
-      htmlData += '<div style="flex:1; padding:5px;' + params.gridStyle + '">' + data[i][properties[n]['field'] || properties[n]] + '</div>'
+        let stringData = data[i];
+
+        // Support for nested objects
+        let property = properties[n].split('.');
+        if (property.length > 1) {
+            for (let p = 0; p < property.length; p++) {
+              stringData = stringData[property[p]];
+            }
+        } else {
+            stringData = stringData[properties[n]]
+        }
+
+      htmlData += '<div style="flex:1; padding:5px;' + params.gridStyle + '">' + stringData + '</div>'
     }
 
     htmlData += '</div>'

@@ -53,17 +53,17 @@ function jsonToHTML (params) {
 
     // Print selected properties only
     for (let n = 0; n < properties.length; n++) {
-        let stringData = data[i];
+      let stringData = data[i]
 
-        // Support for nested objects
-        let property = properties[n].split('.');
-        if (property.length > 1) {
-            for (let p = 0; p < property.length; p++) {
-              stringData = stringData[property[p]];
-            }
-        } else {
-            stringData = stringData[properties[n]]
+      // Support for nested objects
+      let property = properties[n].split('.')
+      if (property.length > 1) {
+        for (let p = 0; p < property.length; p++) {
+          stringData = stringData[property[p]]
         }
+      } else {
+        stringData = stringData[properties[n]]
+      }
 
       htmlData += '<div style="flex:1; padding:5px;' + params.gridStyle + '">' + stringData + '</div>'
     }

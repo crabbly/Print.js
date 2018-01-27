@@ -8,6 +8,25 @@
     function printHtml() {
       printJS('test', 'html');
     }
+
+    function printJson() {
+        let data = [
+            {
+                test1: 'Test1 string',
+                test2: {
+                    a: 'Test2 object, a property',
+                }
+            },
+            {
+                test1: 'more Test1 string',
+                test2: {
+                    a: 'more Test2 object, a property',
+                }
+            }
+        ]
+
+        printJS({printable: data, properties: ['test1', 'test2.a'], type: 'json'})
+    }
   </script>
   <body>
     <section id="test">
@@ -17,6 +36,9 @@
       </button>
       <button onClick='printHtml();'>
         Print HTML
+      </button>
+      <button onClick='printJson();'>
+        Print JSON
       </button>
     </section>
   </body>

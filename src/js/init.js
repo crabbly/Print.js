@@ -31,7 +31,9 @@ export default {
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
       htmlData: '',
-      documentTitle: 'Document'
+      documentTitle: 'Document',
+      targetStyle: null,
+      targetStyles: null
     }
 
     // Check if a printable document or object was supplied
@@ -66,6 +68,8 @@ export default {
         params.onLoadingEnd = typeof args.onLoadingEnd !== 'undefined' ? args.onLoadingEnd : params.onLoadingEnd
         params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
         params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
+        params.targetStyle = typeof args.targetStyle !== 'undefined' ? args.targetStyle : params.targetStyle
+        params.targetStyles = typeof args.targetStyles !== 'undefined' ? args.targetStyles : params.targetStyles
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)
@@ -140,4 +144,3 @@ export default {
     }
   }
 }
-

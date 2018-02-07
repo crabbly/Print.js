@@ -19,10 +19,10 @@ export function collectStyles (element, params) {
     style = win.getComputedStyle(element, '')
 
     // Styles including
-    let targetStyles = ['border', 'box', 'break', 'text-decoration']
+    let targetStyles = params.targetStyles || ['border', 'box', 'break', 'text-decoration']
 
     // Exact match
-    let targetStyle = ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
+    let targetStyle = params.targetStyle || ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
 
     // Optional - include margin and padding
     if (params.honorMarginPadding) {
@@ -36,7 +36,7 @@ export function collectStyles (element, params) {
 
     for (let i = 0; i < style.length; i++) {
       for (let s = 0; s < targetStyles.length; s++) {
-        if (style[i].indexOf(targetStyles[s]) !== -1 || targetStyle.indexOf(style[i]) !== -1) {
+        if (targetStyles[s] === '*' || style[i].indexOf(targetStyles[s]) !== -1 || targetStyle.indexOf(style[i]) !== -1) {
           elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';'
         }
       }

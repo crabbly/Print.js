@@ -7,7 +7,7 @@ export default {
     if (params.showModal || params.onLoadingStart || Browser.isIE()) {
       let req = new window.XMLHttpRequest()
       req.addEventListener('load', send(params, printFrame))
-      req.open('GET', window.location.origin + params.printable, true)
+      req.open('GET', window.location.origin + '/' + params.printable, true)
       req.send()
     } else {
       send(params, printFrame)

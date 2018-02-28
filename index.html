@@ -504,6 +504,16 @@
 								<div class="g2">To print text in color, set this property to true. By default all text will be printed in black.</div>
 							</div>
 							<div class="grid-row">
+								<div class="g1">targetStyle</div>
+								<div class="g1">null</div>
+								<div class="g2">By default, the library process some styles only, when printing HTML elements. This option allows you to pass an array of styles that you want to be processed. Ex.: ['padding-top', 'border-bottom']</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">targetStyles</div>
+								<div class="g1">null</div>
+								<div class="g2">Same as `targetStyle`, however, this will process any a range of styles. Ex.: ['border', 'padding'], will include 'border-bottom', 'border-top', 'border-left', 'border-right', 'padding-top', etc. <br/>You can also pass '*' to process all styles.</div>
+							</div>
+							<div class="grid-row">
 								<div class="g1">properties</div>
 								<div class="g1">null</div>
 								<div class="g2">Used when printing JSON. These are the object property names.</div>

@@ -105,7 +105,7 @@ export default {
     printFrame = document.createElement('iframe')
 
     // Hide iframe
-    printFrame.setAttribute('style', 'display:none;')
+    printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0;')
 
     // Set element id
     printFrame.setAttribute('id', params.frameId)

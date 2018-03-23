@@ -18,7 +18,7 @@ export default {
     printableElement.appendChild(printElement.cloneNode(true))
 
     // Add cloned element to DOM, to have DOM element methods available. It will also be easier to colect styles
-    printableElement.setAttribute('style', 'display:none;')
+    printableElement.setAttribute('style', 'height:0; overflow:hidden;')
     printableElement.setAttribute('id', 'printJS-html')
     printElement.parentNode.appendChild(printableElement)
 

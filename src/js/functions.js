@@ -61,6 +61,12 @@ export function loopNodesCollectStyles (elements, params) {
   for (let n = 0; n < elements.length; n++) {
     let currentElement = elements[n]
 
+    // Check if we are skiping this element
+    if (params.ignoreElements.indexOf(currentElement.getAttribute('id')) !== -1) {
+      currentElement.parentNode.removeChild(currentElement)
+      continue
+    }
+
     // Form Printing - check if is element Input
     let tag = currentElement.tagName
     if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {

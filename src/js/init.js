@@ -33,7 +33,8 @@ export default {
       htmlData: '',
       documentTitle: 'Document',
       targetStyle: null,
-      targetStyles: null
+      targetStyles: null,
+      ignoreElements: []
     }
 
     // Check if a printable document or object was supplied
@@ -70,6 +71,7 @@ export default {
         params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
         params.targetStyle = typeof args.targetStyle !== 'undefined' ? args.targetStyle : params.targetStyle
         params.targetStyles = typeof args.targetStyles !== 'undefined' ? args.targetStyles : params.targetStyles
+        params.ignoreElements = typeof args.ignoreElements !== 'undefined' ? args.ignoreElements : params.ignoreElements
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)

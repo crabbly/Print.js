@@ -24,7 +24,7 @@
 			ga('send', 'pageview');
 		</script>
 		<!-- Scripts -->
-		<script src="print.js?v1.0.34"></script>
+		<script src="print.js?v1.0.35"></script>
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.scrolly.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
@@ -41,7 +41,7 @@
 					<p>A tiny javascript library to help printing from the web.</p>
 				</header>
 				<footer>
-					<a href="#download" download="print.js" class="button scrolly">Download v1.0.34</a>
+					<a href="#download" download="print.js" class="button scrolly">Download v1.0.35</a>
 				</footer>
 			</section>
 
@@ -394,7 +394,7 @@
 						</header>
 						<p>You can download the latest version of Print.js from the GitHub releases.</p>
 						<p style="margin-bottom:30px;">
-							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.34" class="button">Download v1.0.34</a>
+							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.35" class="button">Download v1.0.35</a>
 						</p>
 
 						<p>To install using npm:</p>
@@ -512,6 +512,11 @@
 								<div class="g1">targetStyles</div>
 								<div class="g1">null</div>
 								<div class="g2">Same as `targetStyle`, however, this will process any a range of styles. Ex.: ['border', 'padding'], will include 'border-bottom', 'border-top', 'border-left', 'border-right', 'padding-top', etc. <br/>You can also pass ['*'] to process all styles.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">ignoreElements</div>
+								<div class="g1">[]</div>
+								<div class="g2">Accepts an array of html ids that should be ignored when printing a parent html element.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">properties</div>

@@ -38,18 +38,18 @@ function loadImagesAndAppendToPrintableElement (printableElement, params) {
     img.src = image
 
     // Load image
-    promises.push(loadImageAndAppendToPrintableElement(printableElement, img, index))
+    promises.push(loadImageAndAppendToPrintableElement(printableElement, params, img, index))
   })
 
   return Promise.all(promises)
 }
 
-function loadImageAndAppendToPrintableElement (printableElement, img, index) {
+function loadImageAndAppendToPrintableElement (printableElement, params, img, index) {
   return new Promise(resolve => {
     img.onload = () => {
       // Create image wrapper
       let imageWrapper = document.createElement('div')
-      imageWrapper.setAttribute('style', 'width:100%')
+      imageWrapper.setAttribute('style', params.imageStyle)
 
       img.setAttribute('style', 'width:100%;')
       img.setAttribute('id', 'printableImage' + index)

@@ -26,7 +26,9 @@ const Print = {
 
           // If printing image, wait for it to load inside the iframe (skip firefox)
           if (params.type === 'image') {
-            loadImageAndFinishPrint(printDocument.getElementById('printableImage'), iframeElement, params)
+            loadIframeImages(printDocument, params).then(() => {
+              finishPrint(iframeElement, params)
+            })
           } else {
             finishPrint(iframeElement, params)
           }
@@ -69,14 +71,28 @@ function finishPrint (iframeElement, params) {
   }
 }
 
-function loadImageAndFinishPrint (img, iframeElement, params) {
-  if (typeof img.naturalWidth === 'undefined' || img.naturalWidth === 0) {
-    setTimeout(() => {
-      loadImageAndFinishPrint(img, iframeElement, params)
-    }, 500)
-  } else {
-    finishPrint(iframeElement, params)
-  }
+function loadIframeImages (printDocument, params) {
+  let promises = []
+
+  params.printable.forEach((image, index) => {
+    promises.push(loadIframeImage(printDocument, index))
+  })
+
+  return Promise.all(promises)
+}
+
+function loadIframeImage (printDocument, index) {
+  return new Promise(resolve => {
+    let image = printDocument ? printDocument.getElementById('printableImage' + index) : null
+
+    if (!image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0) {
+      setTimeout(() => {
+        loadIframeImage(printDocument, index)
+      }, 500)
+    } else {
+      resolve()
+    }
+  })
 }
 
 export default Print

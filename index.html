@@ -24,7 +24,7 @@
 			ga('send', 'pageview');
 		</script>
 		<!-- Scripts -->
-		<script src="print.js?v1.0.35"></script>
+		<script src="print.js?v1.0.37"></script>
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.scrolly.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
@@ -41,7 +41,7 @@
 					<p>A tiny javascript library to help printing from the web.</p>
 				</header>
 				<footer>
-					<a href="#download" download="print.js" class="button scrolly">Download v1.0.35</a>
+					<a href="#download" download="print.js" class="button scrolly">Download v1.0.37</a>
 				</footer>
 			</section>
 
@@ -224,7 +224,7 @@
                         <p>In your javascript, pass the highest resolution image url to Print.js for a better print quality:</p>
 
 <pre><code data-language="generic">
- printJS('images/print-01-highres.jpg', 'image');
+ printJS('images/print-01-highres.jpg', 'image')
 
 </code></pre>
 
@@ -276,14 +276,14 @@
                     </section>
 
 					<section>
-						<blockquote>Print.js uses promises to make sure the images are loaded before trying to print. This is useful when printing high resolution images that were are not yet loaded, like the example above.</blockquote>
+						<blockquote>Print.js uses promises to make sure the images are loaded before trying to print. This is useful when printing high resolution images that are not yet loaded, like the example above.</blockquote>
 					</section>
 
 					<section>
 						<p>You can also add a header to the image being printed:</p>
 
 <pre><code data-language="generic">
- printJS({printable: 'images/print-01-highres.jpg', type: 'image', header: 'My cool image header'});
+ printJS({printable: 'images/print-01-highres.jpg', type: 'image', header: 'My cool image header'})
 
 </code></pre>
 
@@ -293,6 +293,27 @@
 							Print Image With Header
 						</button>
 					</div>
+					</section>
+
+					<section>
+						<p>To print multiple images together, we can pass an array of images. We can also pass the style to be applied on each image:</p>
+
+<pre><code data-language="generic">
+ printJS({
+  printable: ['images/print-01-highres.jpg', 'images/print-02-highres.jpg', 'images/print-03-highres.jpg'],
+  type: 'image',
+  header: 'Multiple Images',
+  imageStyle: 'width:50%;margin-bottom:20px;'
+ })
+
+</code></pre>
+
+						<div>
+							<p>Result:</p>
+							<button onclick="printJS({printable: ['images/print-01-highres.jpg', 'images/print-02-highres.jpg', 'images/print-03-highres.jpg'], type: 'image', header: 'Multiple Images', imageStyle: 'width:50%;margin-bottom:20px;'});return false;">
+								Print Multiple Images
+							</button>
+						</div>
 					</section>
                 </div>
             </div>
@@ -340,7 +361,7 @@
        email: 'cool@dude.com',
        phone: '333-333-3333'
     }
- ];
+ ]
 
 </code></pre>
 
@@ -394,7 +415,7 @@
 						</header>
 						<p>You can download the latest version of Print.js from the GitHub releases.</p>
 						<p style="margin-bottom:30px;">
-							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.35" class="button">Download v1.0.35</a>
+							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.37" class="button">Download v1.0.37</a>
 						</p>
 
 						<p>To install using npm:</p>
@@ -515,8 +536,13 @@
 							</div>
 							<div class="grid-row">
 								<div class="g1">ignoreElements</div>
-								<div class="g1">[]</div>
+								<div class="g1">[ ]</div>
 								<div class="g2">Accepts an array of html ids that should be ignored when printing a parent html element.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">imageStyle</div>
+								<div class="g1">'width:100%;'</div>
+								<div class="g2">Used when printing images. Accepts a string with custom styles to be applied to each image.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">properties</div>
@@ -564,7 +590,7 @@
 			</div>
 		</section>
 
-		<sectin class="main">
+		<section class="main">
 			<div class="content">
 				<div class="container" id="browsers">
 					<section>
@@ -627,7 +653,7 @@
 					</section>
 				</div>
 			</div>
-		</sectin>
+		</section>
 
 		<section class="main">
 			<div class="content dark style5">

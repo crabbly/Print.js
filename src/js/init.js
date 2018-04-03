@@ -10,7 +10,7 @@ import Json from './json'
 let printTypes = ['pdf', 'html', 'image', 'json']
 
 export default {
-  init () {
+  init() {
     let params = {
       printable: null,
       fallbackPrintable: null,
@@ -23,7 +23,7 @@ export default {
       honorMarginPadding: true,
       honorColor: false,
       properties: null,
-      gridHeaderStyle: 'font-weight: bold;',
+      gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',
       gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
       showModal: false,
       onLoadingStart: null,

@@ -1,4 +1,4 @@
-import 'print-js/dist/print.min';
+import 'print-js/dist/print';
 
 declare type PrintTypes = 'pdf' | 'html' | 'image' | 'json';
 
@@ -26,4 +26,5 @@ export interface Configuration {
 }
 
 declare var printJS: (params: string | Configuration) => void;
+
 export default printJS;

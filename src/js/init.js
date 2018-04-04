@@ -10,7 +10,7 @@ import Json from './json'
 let printTypes = ['pdf', 'html', 'image', 'json']
 
 export default {
-  init() {
+  init () {
     let params = {
       printable: null,
       fallbackPrintable: null,

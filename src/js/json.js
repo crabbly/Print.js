@@ -6,7 +6,6 @@ import Print from './print';
 
 export default {
   print: (params, printFrame) => {
-    console.log(params.printLayout);
 
     // Check if we received proper data
     if (typeof params.printable !== 'object') {

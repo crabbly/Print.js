@@ -12,17 +12,13 @@ export default {
     }
 
     // Check if properties were provided
-    if (!params.properties || typeof params.properties !== 'object') {
-      throw new Error('Invalid properties array for your JSON data.')
-    }
+    if (!params.properties || typeof params.properties !== 'object') throw new Error('Invalid properties array for your JSON data.')
 
     // Variable to hold the html string
     let htmlData = ''
 
-    // Check print has header
-    if (params.header) {
-      htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
-    }
+    // Check if we are adding a header
+    if (params.header) htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
 
     // Build html data
     htmlData += jsonToHTML(params)

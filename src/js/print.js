@@ -42,41 +42,28 @@ function finishPrint (iframeElement, params) {
   iframeElement.focus()
 
   // If Edge or IE, try catch with execCommand
-  if (Browser.isEdge() || (Browser.isIE())) {
+  if (Browser.isEdge() || Browser.isIE()) {
     try {
       iframeElement.contentWindow.document.execCommand('print', false, null)
     } catch (e) {
       iframeElement.contentWindow.print()
     }
-  }
-
-  // Other browsers
-  if (!Browser.isIE() && !Browser.isEdge()) {
+  } else {
+    // Other browsers
     iframeElement.contentWindow.print()
   }
 
-  // Remove embed on IE (just because it isn't 100% hidden when using h/w = 0)
-  if (Browser.isIE() && params.type === 'pdf') {
-    setTimeout(() => {
-      iframeElement.parentNode.removeChild(iframeElement)
-    }, 2000)
-  }
-
   // If we are showing a feedback message to user, remove it
-  if (params.showModal) {
-    Modal.close()
-  }
-  if (params.onLoadingEnd) {
-    params.onLoadingEnd()
-  }
+  if (params.showModal) Modal.close()
+
+  // Check for a finished loading hook function
+  if (params.onLoadingEnd) params.onLoadingEnd()
 }
 
 function loadIframeImages (printDocument, params) {
   let promises = []
 
-  params.printable.forEach((image, index) => {
-    promises.push(loadIframeImage(printDocument, index))
-  })
+  params.printable.forEach((image, index) => promises.push(loadIframeImage(printDocument, index)))
 
   return Promise.all(promises)
 }

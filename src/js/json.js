@@ -32,16 +32,35 @@ export default {
 }
 
 function jsonToHTML (params) {
+  // Get the row and column data
   let data = params.printable
   let properties = params.properties
 
   // Create a html table and define the header as repeatable
-  let htmlData = '<table style="border-collapse: collapse; width: 100%;"><thead><tr>'
+  let htmlData = '<table style="border-collapse: collapse; width: 100%;">'
 
+  // Check if the header should be repeated
+  if (params.repeatTableHeader) {
+    htmlData += '<thead>'
+  }
+
+  // Create the table row
+  htmlData += '<tr>'
+
+  // Create a table header for each column
   for (let a = 0; a < properties.length; a++) {
     htmlData += '<th style="width:' + 100 / properties.length + '%; ' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a]) + '</th>'
   }
 
+  // Add the closing tag for the table row
+  htmlData += '</tr>'
+
+  // Check if the table header is marked as repeated, then add the closing tag
+  if (params.repeatTableHeader) {
+    htmlData += '</thead>'
+  }
+
+  // Add the closing tag for the table body
   htmlData += '</tr></thead><tbody>'
 
   // Add the table rows

@@ -11,13 +11,18 @@ export default {
       throw new Error('Invalid javascript data object (JSON).')
     }
 
+    // Check if the repeatTableHeader is boolean
+    if (typeof params.repeatTableHeader !== 'boolean') {
+      throw new Error('Invalid value for repeatTableHeader attribute (JSON).')
+    }
+
     // Check if properties were provided
     if (!params.properties || typeof params.properties !== 'object') throw new Error('Invalid properties array for your JSON data.')
 
     // Variable to hold the html string
     let htmlData = ''
 
-    // Check if we are adding a header
+    // Check if there is a header on top of the table
     if (params.header) htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
 
     // Build html data

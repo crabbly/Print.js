@@ -35,7 +35,8 @@ export default {
       targetStyle: null,
       targetStyles: null,
       ignoreElements: [],
-      imageStyle: 'width:100%;'
+      imageStyle: 'width:100%;',
+      repeatTableHeader: true
     }
 
     // Check if a printable document or object was supplied
@@ -72,6 +73,7 @@ export default {
         params.targetStyles = typeof args.targetStyles !== 'undefined' ? args.targetStyles : params.targetStyles
         params.ignoreElements = typeof args.ignoreElements !== 'undefined' ? args.ignoreElements : params.ignoreElements
         params.imageStyle = typeof args.imageStyle !== 'undefined' ? args.imageStyle : params.imageStyle
+        params.repeatTableHeader = typeof args.repeatTableHeader !== 'undefined' ? args.repeatTableHeader : params.repeatTableHeader
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)

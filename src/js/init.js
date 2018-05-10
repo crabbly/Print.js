@@ -36,7 +36,8 @@ export default {
       targetStyles: null,
       ignoreElements: [],
       imageStyle: 'width:100%;',
-      repeatTableHeader: true
+      repeatTableHeader: true,
+      columnSize: []
     }
 
     // Check if a printable document or object was supplied
@@ -74,6 +75,7 @@ export default {
         params.ignoreElements = typeof args.ignoreElements !== 'undefined' ? args.ignoreElements : params.ignoreElements
         params.imageStyle = typeof args.imageStyle !== 'undefined' ? args.imageStyle : params.imageStyle
         params.repeatTableHeader = typeof args.repeatTableHeader !== 'undefined' ? args.repeatTableHeader : params.repeatTableHeader
+        params.columnSize = typeof args.columnSize !== 'undefined' ? args.columnSize : params.columnSize
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)
@@ -137,7 +139,7 @@ export default {
         Html.print(params, printFrame)
         break
       case 'json':
-        Json.print(params, printFrame)
+        Json.print(params, printFrame, Browser.isIE())
         break
     }
   }

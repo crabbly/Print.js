@@ -5,7 +5,7 @@ import {
 import Print from './print'
 
 export default {
-  print: (params, printFrame) => {
+  print: (params, printFrame, isBrowserIE) => {
     // Check if we received proper data
     if (typeof params.printable !== 'object') {
       throw new Error('Invalid javascript data object (JSON).')
@@ -54,7 +54,7 @@ function jsonToHTML (params) {
 
   // Create a table header for each column
   for (let a = 0; a < properties.length; a++) {
-    htmlData += '<th style="width:' + 100 / properties.length + '%; ' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a]) + '</th>'
+    htmlData += '<th style="width:' + params.gridHeaderStyle + '%;">' + capitalizePrint(properties[a]) + '</th>'
   }
 
   // Add the closing tag for the table row
@@ -65,8 +65,28 @@ function jsonToHTML (params) {
     htmlData += '</thead>'
   }
 
+  // Check if the length of the columnSize matches with the properties
+  if (params.columnSize.length !== properties.length) {
+    console.log('The provided column sizes do not match with the number of expected columns!')
+  }
+
+  // Check if the column size is provided as the configuration
+  let columnSize = []
+  if (params.columnSize.length !== 0) {
+    columnSize = params.columnSize
+  } else {
+    // If the configuration is not provided, then consider the same size for the columns
+    for (let n = 0; n < properties.length; n++) {
+      columnSize.push(1)
+    }
+  }
+
+  // Calculate the sum of all flex for the distribution
+  const reducer = (accumulator, currentValue) => accumulator + currentValue
+  let flexSum = columnSize.reduce(reducer)
+
   // Add the closing tag for the table body
-  htmlData += '</tr></thead><tbody>'
+  htmlData += '<tbody>'
 
   // Add the table rows
   for (let i = 0; i < data.length; i++) {
@@ -88,7 +108,7 @@ function jsonToHTML (params) {
       }
 
       // Add the row contents and styles
-      htmlData += '<td style="width:' + 100 / properties.length + '%;' + params.gridStyle + '">' + stringData + '</td>'
+      htmlData += '<td style="word-wrap: break-word; width:' + (columnSize[n] * 100 / flexSum) + '%;' + params.gridStyle + '">' + stringData + '</td>'
     }
 
     // Add the row ending tag

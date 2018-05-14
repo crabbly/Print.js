@@ -24,6 +24,16 @@ const Print = {
           // Inject printable html into iframe body
           printDocument.body.innerHTML = params.htmlData
 
+          // Add custom css
+          if (params.css !== null && params.css !== '') {
+            // Create style element
+            const style = document.createElement('style')
+            style.append(params.css)
+
+            // Append style element to iframe's head
+            printDocument.head.append(style)
+          }
+
           // If printing image, wait for it to load inside the iframe (skip firefox)
           if (params.type === 'image') {
             loadIframeImages(printDocument, params).then(() => {

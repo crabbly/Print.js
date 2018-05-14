@@ -6,7 +6,24 @@
     }
 
     function printHtml() {
-      printJS('test', 'html');
+      printJS({
+        printable: 'test',
+        type: 'html'
+      });
+    }
+
+    function printHtmlCustom() {
+      const css = `
+        @page {
+          margin: 0
+        }
+      `
+
+      printJS({
+        printable: 'test',
+        type: 'html',
+        css: css
+      });
     }
 
     function printJson() {
@@ -36,6 +53,9 @@
       </button>
       <button onClick='printHtml();'>
         Print HTML
+      </button>
+      <button onClick='printHtmlCustom();'>
+        Print HTML with custom css
       </button>
       <button onClick='printJson();'>
         Print JSON

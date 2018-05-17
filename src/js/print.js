@@ -27,7 +27,7 @@ const Print = {
           // Add external css
           if (params.externalCss !== null && Array.isArray(params.externalCss)) {
             for (let index = 0; index < params.externalCss.length; index++) {
-              const styleLink = params.externalCss[index];
+              const styleLink = params.externalCss[index]
               const cssLink = document.createElement('link')
               cssLink.rel = 'stylesheet'
               cssLink.href = styleLink

@@ -22,7 +22,8 @@
       printJS({
         printable: 'test',
         type: 'html',
-        css: css
+        css: css,
+        scanStyles: false
       });
     }
 
@@ -46,7 +47,7 @@
     }
   </script>
   <body>
-    <section id="test">
+    <section id="test" class="test">
       <h1>Print.js Test Page</h1>
       <button onClick='printPdf();'>
         Print PDF

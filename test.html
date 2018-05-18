@@ -12,19 +12,34 @@
       });
     }
 
-    function printHtmlCustom() {
-      const css = `
+    function printHtmlCustomStyle() {
+      const style = `
         @page {
           margin: 0
+        }
+
+        @media print {
+          h1 {
+            color: blue
+          }
         }
       `
 
       printJS({
         printable: 'test',
         type: 'html',
-        css: css,
+        style: style,
         scanStyles: false
       });
+    }
+
+    function printHtmlCss() {
+        printJS({
+            printable: 'test',
+            type: 'html',
+            css: 'test.css',
+            scanStyles: false
+        });
     }
 
     function printJson() {
@@ -49,18 +64,27 @@
   <body>
     <section id="test" class="test">
       <h1>Print.js Test Page</h1>
-      <button onClick='printPdf();'>
-        Print PDF
-      </button>
-      <button onClick='printHtml();'>
-        Print HTML
-      </button>
-      <button onClick='printHtmlCustom();'>
-        Print HTML with custom css
-      </button>
-      <button onClick='printJson();'>
-        Print JSON
-      </button>
+      <p>
+        <button onClick='printPdf();'>
+          Print PDF
+        </button>
+      </p>
+      <p>
+        <button onClick='printHtml();'>
+          Print HTML
+        </button>
+        <button onClick='printHtmlCustomStyle();'>
+          Print HTML with custom style
+        </button>
+        <button onClick='printHtmlCss();'>
+          Print HTML with custom css
+        </button>
+      </p>
+      <p>
+        <button onClick='printJson();'>
+          Print JSON
+        </button>
+      </p>
     </section>
   </body>
 </html>

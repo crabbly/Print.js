@@ -24,30 +24,17 @@ const Print = {
           // Inject printable html into iframe body
           printDocument.body.innerHTML = params.htmlData
 
-          // Add external css
-          if (params.externalCss !== null && Array.isArray(params.externalCss)) {
-            for (let index = 0; index < params.externalCss.length; index++) {
-              const styleLink = params.externalCss[index]
-              const cssLink = document.createElement('link')
-              cssLink.rel = 'stylesheet'
-              cssLink.href = styleLink
-
-              // Append style link element to iframe's head
-              printDocument.head.append(cssLink)
-            }
-          }
-
-          // Add custom css
-          if (params.css !== null && params.css !== '') {
+          // Add custom style
+          if (params.type !== 'pdf' && params.style !== null) {
             // Create style element
             const style = document.createElement('style')
-            style.append(params.css)
+            style.innerHTML = params.style
 
             // Append style element to iframe's head
-            printDocument.head.append(style)
+            printDocument.head.appendChild(style)
           }
 
-          // If printing image, wait for it to load inside the iframe (skip firefox)
+          // If printing image, wait for it to load inside the iframe
           if (params.type === 'image') {
             loadIframeImages(printDocument, params).then(() => {
               finishPrint(iframeElement, params)

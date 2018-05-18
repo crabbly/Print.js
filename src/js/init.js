@@ -38,7 +38,7 @@ export default {
       imageStyle: 'width:100%;',
       repeatTableHeader: true,
       css: null,
-      externalCss: [],
+      style: null,
       scanStyles: true
     }
 
@@ -78,7 +78,7 @@ export default {
         params.imageStyle = typeof args.imageStyle !== 'undefined' ? args.imageStyle : params.imageStyle
         params.repeatTableHeader = typeof args.repeatTableHeader !== 'undefined' ? args.repeatTableHeader : params.repeatTableHeader
         params.css = typeof args.css !== 'undefined' ? args.css : params.css
-        params.externalCss = typeof args.externalCss !== 'undefined' ? args.externalCss : params.externalCss
+        params.style = typeof args.style !== 'undefined' ? args.style : params.style
         params.scanStyles = typeof args.scanStyles !== 'undefined' ? args.scanStyles : params.scanStyles
         break
       default:
@@ -113,12 +113,25 @@ export default {
     // Hide iframe
     printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute;')
 
-    // Set element id
+    // Set iframe element id
     printFrame.setAttribute('id', params.frameId)
 
-    // For non pdf printing, pass an empty html document to srcdoc (force onload callback)
+    // For non pdf printing, pass an html document string to srcdoc (force onload callback)
     if (params.type !== 'pdf') {
-      printFrame.srcdoc = '<html><head><title>' + params.documentTitle + '</title></head><body></body></html>'
+      printFrame.srcdoc = '<html><head><title>' + params.documentTitle + '</title>'
+
+      // Attach css files
+      if (params.css !== null) {
+        // Add support for single file
+        if (!Array.isArray(params.css)) params.css = [params.css]
+
+        // Create link tags for each css file
+        params.css.forEach(file => {
+          printFrame.srcdoc += '<link rel="stylesheet" href="' + file + '">'
+        })
+      }
+
+      printFrame.srcdoc += '</head><body></body></html>'
     }
 
     // Check printable type

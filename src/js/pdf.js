@@ -2,6 +2,11 @@ import Print from './print'
 
 export default {
   print: (params, printFrame) => {
+    // Format pdf url
+    params.printable = params.printable.indexOf('http') !== -1
+        ? params.printable
+        : window.location.origin + (params.printable.charAt(0) !== '/' ? '/' + params.printable : params.printable)
+
     // If showing a loading modal or using a hook function, preload pdf file
     if (params.showModal || params.onLoadingStart) {
       // Get the file through a http request
@@ -20,7 +25,7 @@ export default {
         send(params, printFrame)
       })
 
-      req.open('GET', params.printable.indexOf('http') !== -1 ? params.printable : window.location.origin + params.printable, true)
+      req.open('GET', params.printable, true)
       req.send()
     } else {
       send(params, printFrame)

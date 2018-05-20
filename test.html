@@ -2,7 +2,15 @@
   <script src='./dist/print.min.js'></script>
   <script type='text/javascript'>
     function printPdf() {
-      printJS('/test.pdf');
+      printJS('test.pdf');
+    }
+
+    function printPdfWithModal() {
+        printJS({
+            printable: 'test.pdf',
+            type: 'pdf',
+            showModal: true
+        });
     }
 
     function printHtml() {
@@ -67,6 +75,9 @@
       <p>
         <button onClick='printPdf();'>
           Print PDF
+        </button>
+        <button onClick='printPdfWithModal();'>
+          Print PDF with Loading Modal
         </button>
       </p>
       <p>

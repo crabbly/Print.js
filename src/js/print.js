@@ -68,6 +68,9 @@ function finishPrint (iframeElement, params) {
 
   // Check for a finished loading hook function
   if (params.onLoadingEnd) params.onLoadingEnd()
+
+  // If preloading pdf files, clean blob url
+  if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
 }
 
 function loadIframeImages (printDocument, params) {

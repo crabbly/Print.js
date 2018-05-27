@@ -1,6 +1,6 @@
 <html>
   <script src='./dist/print.min.js'></script>
-  <script type='text/javascript'>
+  <script type="text/javascript">
     function printPdf() {
       printJS('test.pdf');
     }
@@ -21,17 +21,7 @@
     }
 
     function printHtmlCustomStyle() {
-      const style = `
-        @page {
-          margin: 0
-        }
-
-        @media print {
-          h1 {
-            color: blue
-          }
-        }
-      `
+      const style = '@page { margin: 0 } @media print { h1 { color: blue } }'
 
       printJS({
         printable: 'test',

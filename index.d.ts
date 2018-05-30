@@ -1,12 +1,12 @@
-import 'print-js/dist/print.min';
+import 'print-js/dist/print';
 
 declare type PrintTypes = 'pdf' | 'html' | 'image' | 'json';
 
 export interface Configuration {
-    printable: string;
+    printable: string | string[];
+    fallbackPrintable?: string;
     type?: string;
     documentTitle?: string;
-    htmlData?: string;
     header?: any;
     headerStyle?: string;
     maxWidth?: number;
@@ -17,13 +17,21 @@ export interface Configuration {
     targetStyle?: string | string[];
     targetStyles?: string | string[];
     properties?: any;
-    gridStyle?: string;
-    modalMessage?: string;
-    showModal?: boolean;
     gridHeaderStyle?: string;
+    gridStyle?: string;
+    showModal?: boolean;
     onLoadingStart?: () => void;
     onLoadingEnd?: () => void;
+    modalMessage?: string;
+    frameId?: string;
+    ignoreElements?: string | string[];
+    imageStyle?: string;
+    repeatTableHeader?: boolean;
+    css?: string | string[];
+    style?: string;
+    scanStyles?: boolean;
 }
 
 declare var printJS: (params: string | Configuration) => void;
+
 export default printJS;

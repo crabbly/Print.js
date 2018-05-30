@@ -24,9 +24,21 @@ const Print = {
           // Inject printable html into iframe body
           printDocument.body.innerHTML = params.htmlData
 
-          // If printing image, wait for it to load inside the iframe (skip firefox)
+          // Add custom style
+          if (params.type !== 'pdf' && params.style !== null) {
+            // Create style element
+            const style = document.createElement('style')
+            style.innerHTML = params.style
+
+            // Append style element to iframe's head
+            printDocument.head.appendChild(style)
+          }
+
+          // If printing image, wait for it to load inside the iframe
           if (params.type === 'image') {
-            loadImageAndFinishPrint(printDocument.getElementById('printableImage'), iframeElement, params)
+            loadIframeImages(printDocument, params).then(() => {
+              finishPrint(iframeElement, params)
+            })
           } else {
             finishPrint(iframeElement, params)
           }
@@ -40,43 +52,47 @@ function finishPrint (iframeElement, params) {
   iframeElement.focus()
 
   // If Edge or IE, try catch with execCommand
-  if (Browser.isEdge() || (Browser.isIE())) {
+  if (Browser.isEdge() || Browser.isIE()) {
     try {
       iframeElement.contentWindow.document.execCommand('print', false, null)
     } catch (e) {
       iframeElement.contentWindow.print()
     }
-  }
-
-  // Other browsers
-  if (!Browser.isIE() && !Browser.isEdge()) {
+  } else {
+    // Other browsers
     iframeElement.contentWindow.print()
   }
 
-  // Remove embed on IE (just because it isn't 100% hidden when using h/w = 0)
-  if (Browser.isIE() && params.type === 'pdf') {
-    setTimeout(() => {
-      iframeElement.parentNode.removeChild(iframeElement)
-    }, 2000)
-  }
-
   // If we are showing a feedback message to user, remove it
-  if (params.showModal) {
-    Modal.close()
-  }
-  if (params.onLoadingEnd) {
-    params.onLoadingEnd()
-  }
+  if (params.showModal) Modal.close()
+
+  // Check for a finished loading hook function
+  if (params.onLoadingEnd) params.onLoadingEnd()
+
+  // If preloading pdf files, clean blob url
+  if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
 }
 
-function loadImageAndFinishPrint (img, iframeElement, params) {
-  if (typeof img.naturalWidth === 'undefined' || img.naturalWidth === 0) {
-    setTimeout(() => {
-      loadImageAndFinishPrint(img, iframeElement, params)
-    }, 500)
-  } else {
-    finishPrint(iframeElement, params)
-  }
+function loadIframeImages (printDocument, params) {
+  let promises = []
+
+  params.printable.forEach((image, index) => promises.push(loadIframeImage(printDocument, index)))
+
+  return Promise.all(promises)
+}
+
+function loadIframeImage (printDocument, index) {
+  return new Promise(resolve => {
+    let image = printDocument ? printDocument.getElementById('printableImage' + index) : null
+
+    if (!image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0) {
+      setTimeout(() => {
+        loadIframeImage(printDocument, index)
+      }, 500)
+    } else {
+      resolve()
+    }
+  })
 }
 
 export default Print

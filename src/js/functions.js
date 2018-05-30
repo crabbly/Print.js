@@ -10,46 +10,26 @@ export function capitalizePrint (string) {
 export function collectStyles (element, params) {
   let win = document.defaultView || window
 
-  let style = []
+  let styles = win.getComputedStyle
 
   // String variable to hold styling for each element
   let elementStyle = ''
 
-  if (win.getComputedStyle) { // Modern browsers
-    style = win.getComputedStyle(element, '')
+  // Optional - include margin and padding
+  if (params.honorMarginPadding) params.targetStyles.push('margin', 'padding')
 
-    // Styles including
-    let targetStyles = params.targetStyles || ['border', 'box', 'break', 'text-decoration']
+  // Optional - include color
+  if (params.honorColor) params.targetStyles.push('color')
 
-    // Exact match
-    let targetStyle = params.targetStyle || ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height']
+  // Loop over computed styles
+  styles = win.getComputedStyle(element, '')
 
-    // Optional - include margin and padding
-    if (params.honorMarginPadding) {
-      targetStyles.push('margin', 'padding')
+  Object.keys(styles).map(key => {
+    // Check if style should be processed
+    if (params.targetStyles === '*' || params.targetStyle.indexOf(styles[key]) !== -1 || targetStylesMatch(params.targetStyles, styles[key])) {
+      elementStyle += styles[key] + ':' + styles.getPropertyValue(styles[key]) + ';'
     }
-
-    // Optional - include color
-    if (params.honorColor) {
-      targetStyles.push('color')
-    }
-
-    for (let i = 0; i < style.length; i++) {
-      for (let s = 0; s < targetStyles.length; s++) {
-        if (targetStyles[s] === '*' || style[i].indexOf(targetStyles[s]) !== -1 || targetStyle.indexOf(style[i]) !== -1) {
-          elementStyle += style[i] + ':' + style.getPropertyValue(style[i]) + ';'
-        }
-      }
-    }
-  } else if (element.currentStyle) { // IE
-    style = element.currentStyle
-
-    for (let name in style) {
-      if (style.indexOf('border') !== -1 && style.indexOf('color') !== -1) {
-        elementStyle += name + ':' + style[name] + ';'
-      }
-    }
-  }
+  })
 
   // Print friendly defaults
   elementStyle += 'max-width: ' + params.maxWidth + 'px !important;' + params.font_size + ' !important;'
@@ -57,9 +37,22 @@ export function collectStyles (element, params) {
   return elementStyle
 }
 
+function targetStylesMatch (styles, value) {
+  for (let i = 0; i < styles.length; i++) {
+    if (value.indexOf(styles[i]) !== -1) return true
+  }
+  return false
+}
+
 export function loopNodesCollectStyles (elements, params) {
   for (let n = 0; n < elements.length; n++) {
     let currentElement = elements[n]
+
+    // Check if we are skiping this element
+    if (params.ignoreElements.indexOf(currentElement.getAttribute('id')) !== -1) {
+      currentElement.parentNode.removeChild(currentElement)
+      continue
+    }
 
     // Form Printing - check if is element Input
     let tag = currentElement.tagName

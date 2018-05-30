@@ -23,7 +23,7 @@ export default {
       honorMarginPadding: true,
       honorColor: false,
       properties: null,
-      gridHeaderStyle: 'font-weight: bold;',
+      gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',
       gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
       showModal: false,
       onLoadingStart: null,
@@ -32,23 +32,27 @@ export default {
       frameId: 'printJS',
       htmlData: '',
       documentTitle: 'Document',
-      targetStyle: null,
-      targetStyles: null
+      targetStyle: ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'],
+      targetStyles: ['border', 'box', 'break', 'text-decoration'],
+      ignoreElements: [],
+      imageStyle: 'width:100%;',
+      repeatTableHeader: true,
+      css: null,
+      style: null,
+      scanStyles: true
     }
 
     // Check if a printable document or object was supplied
     let args = arguments[0]
-    if (args === undefined) {
-      throw new Error('printJS expects at least 1 attribute.')
-    }
+    if (args === undefined) throw new Error('printJS expects at least 1 attribute.')
 
+    // Process parameters
     switch (typeof args) {
       case 'string':
         params.printable = encodeURI(args)
         params.fallbackPrintable = params.printable
         params.type = arguments[1] || params.type
         break
-
       case 'object':
         params.printable = args.printable
         params.fallbackPrintable = typeof args.fallbackPrintable !== 'undefined' ? args.fallbackPrintable : params.printable
@@ -70,33 +74,35 @@ export default {
         params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
         params.targetStyle = typeof args.targetStyle !== 'undefined' ? args.targetStyle : params.targetStyle
         params.targetStyles = typeof args.targetStyles !== 'undefined' ? args.targetStyles : params.targetStyles
+        params.ignoreElements = typeof args.ignoreElements !== 'undefined' ? args.ignoreElements : params.ignoreElements
+        params.imageStyle = typeof args.imageStyle !== 'undefined' ? args.imageStyle : params.imageStyle
+        params.repeatTableHeader = typeof args.repeatTableHeader !== 'undefined' ? args.repeatTableHeader : params.repeatTableHeader
+        params.css = typeof args.css !== 'undefined' ? args.css : params.css
+        params.style = typeof args.style !== 'undefined' ? args.style : params.style
+        params.scanStyles = typeof args.scanStyles !== 'undefined' ? args.scanStyles : params.scanStyles
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)
     }
 
-    if (!params.printable) {
-      throw new Error('Missing printable information.')
-    }
+    // Validate printable
+    if (!params.printable) throw new Error('Missing printable information.')
 
+    // Validate type
     if (!params.type || typeof params.type !== 'string' || printTypes.indexOf(params.type.toLowerCase()) === -1) {
       throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
     }
 
     // Check if we are showing a feedback message to the user (useful for large files)
-    if (params.showModal) {
-      Modal.show(params)
-    }
-    if (params.onLoadingStart) {
-      params.onLoadingStart()
-    }
+    if (params.showModal) Modal.show(params)
 
-    // To prevent duplication and issues, remove printFrame from the DOM, if it exists
+    // Check for a print start hook function
+    if (params.onLoadingStart) params.onLoadingStart()
+
+    // To prevent duplication and issues, remove any used printFrame from the DOM
     let usedFrame = document.getElementById(params.frameId)
 
-    if (usedFrame) {
-      usedFrame.parentNode.removeChild(usedFrame)
-    }
+    if (usedFrame) usedFrame.parentNode.removeChild(usedFrame)
 
     // Create a new iframe or embed element (IE prints blank pdf's if we use iframe)
     let printFrame
@@ -105,14 +111,27 @@ export default {
     printFrame = document.createElement('iframe')
 
     // Hide iframe
-    printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0;')
+    printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute;')
 
-    // Set element id
+    // Set iframe element id
     printFrame.setAttribute('id', params.frameId)
 
-    // For non pdf printing, pass an empty html document to srcdoc (force onload callback)
+    // For non pdf printing, pass an html document string to srcdoc (force onload callback)
     if (params.type !== 'pdf') {
-      printFrame.srcdoc = '<html><head><title>' + params.documentTitle + '</title></head><body></body></html>'
+      printFrame.srcdoc = '<html><head><title>' + params.documentTitle + '</title>'
+
+      // Attach css files
+      if (params.css !== null) {
+        // Add support for single file
+        if (!Array.isArray(params.css)) params.css = [params.css]
+
+        // Create link tags for each css file
+        params.css.forEach(file => {
+          printFrame.srcdoc += '<link rel="stylesheet" href="' + file + '">'
+        })
+      }
+
+      printFrame.srcdoc += '</head><body></body></html>'
     }
 
     // Check printable type
@@ -139,8 +158,6 @@ export default {
       case 'json':
         Json.print(params, printFrame)
         break
-      default:
-        throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
     }
   }
 }

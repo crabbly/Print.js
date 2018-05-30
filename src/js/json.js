@@ -1,4 +1,7 @@
-import { addWrapper, capitalizePrint } from './functions'
+import {
+  addWrapper,
+  capitalizePrint
+} from './functions'
 import Print from './print'
 
 export default {
@@ -8,18 +11,19 @@ export default {
       throw new Error('Invalid javascript data object (JSON).')
     }
 
-    // Check if properties were provided
-    if (!params.properties || typeof params.properties !== 'object') {
-      throw new Error('Invalid properties array for your JSON data.')
+    // Check if the repeatTableHeader is boolean
+    if (typeof params.repeatTableHeader !== 'boolean') {
+      throw new Error('Invalid value for repeatTableHeader attribute (JSON).')
     }
+
+    // Check if properties were provided
+    if (!params.properties || typeof params.properties !== 'object') throw new Error('Invalid properties array for your JSON data.')
 
     // Variable to hold the html string
     let htmlData = ''
 
-    // Check print has header
-    if (params.header) {
-      htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
-    }
+    // Check if there is a header on top of the table
+    if (params.header) htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
 
     // Build html data
     htmlData += jsonToHTML(params)
@@ -33,29 +37,47 @@ export default {
 }
 
 function jsonToHTML (params) {
+  // Get the row and column data
   let data = params.printable
   let properties = params.properties
 
-  let htmlData = '<div style="display:flex; flex-direction: column;">'
+  // Create a html table and define the header as repeatable
+  let htmlData = '<table style="border-collapse: collapse; width: 100%;">'
 
-  // Header
-  htmlData += '<div style="flex:1 1 auto; display:flex;">'
-
-  for (let a = 0; a < properties.length; a++) {
-    htmlData += '<div style="flex:1; padding:5px;' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a]) + '</div>'
+  // Check if the header should be repeated
+  if (params.repeatTableHeader) {
+    htmlData += '<thead>'
   }
 
-  htmlData += '</div>'
+  // Create the table row
+  htmlData += '<tr>'
 
-  // Data
+  // Create a table header for each column
+  for (let a = 0; a < properties.length; a++) {
+    htmlData += '<th style="width:' + 100 / properties.length + '%; ' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a]) + '</th>'
+  }
+
+  // Add the closing tag for the table row
+  htmlData += '</tr>'
+
+  // Check if the table header is marked as repeated, then add the closing tag
+  if (params.repeatTableHeader) {
+    htmlData += '</thead>'
+  }
+
+  // Add the closing tag for the table body
+  htmlData += '</tr></thead><tbody>'
+
+  // Add the table rows
   for (let i = 0; i < data.length; i++) {
-    htmlData += '<div style="flex:1 1 auto; display:flex;">'
+    // Add the row starting tag
+    htmlData += '<tr>'
 
     // Print selected properties only
     for (let n = 0; n < properties.length; n++) {
       let stringData = data[i]
 
-      // Support for nested objects
+      // Support nested objects
       let property = properties[n].split('.')
       if (property.length > 1) {
         for (let p = 0; p < property.length; p++) {
@@ -65,13 +87,16 @@ function jsonToHTML (params) {
         stringData = stringData[properties[n]]
       }
 
-      htmlData += '<div style="flex:1; padding:5px;' + params.gridStyle + '">' + stringData + '</div>'
+      // Add the row contents and styles
+      htmlData += '<td style="width:' + 100 / properties.length + '%;' + params.gridStyle + '">' + stringData + '</td>'
     }
 
-    htmlData += '</div>'
+    // Add the row ending tag
+    htmlData += '</tr>'
   }
 
-  htmlData += '</div>'
+  // Add the table closing tag
+  htmlData += '</tbody></table>'
 
   return htmlData
 }

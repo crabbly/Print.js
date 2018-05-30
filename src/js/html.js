@@ -26,13 +26,17 @@ export default {
     printableElement = document.getElementById('printJS-html')
 
     // Get main element styling
-    printableElement.setAttribute('style', collectStyles(printableElement, params) + 'margin:0 !important;')
+    if (params.scanStyles === true) {
+      printableElement.setAttribute('style', collectStyles(printableElement, params) + 'margin:0 !important;')
+    }
 
     // Get all children elements
     let elements = printableElement.children
 
     // Get styles for all children elements
-    loopNodesCollectStyles(elements, params)
+    if (params.scanStyles === true) {
+      loopNodesCollectStyles(elements, params)
+    }
 
     // Add header if any
     if (params.header) {

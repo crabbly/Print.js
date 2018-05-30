@@ -1,12 +1,43 @@
 <html>
   <script src='./dist/print.min.js'></script>
-  <script type='text/javascript'>
+  <script type="text/javascript">
     function printPdf() {
       printJS('test.pdf');
     }
 
+    function printPdfWithModal() {
+        printJS({
+            printable: 'test.pdf',
+            type: 'pdf',
+            showModal: true
+        });
+    }
+
     function printHtml() {
-      printJS('test', 'html');
+      printJS({
+        printable: 'test',
+        type: 'html'
+      });
+    }
+
+    function printHtmlCustomStyle() {
+      const style = '@page { margin: 0 } @media print { h1 { color: blue } }'
+
+      printJS({
+        printable: 'test',
+        type: 'html',
+        style: style,
+        scanStyles: false
+      });
+    }
+
+    function printHtmlCss() {
+        printJS({
+            printable: 'test',
+            type: 'html',
+            css: 'test.css',
+            scanStyles: false
+        });
     }
 
     function printJson() {
@@ -29,17 +60,32 @@
     }
   </script>
   <body>
-    <section id="test">
+    <section id="test" class="test">
       <h1>Print.js Test Page</h1>
-      <button onClick='printPdf();'>
-        Print PDF
-      </button>
-      <button onClick='printHtml();'>
-        Print HTML
-      </button>
-      <button onClick='printJson();'>
-        Print JSON
-      </button>
+      <p>
+        <button onClick='printPdf();'>
+          Print PDF
+        </button>
+        <button onClick='printPdfWithModal();'>
+          Print PDF with Loading Modal
+        </button>
+      </p>
+      <p>
+        <button onClick='printHtml();'>
+          Print HTML
+        </button>
+        <button onClick='printHtmlCustomStyle();'>
+          Print HTML with custom style
+        </button>
+        <button onClick='printHtmlCss();'>
+          Print HTML with custom css
+        </button>
+      </p>
+      <p>
+        <button onClick='printJson();'>
+          Print JSON
+        </button>
+      </p>
     </section>
   </body>
 </html>

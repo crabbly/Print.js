@@ -3,7 +3,7 @@ import 'print-js/dist/print';
 declare type PrintTypes = 'pdf' | 'html' | 'image' | 'json';
 
 export interface Configuration {
-    printable: string | string[];
+    printable: any;
     fallbackPrintable?: string;
     type?: string;
     documentTitle?: string;

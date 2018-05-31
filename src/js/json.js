@@ -25,13 +25,13 @@ export default {
     // Check if there is a header on top of the table
     if (params.header) htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
 
-    // Build html data
+    // Build the printable html data
     htmlData += jsonToHTML(params)
 
-    // Store html data
+    // Store the data
     params.htmlData = addWrapper(htmlData, params)
 
-    // Print json data
+    // Print the json data
     Print.send(params, printFrame)
   }
 }
@@ -41,7 +41,7 @@ function jsonToHTML (params) {
   let data = params.printable
   let properties = params.properties
 
-  // Create a html table and define the header as repeatable
+  // Create a html table
   let htmlData = '<table style="border-collapse: collapse; width: 100%;">'
 
   // Check if the header should be repeated
@@ -49,26 +49,26 @@ function jsonToHTML (params) {
     htmlData += '<thead>'
   }
 
-  // Create the table row
+  // Add the table header row
   htmlData += '<tr>'
 
-  // Create a table header for each column
+  // Add the table header columns
   for (let a = 0; a < properties.length; a++) {
     htmlData += '<th style="width:' + 100 / properties.length + '%; ' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a]) + '</th>'
   }
 
-  // Add the closing tag for the table row
+  // Add the closing tag for the table header row
   htmlData += '</tr>'
 
-  // Check if the table header is marked as repeated, then add the closing tag
+  // If the table header is marked as repeated, add the closing tag
   if (params.repeatTableHeader) {
     htmlData += '</thead>'
   }
 
-  // Add the closing tag for the table body
-  htmlData += '</tr></thead><tbody>'
+  // Create the table body
+  htmlData += '<tbody>'
 
-  // Add the table rows
+  // Add the table data rows
   for (let i = 0; i < data.length; i++) {
     // Add the row starting tag
     htmlData += '<tr>'
@@ -91,11 +91,11 @@ function jsonToHTML (params) {
       htmlData += '<td style="width:' + 100 / properties.length + '%;' + params.gridStyle + '">' + stringData + '</td>'
     }
 
-    // Add the row ending tag
+    // Add the row closing tag
     htmlData += '</tr>'
   }
 
-  // Add the table closing tag
+  // Add the table and body closing tags
   htmlData += '</tbody></table>'
 
   return htmlData

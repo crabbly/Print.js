@@ -26,7 +26,7 @@ export function collectStyles (element, params) {
 
   Object.keys(styles).map(key => {
     // Check if style should be processed
-    if (params.targetStyles === '*' || params.targetStyle.indexOf(styles[key]) !== -1 || targetStylesMatch(params.targetStyles, styles[key])) {
+    if (params.targetStyles === ['*'] || params.targetStyle.indexOf(styles[key]) !== -1 || targetStylesMatch(params.targetStyles, styles[key])) {
       elementStyle += styles[key] + ':' + styles.getPropertyValue(styles[key]) + ';'
     }
   })

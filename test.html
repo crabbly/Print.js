@@ -44,6 +44,36 @@
         let data = [
             {
                 test1: 'Test1 string',
+                test2: 'Test2 string'
+            },
+            {
+                test1: 'more Test1 string',
+                test2: 'more Test2 string'
+            }
+        ]
+
+        printJS({printable: data, properties: ['test1', 'test2'], type: 'json'})
+    }
+
+    function printStyledJson() {
+        let data = [
+            {
+                test1: 'Test1 string',
+                test2: 'Test2 string'
+            },
+            {
+                test1: 'more Test1 string',
+                test2: 'more Test2 string'
+            }
+        ]
+
+        printJS({printable: data, properties: ['test1', 'test2'], type: 'json', gridStyle: 'border: 2px solid #3971A5;', gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;'})
+    }
+
+    function printNestedJson() {
+        let data = [
+            {
+                test1: 'Test1 string',
                 test2: {
                     a: 'Test2 object, a property',
                 }
@@ -84,6 +114,12 @@
       <p>
         <button onClick='printJson();'>
           Print JSON
+        </button>
+        <button onClick='printStyledJson();'>
+          Print Styled JSON
+        </button>
+        <button onClick='printNestedJson();'>
+          Print Nested JSON
         </button>
       </p>
     </section>

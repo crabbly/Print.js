@@ -10,8 +10,6 @@ export function capitalizePrint (string) {
 export function collectStyles (element, params) {
   let win = document.defaultView || window
 
-  let styles = win.getComputedStyle
-
   // String variable to hold styling for each element
   let elementStyle = ''
 
@@ -22,12 +20,12 @@ export function collectStyles (element, params) {
   if (params.honorColor) params.targetStyles.push('color')
 
   // Loop over computed styles
-  styles = win.getComputedStyle(element, '')
+  let styles = win.getComputedStyle(element, '')
 
   Object.keys(styles).map(key => {
     // Check if style should be processed
-    if (params.targetStyles === ['*'] || params.targetStyle.indexOf(styles[key]) !== -1 || targetStylesMatch(params.targetStyles, styles[key])) {
-      elementStyle += styles[key] + ':' + styles.getPropertyValue(styles[key]) + ';'
+    if (params.targetStyles.indexOf('*') !== -1 || params.targetStyle.indexOf(styles[key]) !== -1 || targetStylesMatch(params.targetStyles, styles[key])) {
+      if (styles.getPropertyValue(styles[key])) elementStyle += styles[key] + ':' + styles.getPropertyValue(styles[key]) + ';'
     }
   })
 

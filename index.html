@@ -25,7 +25,7 @@
 			ga('send', 'pageview');
 		</script>
 		<!-- Scripts -->
-		<script src="print.js?v1.0.44"></script>
+		<script src="print.js?v1.0.45"></script>
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.scrolly.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
@@ -42,7 +42,7 @@
 					<p>A tiny javascript library to help printing from the web.</p>
 				</header>
 				<footer>
-					<a href="#download" download="print.js" class="button scrolly">Download v1.0.44</a>
+					<a href="#download" download="print.js" class="button scrolly">Download v1.0.45</a>
 				</footer>
 			</section>
 
@@ -415,7 +415,7 @@
 						</header>
 						<p>You can download the latest version of Print.js from the GitHub releases.</p>
 						<p style="margin-bottom:30px;">
-							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.44" class="button">Download v1.0.44</a>
+							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.45" class="button">Download v1.0.45</a>
 						</p>
 
 						<p>To install using npm:</p>
@@ -520,16 +520,6 @@
 								<div class="g2">When set to false, the library will not process styles applied to the html being printed. Useful when using the <code>css</code> parameter.</div>
 							</div>
 							<div class="grid-row">
-								<div class="g1">honorMarginPadding</div>
-								<div class="g1">true</div>
-								<div class="g2">This is used to keep or remove padding and margin from elements that are being printed. Sometimes these styling settings are great on screen but it looks pretty bad when printing. You can remove it by setting this to false.</div>
-							</div>
-							<div class="grid-row">
-								<div class="g1">honorColor</div>
-								<div class="g1">false</div>
-								<div class="g2">To print text in color, set this property to true. By default all text will be printed in black.</div>
-							</div>
-							<div class="grid-row">
 								<div class="g1">targetStyle</div>
 								<div class="g1">null</div>
 								<div class="g2">By default, the library process some styles only, when printing HTML elements. This option allows you to pass an array of styles that you want to be processed. Ex.: ['padding-top', 'border-bottom']</div>
@@ -593,6 +583,16 @@
 								<div class="g1">documentTitle</div>
 								<div class="g1">'Document'</div>
 								<div class="g2">When printing html, image or json, this will be shown as the document title. It will also be the name of the document, if the user tries to save the print job to a pdf file.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">honorMarginPadding <span class="hint--top" aria-label="Use targetStyles, targetStyle, css or style parameters instead" style="font-size:14px;">(deprecated <i class="fa fa-info-circle"></i>)</span></div>
+								<div class="g1">true</div>
+								<div class="g2">This is used to keep or remove padding and margin from elements that are being printed. Sometimes these styling settings are great on screen but it looks pretty bad when printing. You can remove it by setting this to false.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">honorColor <span class="hint--top" aria-label="Use targetStyles, targetStyle, css or style parameters instead" style="font-size:14px;">(deprecated <i class="fa fa-info-circle"></i>)</span></div>
+								<div class="g1">false</div>
+								<div class="g2">To print text in color, set this property to true. By default all text will be printed in black.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">font <span class="hint--top" aria-label="Use css or style parameters instead" style="font-size:14px;">(deprecated <i class="fa fa-info-circle"></i>)</span></div>

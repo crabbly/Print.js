@@ -13,12 +13,6 @@ export function collectStyles (element, params) {
   // String variable to hold styling for each element
   let elementStyle = ''
 
-  // Optional - include margin and padding
-  if (params.honorMarginPadding) params.targetStyles.push('margin', 'padding')
-
-  // Optional - include color
-  if (params.honorColor) params.targetStyles.push('color')
-
   // Loop over computed styles
   let styles = win.getComputedStyle(element, '')
 

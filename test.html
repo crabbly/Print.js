@@ -41,18 +41,28 @@
     }
 
     function printJson() {
-        let data = [
-            {
-                test1: 'Test1 string',
-                test2: 'Test2 string'
-            },
-            {
-                test1: 'more Test1 string',
-                test2: 'more Test2 string'
-            }
-        ]
+      let data = [];
+      for (let i=0; i <= 1000; i++){
+        data.push({
+          test1: createRandomString(),
+          test2: createRandomString()
+        });
+      }
 
-        printJS({printable: data, properties: ['test1', 'test2'], type: 'json'})
+      printJS(
+        {
+          printable: data,
+          properties: [{
+            field: 'test1',
+            displayName: 'test 1',
+            columnSize: 1
+          },{
+            field: 'test2',
+            displayName: 'dsfasdfasdfasdfasdfasdfasd',
+            columnSize: 4
+          }],
+          type: 'json'
+        })
     }
 
     function printStyledJson() {
@@ -71,22 +81,40 @@
     }
 
     function printNestedJson() {
-        let data = [
-            {
-                test1: 'Test1 string',
-                test2: {
-                    a: 'Test2 object, a property',
-                }
-            },
-            {
-                test1: 'more Test1 string',
-                test2: {
-                    a: 'more Test2 object, a property',
-                }
-            }
-        ]
+      let data = [];
+      for (let i=0; i <= 100; i++){
+        data.push({
+          test1: createRandomString(),
+          test2: {
+            a: createRandomString()
+          }
+        });
+      }
 
-        printJS({printable: data, properties: ['test1', 'test2.a'], type: 'json'})
+      printJS(
+        {
+          printable: data,
+          properties: [{
+            field: 'test1',
+            displayName: 'test 1',
+            columnSize: 1
+          },{
+            field: 'test2.a',
+            displayName: 'test 2 - a',
+            columnSize: 4
+          }],
+          type: 'json'
+        })
+    }
+
+    function createRandomString() {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
     }
   </script>
   <body>

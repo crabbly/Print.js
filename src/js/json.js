@@ -17,7 +17,7 @@ export default {
     }
 
     // Check if properties were provided
-    if (!params.properties || typeof params.properties !== 'object') throw new Error('Invalid properties array for your JSON data.')
+    if (!params.properties || !Array.isArray(params.properties)) throw new Error('Invalid properties array for your JSON data.')
 
     // Variable to hold the html string
     let htmlData = ''
@@ -54,7 +54,7 @@ function jsonToHTML (params) {
 
   // Add the table header columns
   for (let a = 0; a < properties.length; a++) {
-    htmlData += '<th style="width:' + 100 / properties.length + '%; ' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a]) + '</th>'
+    htmlData += '<th style="width:' + properties.columnSize / properties.length + '%; ' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a].displayName) + '</th>'
   }
 
   // Add the closing tag for the table header row
@@ -78,17 +78,17 @@ function jsonToHTML (params) {
       let stringData = data[i]
 
       // Support nested objects
-      let property = properties[n].split('.')
+      let property = properties[n].field.split('.')
       if (property.length > 1) {
         for (let p = 0; p < property.length; p++) {
           stringData = stringData[property[p]]
         }
       } else {
-        stringData = stringData[properties[n]]
+        stringData = stringData[properties[n].field]
       }
 
       // Add the row contents and styles
-      htmlData += '<td style="width:' + 100 / properties.length + '%;' + params.gridStyle + '">' + stringData + '</td>'
+      htmlData += '<td style="width:' + properties[n].columnSize / properties.length + '%;' + params.gridStyle + '">' + stringData + '</td>'
     }
 
     // Add the row closing tag

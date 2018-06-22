@@ -34,44 +34,42 @@
 		<script src="assets/js/main.js"></script>
 	</head>
 	<body id="pageBody">
-
 		<!-- Header -->
-			<section id="header" class="dark">
-				<header>
-					<h1>Print.js</h1>
-					<p>A tiny javascript library to help printing from the web.</p>
-				</header>
-				<footer>
-					<a href="#download" download="print.js" class="button scrolly">Download v1.0.47</a>
-				</footer>
-			</section>
+		<section id="header" class="dark">
+			<header>
+				<h1>Print.js</h1>
+				<p>A tiny javascript library to help printing from the web.</p>
+			</header>
+			<footer>
+				<a href="#download" download="print.js" class="button scrolly">Download v1.0.47</a>
+			</footer>
+		</section>
 
 		<!-- PDF Printing -->
 		<section class="main" id="pdf">
-				<div class="content">
-					<div class="container">
+			<div class="content">
+				<div class="container">
 
-						<section>
-							<h2>PDF Printing</h2>
-							<p>Print.js was primarily written to help us print PDF files directly within our apps, without leaving the interface, and no use of embeds. For unique situations where there is no need for users to open or download the PDF files, and instead, they just need to print them.</p>
-                            <p>One scenario where this is useful, for example, is when users request to print reports that are generated on the server side. These reports are sent back as PDF files. There is no need to open these files before printing them. Print.js offers a quick way to print these files within our apps.</p>
-						</section>
+					<section>
+						<h2>PDF Printing</h2>
+						<p>Print.js was primarily written to help us print PDF files directly within our apps, without leaving the interface, and no use of embeds. For unique situations where there is no need for users to open or download the PDF files, and instead, they just need to print them.</p>
+						<p>One scenario where this is useful, for example, is when users request to print reports that are generated on the server side. These reports are sent back as PDF files. There is no need to open these files before printing them. Print.js offers a quick way to print these files within our apps.</p>
+					</section>
 
-						<section class="in-link light">
-							<blockquote>PDF files must be served from the same domain as your app is hosted under. Print.js uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
-						</section>
+					<section class="in-link light">
+						<blockquote>PDF files must be served from the same domain as your app is hosted under. Print.js uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
+					</section>
 
-					</div>
 				</div>
+			</div>
 
 
-				<div class="content dark style5">
-					<div class="container">
+			<div class="content dark style5">
+				<div class="container">
+					<section>
+						<h2>Example</h2>
 
-						<section>
-							<h2>Example</h2>
-
-							<p>Add a button to print a PDF file located on your hosting server:</p>
+						<p>Add a button to print a PDF file located on your hosting server:</p>
 <!-- pdf code -->
 <pre><code data-language="html">
  &lt;button type=&quot;button&quot; onclick=&quot;printJS('docs/printjs.pdf')&quot;&gt;
@@ -80,37 +78,37 @@
 
 </code></pre>
 
-							<p>Result:</p>
-							<button type="button" onclick="printJS('docs/printjs.pdf')">
-								Print PDF
-							</button>
+						<p>Result:</p>
+						<button type="button" onclick="printJS('docs/printjs.pdf')">
+							Print PDF
+						</button>
 
-						</section>
+					</section>
 
-						<section class="in-link">
-							<blockquote>Firefox currently doesn't allow printing PDF documents using iframes. There is an open <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=911444" target="_blank">bug</a> in Mozilla's website about this. When using Firefox, Print.js will open the PDF file into a new tab.</blockquote>
-						</section>
+					<section class="in-link">
+						<blockquote>Firefox currently doesn't allow printing PDF documents using iframes. There is an open <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=911444" target="_blank">bug</a> in Mozilla's website about this. When using Firefox, Print.js will open the PDF file into a new tab.</blockquote>
+					</section>
 
-						<section>
-							<p>For large files, you can show a message to the user when loading files.
-								<!-- pdf code -->
+					<section>
+						<p>For large files, you can show a message to the user when loading files.
+<!-- pdf code -->
 <pre><code data-language="html">
  &lt;button type=&quot;button&quot; onclick=&quot;printJS({printable:'docs/xx_large_printjs.pdf', type:'pdf', showModal:true})&quot;&gt;
     Print PDF with Message
  &lt;/button&gt;
 
 </code></pre>
-							<p>Result:</p>
-							<button type="button" onclick="printJS({printable:'docs/large_printjs.pdf', type:'pdf', showModal:true})" style="margin-right:20px;">
-								Print Large PDF ( 5mb file )
-							</button>
-							<button type="button" onclick="printJS({printable:'docs/x_large_printjs.pdf', type:'pdf', showModal:true})" style="margin-right:20px;">
-								Print Extra Large PDF ( 16mb file )
-							</button>
-						</section>
-					</div>
+						<p>Result:</p>
+						<button type="button" onclick="printJS({printable:'docs/large_printjs.pdf', type:'pdf', showModal:true})" style="margin-right:20px;">
+							Print Large PDF ( 5mb file )
+						</button>
+						<button type="button" onclick="printJS({printable:'docs/x_large_printjs.pdf', type:'pdf', showModal:true})" style="margin-right:20px;">
+							Print Extra Large PDF ( 16mb file )
+						</button>
+					</section>
 				</div>
-			</section>
+			</div>
+		</section>
 
 
 		<!-- HTML Printing -->
@@ -507,7 +505,7 @@
 							<div class="grid-row">
 								<div class="g1">css</div>
 								<div class="g1">null</div>
-								<div class="g2">This allow us to pass a url to one or more css files that should be applied to the html being printed.</div>
+								<div class="g2">This allow us to pass one or more css files URLs that should be applied to the html being printed. Value can be a string with a single URL or an array with multiple URLs.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">style</div>

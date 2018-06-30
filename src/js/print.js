@@ -33,6 +33,28 @@ const Print = {
             // Append style element to iframe's head
             printDocument.head.appendChild(style)
           }
+          
+          // Apply styleSheets
+          if (params.applyInternalStyle) {
+
+            for (const styleSheet of document.styleSheets) {
+              if (styleSheet.cssRules || styleSheet.rules) {
+                const rules = styleSheet.cssRules || styleSheet.rules
+
+                // Create style element
+                const style = document.createElement('style')
+                for (const rule of rules) {
+
+                  const textNode = document.createTextNode(rule.cssText)
+
+                  style.type = 'text/css'
+                  style.appendChild(textNode)
+                }
+                // Append style element to iframe's head
+                printDocument.head.appendChild(style)
+              }
+            }
+          }
 
           // If printing image, wait for it to load inside the iframe
           if (params.type === 'image') {

@@ -39,7 +39,8 @@ export default {
       repeatTableHeader: true,
       css: null,
       style: null,
-      scanStyles: true
+      scanStyles: true,
+      applyInternalStyle: false
     }
 
     // Check if a printable document or object was supplied
@@ -79,7 +80,8 @@ export default {
         params.repeatTableHeader = typeof args.repeatTableHeader !== 'undefined' ? args.repeatTableHeader : params.repeatTableHeader
         params.css = typeof args.css !== 'undefined' ? args.css : params.css
         params.style = typeof args.style !== 'undefined' ? args.style : params.style
-        params.scanStyles = typeof args.scanStyles !== 'undefined' ? args.scanStyles : params.scanStyles
+        params.scanStyles = typeof args.scanStyles !== 'undefined' ? args.scanStyles : params.scanStyles,
+        params.applyInternalStyle = typeof args.applyInternalStyle !== 'undefined' ? args.applyInternalStyle : params.applyInternalStyle
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)

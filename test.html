@@ -12,6 +12,15 @@
             showModal: true
         });
     }
+    
+    function printPdfWithModalAndCloseCallback() {
+        printJS({
+            printable: 'test.pdf',
+            type: 'pdf',
+            showModal: true,
+            onPrintDialogClose: () => console.log('The print dialog was closed')
+        });
+    }
 
     function printHtml() {
       printJS({
@@ -126,6 +135,9 @@
         </button>
         <button onClick='printPdfWithModal();'>
           Print PDF with Loading Modal
+        </button>
+        <button onClick='printPdfWithModalAndCloseCallback();'>
+          Print PDF with Loading Modal and close callback
         </button>
       </p>
       <p>

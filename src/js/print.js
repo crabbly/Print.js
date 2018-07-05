@@ -71,23 +71,22 @@ function finishPrint (iframeElement, params) {
 
   // If preloading pdf files, clean blob url
   if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
-  
+
   // If a onPrintDialogClose callback is given, execute it
   if (params.onPrintDialogClose) {
     if (!Browser.isFirefox()) {
       const handler = () => {
         // Make sure the event only happens once.
         window.removeEventListener('mouseover', handler)
-        
+
         params.onPrintDialogClose()
       }
-      
+
       window.addEventListener('mouseover', handler)
     } else {
-      console.warn('onPrintDialogClose callback does not work with Firefox browser. For further details see https://www.google.co.cr/')
+      console.warn('onPrintDialogClose callback does not work with Firefox browser. For further details see https://github.com/crabbly/Print.js/pull/191')
     }
   }
-
 }
 
 function loadIframeImages (printDocument, params) {

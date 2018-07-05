@@ -57,8 +57,8 @@ export function loopNodesCollectStyles (elements, params) {
 
       // Get text value
       let textNode = tag === 'SELECT'
-                ? document.createTextNode(currentElement.options[currentElement.selectedIndex].text)
-                : document.createTextNode(currentElement.value)
+        ? document.createTextNode(currentElement.options[currentElement.selectedIndex].text)
+        : document.createTextNode(currentElement.value)
 
       // Create text element
       let textElement = document.createElement('div')

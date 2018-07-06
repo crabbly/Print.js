@@ -74,18 +74,21 @@ function finishPrint (iframeElement, params) {
 
   // If a onPrintDialogClose callback is given, execute it
   if (params.onPrintDialogClose) {
-    if (!Browser.isFirefox()) {
-      const handler = () => {
-        // Make sure the event only happens once.
-        window.removeEventListener('mouseover', handler)
+    let event = 'mouseover'
 
-        params.onPrintDialogClose()
-      }
-
-      window.addEventListener('mouseover', handler)
-    } else {
-      console.warn('onPrintDialogClose callback does not work with Firefox browser. For further details see https://github.com/crabbly/Print.js/pull/191')
+    if (Browser.isChrome() || Browser.isFirefox()) {
+      // Firefox will require an extra click in the document
+      // to fire the focus event. Should we console.warn that?
+      event = 'focus'
     }
+    const handler = () => {
+      // Make sure the event only happens once.
+      window.removeEventListener(event, handler)
+
+      params.onPrintDialogClose()
+    }
+
+    window.addEventListener(event, handler)
   }
 }
 

@@ -71,6 +71,25 @@ function finishPrint (iframeElement, params) {
 
   // If preloading pdf files, clean blob url
   if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
+
+  // If a onPrintDialogClose callback is given, execute it
+  if (params.onPrintDialogClose) {
+    let event = 'mouseover'
+
+    if (Browser.isChrome() || Browser.isFirefox()) {
+      // Firefox will require an extra click in the document
+      // to fire the focus event. Should we console.warn that?
+      event = 'focus'
+    }
+    const handler = () => {
+      // Make sure the event only happens once.
+      window.removeEventListener(event, handler)
+
+      params.onPrintDialogClose()
+    }
+
+    window.addEventListener(event, handler)
+  }
 }
 
 function loadIframeImages (printDocument, params) {

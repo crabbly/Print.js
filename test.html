@@ -18,7 +18,9 @@
             printable: 'test.pdf',
             type: 'pdf',
             showModal: true,
-            onPrintDialogClose: () => console.log('The print dialog was closed')
+            onPrintDialogClose: function(){
+              console.log('The print dialog was closed')
+            }
         });
     }
 
@@ -86,7 +88,66 @@
             }
         ]
 
-        printJS({printable: data, properties: ['test1', 'test2'], type: 'json', gridStyle: 'border: 2px solid #3971A5;', gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;'})
+        printJS({printable: data, properties: [{
+              field: 'test1',
+              displayName: 'test 1',
+              columnSize: 0.25
+            },{
+              field: 'test2',
+              displayName: 'test 2',
+              columnSize: 0.75
+            }], type: 'json', gridStyle: 'border: 2px solid #3971A5;', gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;'})
+    }
+
+    function printMultipleTabularJson() {
+      let data = [];
+      for (let i=0; i <= 1000; i++){
+        data.push({
+          test1: createRandomString(),
+          test2: createRandomString(),
+          test2: createRandomString()
+        });
+      }
+
+      printJS(
+        {
+          multiplePrintable: [{
+            headerName: 'test table 1',
+            properties: [{
+              field: 'test1',
+              displayName: 'test 1',
+              columnSize: 0.25
+            },{
+              field: 'test2',
+              displayName: 'test 2',
+              columnSize: 0.75
+            }],
+            printable: [{
+              test1: 'dasdasdasd',
+              test2: 'afsdfsdf'
+            },{
+              test1: 'jkljlkjk',
+              test2: 'ppkk'
+            }]
+          }, {
+            headerName: 'test table 1',
+            properties: [{
+              field: 'test1',
+              displayName: 'test 1',
+              columnSize: 0.25
+            },{
+              field: 'test2',
+              displayName: 'test 2',
+              columnSize: 0.50
+            },{
+              field: 'test2',
+              displayName: 'test 2',
+              columnSize: 0.25
+            }],
+            printable: data
+          }],
+          type: 'json'
+        })
     }
 
     function printNestedJson() {
@@ -160,6 +221,9 @@
         </button>
         <button onClick='printNestedJson();'>
           Print Nested JSON
+        </button>
+        <button onClick='printMultipleTabularJson();'>
+          Print Multiple Table Json
         </button>
       </p>
     </section>

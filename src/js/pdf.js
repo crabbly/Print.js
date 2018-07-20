@@ -36,6 +36,5 @@ export default {
 function send (params, printFrame) {
   // Set iframe src with pdf document url
   printFrame.setAttribute('src', params.printable)
-  console.log('', params)
   Print.send(params, printFrame)
 }

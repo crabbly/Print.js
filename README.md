@@ -23,6 +23,12 @@ To install via yarn:
 yarn add print-js
 ```
 
+When installing via npm or yarn, import the library into your project:
+
+```
+import print from 'print-js'
+```
+
 ## Documentation
 
 You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#documentation).

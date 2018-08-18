@@ -1,6 +1,6 @@
 const path = require('path')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: [
@@ -12,13 +12,13 @@ module.exports = {
     sourceMapFilename: 'print.map'
   },
   module: {
-    rules: [ 
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-            loader: "babel-loader"
-          }
+          loader: 'babel-loader'
+        }
       },
       {
         test: /\.scss$/,
@@ -41,7 +41,7 @@ module.exports = {
               sourceMap: true
             }
           }
-        ],
+        ]
       }
     ]
   },

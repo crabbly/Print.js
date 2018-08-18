@@ -1,3 +1,4 @@
+import css from './sass/index.scss'
 import print from './js/init'
 
 const printjs = print.init

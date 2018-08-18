@@ -8,17 +8,22 @@
   "license": "MIT",
   "dependences": {},
   "devDependencies": {
-    "cross-env": "^3.2.3",
-    "laravel-mix": "^0.8.3",
-    "standard": "^7.1.2"
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "css-loader": "^1.0.0",
+    "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
+    "standard": "^7.1.2",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
   },
   "scripts": {
     "test": "standard",
-    "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch-poll": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --watch-poll --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "dev": "webpack --mode development --progress --hide-modules",
+    "watch": "webpack --mode development --watch --progress --hide-modules",
+    "production": "webpack --mode production --progress --hide-modules"
   },
   "author": "Rodrigo Vieira <rodrigo@crabbly.com>",
   "standard": {
@@ -28,6 +33,7 @@
   },
   "keywords": [
     "printjs",
-    "print.js"
+    "print.js",
+    "print-js"
   ]
 }

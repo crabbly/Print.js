@@ -1,6 +1,7 @@
 const path = require('path')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
   entry: [
@@ -48,9 +49,17 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'print.min.css'
-    }),
-    new UglifyJSPlugin({
-      sourceMap: true
     })
-  ]
+  ],
+  optimization: {
+    minimizer: [
+      new OptimizeCssAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        canPrint: false
+      }),
+      new UglifyJSPlugin({
+        sourceMap: true
+      })
+    ]
+  }
 }

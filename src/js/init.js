@@ -13,6 +13,7 @@ export default {
   init () {
     let params = {
       printable: null,
+      multiplePrintable: null,
       fallbackPrintable: null,
       type: 'pdf',
       header: null,
@@ -82,13 +83,11 @@ export default {
         params.css = typeof args.css !== 'undefined' ? args.css : params.css
         params.style = typeof args.style !== 'undefined' ? args.style : params.style
         params.scanStyles = typeof args.scanStyles !== 'undefined' ? args.scanStyles : params.scanStyles
+        params.multiplePrintable = typeof args.multiplePrintable !== 'undefined' ? args.multiplePrintable : params.multiplePrintable
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)
     }
-
-    // Validate printable
-    if (!params.printable) throw new Error('Missing printable information.')
 
     // Validate type
     if (!params.type || typeof params.type !== 'string' || printTypes.indexOf(params.type.toLowerCase()) === -1) {

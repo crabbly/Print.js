@@ -11,13 +11,24 @@ export default {
       throw new Error('Invalid javascript data object (JSON).')
     }
 
-    // Check if the repeatTableHeader is boolean
+    // Validate repeatTableHeader
     if (typeof params.repeatTableHeader !== 'boolean') {
       throw new Error('Invalid value for repeatTableHeader attribute (JSON).')
     }
 
-    // Check if properties were provided
-    if (!params.properties || !Array.isArray(params.properties)) throw new Error('Invalid properties array for your JSON data.')
+    // Validate properties
+    if (!params.properties || !Array.isArray(params.properties)) {
+      throw new Error('Invalid properties array for your JSON data.')
+    }
+
+    // We will format the property objects to keep the JSON api compatible with older releases
+    params.properties = params.properties.map(property => {
+      return {
+        field: typeof property === 'object' ? property.field : property,
+        displayName: typeof property === 'object' ? property.displayName : property,
+        columnSize: typeof property === 'object' && property.columnSize + ';' ? property.columnSize : 100 / params.properties.length + '%;'
+      }
+    })
 
     // Variable to hold the html string
     let htmlData = ''
@@ -54,7 +65,7 @@ function jsonToHTML (params) {
 
   // Add the table header columns
   for (let a = 0; a < properties.length; a++) {
-    htmlData += '<th style="width:' + properties.columnSize / properties.length + '%; ' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a].displayName) + '</th>'
+    htmlData += '<th style="width:' + properties[a].columnSize + ';' + params.gridHeaderStyle + '">' + capitalizePrint(properties[a].displayName) + '</th>'
   }
 
   // Add the closing tag for the table header row
@@ -88,7 +99,7 @@ function jsonToHTML (params) {
       }
 
       // Add the row contents and styles
-      htmlData += '<td style="width:' + properties[n].columnSize / properties.length + '%;' + params.gridStyle + '">' + stringData + '</td>'
+      htmlData += '<td style="width:' + properties[n].columnSize + params.gridStyle + '">' + stringData + '</td>'
     }
 
     // Add the row closing tag

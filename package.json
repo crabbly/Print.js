@@ -2,7 +2,7 @@
   "name": "print-js",
   "homepage": "http://printjs.crabbly.com",
   "description": "A tiny javascript library to help printing from the web.",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "main": "dist/print.js",
   "repository": "https://github.com/crabbly/Print.js",
   "license": "MIT",
@@ -10,6 +10,7 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
     "css-loader": "^1.0.0",
     "mini-css-extract-plugin": "^0.4.1",
     "node-sass": "^4.9.3",

@@ -3,7 +3,7 @@ import Print from './print'
 export default {
   print: (params, printFrame) => {
     // Format pdf url
-    params.printable = params.printable.indexOf('http') !== -1
+    params.printable = /^(blob|http)/i.test(params.printable)
       ? params.printable
       : window.location.origin + (params.printable.charAt(0) !== '/' ? '/' + params.printable : params.printable)
 

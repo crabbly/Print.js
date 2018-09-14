@@ -18,7 +18,8 @@
             printable: 'test.pdf',
             type: 'pdf',
             showModal: true,
-            onPrintDialogClose: () => console.log('The print dialog was closed')
+            onPrintDialogClose: () => console.log('The print dialog was closed'),
+            onPdfOpen: () => console.log('Pdf was opened in a new tab due to an incompatible browser')
         });
     }
 

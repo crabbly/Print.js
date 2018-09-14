@@ -29,6 +29,7 @@ export default {
       onLoadingStart: null,
       onLoadingEnd: null,
       onPrintDialogClose: null,
+      onPdfOpen: null,
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
       htmlData: '',
@@ -72,6 +73,7 @@ export default {
         params.onLoadingStart = typeof args.onLoadingStart !== 'undefined' ? args.onLoadingStart : params.onLoadingStart
         params.onLoadingEnd = typeof args.onLoadingEnd !== 'undefined' ? args.onLoadingEnd : params.onLoadingEnd
         params.onPrintDialogClose = typeof args.onPrintDialogClose !== 'undefined' ? args.onPrintDialogClose : params.onPrintDialogClose
+        params.onPdfOpen = typeof args.onPdfOpen !== 'undefined' ? args.onPdfOpen : params.onPdfOpen
         params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
         params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
         params.targetStyle = typeof args.targetStyle !== 'undefined' ? args.targetStyle : params.targetStyle
@@ -147,6 +149,7 @@ export default {
           // Make sure there is no loading modal opened
           if (params.showModal) Modal.close()
           if (params.onLoadingEnd) params.onLoadingEnd()
+          if (params.onPdfOpen) params.onPdfOpen()
         } else {
           Pdf.print(params, printFrame)
         }

@@ -48,7 +48,7 @@ const Print = {
   }
 }
 
-function finishPrint (iframeElement, params) {
+function performPrint (iframeElement, params) {
   iframeElement.focus()
 
   // If Edge or IE, try catch with execCommand
@@ -62,7 +62,9 @@ function finishPrint (iframeElement, params) {
     // Other browsers
     iframeElement.contentWindow.print()
   }
+}
 
+function cleanUp (params) {
   // If we are showing a feedback message to user, remove it
   if (params.showModal) Modal.close()
 
@@ -89,6 +91,16 @@ function finishPrint (iframeElement, params) {
     }
 
     window.addEventListener(event, handler)
+  }
+}
+
+function finishPrint (iframeElement, params) {
+  try {
+    performPrint(iframeElement, params);
+  } catch(error) {
+    params.onError(error);
+  } finally {
+    cleanUp(params);
   }
 }
 

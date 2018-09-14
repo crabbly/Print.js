@@ -143,12 +143,17 @@ export default {
       case 'pdf':
         // Check browser support for pdf and if not supported we will just open the pdf file instead
         if (Browser.isFirefox() || Browser.isEdge() || Browser.isIE()) {
-          console.info('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
-          let win = window.open(params.fallbackPrintable, '_blank')
-          win.focus()
-          // Make sure there is no loading modal opened
-          if (params.showModal) Modal.close()
-          if (params.onLoadingEnd) params.onLoadingEnd()
+          try {
+            console.info('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
+            let win = window.open(params.fallbackPrintable, '_blank')
+            win.focus()
+          } catch (e) {
+            params.onError(e);
+          } finally {
+            // Make sure there is no loading modal opened
+            if (params.showModal) Modal.close()
+            if (params.onLoadingEnd) params.onLoadingEnd()
+          }
         } else {
           Pdf.print(params, printFrame)
         }

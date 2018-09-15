@@ -26,6 +26,7 @@ export default {
       gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',
       gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
       showModal: false,
+      onError: (error) => { throw error },
       onLoadingStart: null,
       onLoadingEnd: null,
       onPrintDialogClose: null,
@@ -69,6 +70,7 @@ export default {
         params.gridHeaderStyle = typeof args.gridHeaderStyle !== 'undefined' ? args.gridHeaderStyle : params.gridHeaderStyle
         params.gridStyle = typeof args.gridStyle !== 'undefined' ? args.gridStyle : params.gridStyle
         params.showModal = typeof args.showModal !== 'undefined' ? args.showModal : params.showModal
+        params.onError = typeof args.onError !== 'undefined' ? args.onError : params.onError
         params.onLoadingStart = typeof args.onLoadingStart !== 'undefined' ? args.onLoadingStart : params.onLoadingStart
         params.onLoadingEnd = typeof args.onLoadingEnd !== 'undefined' ? args.onLoadingEnd : params.onLoadingEnd
         params.onPrintDialogClose = typeof args.onPrintDialogClose !== 'undefined' ? args.onPrintDialogClose : params.onPrintDialogClose
@@ -141,12 +143,17 @@ export default {
       case 'pdf':
         // Check browser support for pdf and if not supported we will just open the pdf file instead
         if (Browser.isFirefox() || Browser.isEdge() || Browser.isIE()) {
-          console.info('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
-          let win = window.open(params.fallbackPrintable, '_blank')
-          win.focus()
-          // Make sure there is no loading modal opened
-          if (params.showModal) Modal.close()
-          if (params.onLoadingEnd) params.onLoadingEnd()
+          try {
+            console.info('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
+            let win = window.open(params.fallbackPrintable, '_blank')
+            win.focus()
+          } catch (e) {
+            params.onError(e)
+          } finally {
+            // Make sure there is no loading modal opened
+            if (params.showModal) Modal.close()
+            if (params.onLoadingEnd) params.onLoadingEnd()
+          }
         } else {
           Pdf.print(params, printFrame)
         }

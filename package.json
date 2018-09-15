@@ -23,7 +23,7 @@
   },
   "scripts": {
     "test": "standard",
-    "dev": "webpack --mode development --progress --hide-modules",
+    "dev": "webpack --mode development --progress --hide-modules --devtool source-map",
     "watch": "webpack --mode development --watch --progress --hide-modules",
     "production": "webpack --mode production --progress --hide-modules"
   },

@@ -96,11 +96,11 @@ function cleanUp (params) {
 
 function finishPrint (iframeElement, params) {
   try {
-    performPrint(iframeElement, params);
-  } catch(error) {
-    params.onError(error);
+    performPrint(iframeElement, params)
+  } catch (error) {
+    params.onError(error)
   } finally {
-    cleanUp(params);
+    cleanUp(params)
   }
 }
 

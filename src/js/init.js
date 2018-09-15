@@ -148,7 +148,7 @@ export default {
             let win = window.open(params.fallbackPrintable, '_blank')
             win.focus()
           } catch (e) {
-            params.onError(e);
+            params.onError(e)
           } finally {
             // Make sure there is no loading modal opened
             if (params.showModal) Modal.close()

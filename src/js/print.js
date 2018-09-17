@@ -48,7 +48,7 @@ const Print = {
   }
 }
 
-function finishPrint (iframeElement, params) {
+function performPrint (iframeElement, params) {
   iframeElement.focus()
 
   // If Edge or IE, try catch with execCommand
@@ -62,7 +62,9 @@ function finishPrint (iframeElement, params) {
     // Other browsers
     iframeElement.contentWindow.print()
   }
+}
 
+function cleanUp (params) {
   // If we are showing a feedback message to user, remove it
   if (params.showModal) Modal.close()
 
@@ -92,6 +94,16 @@ function finishPrint (iframeElement, params) {
   }
 }
 
+function finishPrint (iframeElement, params) {
+  try {
+    performPrint(iframeElement, params)
+  } catch (error) {
+    params.onError(error)
+  } finally {
+    cleanUp(params)
+  }
+}
+
 function loadIframeImages (printDocument, params) {
   let promises = []
 
@@ -102,15 +114,16 @@ function loadIframeImages (printDocument, params) {
 
 function loadIframeImage (printDocument, index) {
   return new Promise(resolve => {
-    let image = printDocument ? printDocument.getElementById('printableImage' + index) : null
+    const pollImage = () => {
+      let image = printDocument ? printDocument.getElementById('printableImage' + index) : null
 
-    if (!image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0) {
-      setTimeout(() => {
-        loadIframeImage(printDocument, index)
-      }, 500)
-    } else {
-      resolve()
+      if (!image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0) {
+        setTimeout(pollImage, 500)
+      } else {
+        resolve()
+      }
     }
+    pollImage()
   })
 }
 

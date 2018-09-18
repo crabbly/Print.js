@@ -9,7 +9,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'print.min.js',
+    filename: 'print.js',
     sourceMapFilename: 'print.map'
   },
   module: {
@@ -51,7 +51,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'print.min.css'
+      filename: 'print.css'
     })
   ],
   optimization: {

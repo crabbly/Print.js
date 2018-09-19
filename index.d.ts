@@ -5,7 +5,7 @@ declare type PrintTypes = 'pdf' | 'html' | 'image' | 'json';
 export interface Configuration {
     printable: any;
     fallbackPrintable?: string;
-    type?: string;
+    type?: PrintTypes;
     documentTitle?: string;
     header?: any;
     headerStyle?: string;

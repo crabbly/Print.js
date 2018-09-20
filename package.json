@@ -4,6 +4,7 @@
   "description": "A tiny javascript library to help printing from the web.",
   "version": "1.0.51",
   "main": "dist/print.js",
+  "types": "./index.d.ts",
   "repository": "https://github.com/crabbly/Print.js",
   "license": "MIT",
   "dependences": {},

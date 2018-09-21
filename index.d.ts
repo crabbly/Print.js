@@ -1,5 +1,3 @@
-import 'print-js/dist/print';
-
 declare type PrintTypes = 'pdf' | 'html' | 'image' | 'json';
 
 export interface Configuration {

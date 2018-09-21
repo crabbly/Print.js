@@ -30,6 +30,6 @@ export interface Configuration {
   scanStyles?: boolean;
 }
 
-declare var print: (params: string | Configuration) => void;
+declare var printJS: (params: string | Configuration) => void;
 
-export default print;
+export default printJS;

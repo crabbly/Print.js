@@ -8,11 +8,12 @@ module.exports = {
     './src/index.js'
   ],
   output: {
-    library: 'print',
+    library: 'printJS',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
     filename: 'print.js',
-    sourceMapFilename: 'print.map'
+    sourceMapFilename: 'print.map',
+    libraryExport: 'default'
   },
   module: {
     rules: [

@@ -7,4 +7,4 @@ if (typeof window !== 'undefined') {
   window.printJS = printJS
 }
 
-export default printJS
+module.exports = printJS

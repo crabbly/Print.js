@@ -1,5 +1,3 @@
-import 'print-js/dist/print';
-
 declare type PrintTypes = 'pdf' | 'html' | 'image' | 'json';
 
 export interface Configuration {
@@ -32,6 +30,6 @@ export interface Configuration {
   scanStyles?: boolean;
 }
 
-declare var printJS: (params: string | Configuration) => void;
+declare var print: (params: string | Configuration) => void;
 
-export default printJS;
+export default print;

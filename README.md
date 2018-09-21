@@ -26,7 +26,7 @@ yarn add print-js
 When installing via npm or yarn, import the library into your project:
 
 ```
-import printJS from 'print-js'
+import print from 'print-js'
 ```
 
 ## Documentation

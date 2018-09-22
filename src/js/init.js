@@ -4,10 +4,11 @@ import Browser from './browser'
 import Modal from './modal'
 import Pdf from './pdf'
 import Html from './html'
+import RawHtml from './raw_html'
 import Image from './image'
 import Json from './json'
 
-let printTypes = ['pdf', 'html', 'image', 'json']
+let printTypes = ['pdf', 'html', 'rawHtml', 'image', 'json']
 
 export default {
   init () {
@@ -95,8 +96,8 @@ export default {
     if (!params.printable) throw new Error('Missing printable information.')
 
     // Validate type
-    if (!params.type || typeof params.type !== 'string' || printTypes.indexOf(params.type.toLowerCase()) === -1) {
-      throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
+    if (printTypes.indexOf(params.type) === -1) {
+      throw new Error('Invalid print type. Available types are: pdf, html, rawHtml, image and json.')
     }
 
     // Check if we are showing a feedback message to the user (useful for large files)
@@ -166,6 +167,9 @@ export default {
         break
       case 'html':
         Html.print(params, printFrame)
+        break
+      case 'rawHtml':
+        RawHtml.print(params, printFrame)
         break
       case 'json':
         Json.print(params, printFrame)

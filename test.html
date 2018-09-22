@@ -50,6 +50,25 @@
         });
     }
 
+    function printRawHtml() {
+        printJS({
+            printable: '' +
+            '<h1>print js is cool</h1>' +
+            '<p>it can print raw html</p>' +
+            '<img src="https://avatars0.githubusercontent.com/u/16927940?s=60&v=4" /> '+
+            '<img src="https://avatars0.githubusercontent.com/u/16927940?s=128&v=4" /> '+
+            '<img src="https://avatars0.githubusercontent.com/u/16927940?s=256&v=4" /> '+
+            '<img src="https://avatars0.githubusercontent.com/u/889040?s=64&v=4" /> '+
+            '<img src="https://avatars0.githubusercontent.com/u/889040?s=128&v=4" /> '+
+            '<img src="https://avatars0.githubusercontent.com/u/889040?s=256&v=4" /> '+
+            '<img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png" /> ',
+            type: 'rawHtml',
+            css: 'test.css',
+            showModal: true,
+            scanStyles: false
+        });
+    }
+
     function printJson() {
       let data = [];
       for (let i=0; i <= 1000; i++){
@@ -150,6 +169,9 @@
         </button>
         <button onClick='printHtmlCss();'>
           Print HTML with custom css
+        </button>
+        <button onClick='printRawHtml();'>
+          Print HTML with rawHtml
         </button>
       </p>
       <p>

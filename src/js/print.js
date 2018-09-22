@@ -39,6 +39,10 @@ const Print = {
             loadIframeImages(printDocument, params).then(() => {
               finishPrint(iframeElement, params)
             })
+          } else if (params.type === 'rawHtml') {
+            checkIframeImages(printDocument, params).then(() => {
+              finishPrint(iframeElement, params)
+            })
           } else {
             finishPrint(iframeElement, params)
           }
@@ -102,6 +106,19 @@ function finishPrint (iframeElement, params) {
   } finally {
     cleanUp(params)
   }
+}
+
+function checkIframeImages(printDocument, params) {
+    let promises = []
+
+    let images = printDocument.getElementsByTagName('img')
+    for(let i = 0; i < images.length; i++) {
+      let image = images[i]
+      image.setAttribute('id', 'printableImage' + i)
+      promises.push(loadIframeImage(printDocument, i))
+    }
+
+    return Promise.all(promises)
 }
 
 function loadIframeImages (printDocument, params) {

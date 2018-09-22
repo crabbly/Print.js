@@ -50,6 +50,15 @@
         });
     }
 
+    function printRawHtml() {
+        printJS({
+            printable: '<h1>print js is cool</h1><p>it can print raw html</p>',
+            type: 'rawHtml',
+            css: 'test.css',
+            scanStyles: false
+        });
+    }
+
     function printJson() {
       let data = [];
       for (let i=0; i <= 1000; i++){
@@ -150,6 +159,9 @@
         </button>
         <button onClick='printHtmlCss();'>
           Print HTML with custom css
+        </button>
+        <button onClick='printRawHtml();'>
+          Print HTML with rawHtml
         </button>
       </p>
       <p>

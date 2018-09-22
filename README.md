@@ -78,6 +78,13 @@ npm install http-server -g
 http-server
 ```
 
+or you can use `live-server`
+
+```
+npm i live-server -g
+live-server
+```
+
 Navigate to `http://localhost:8080/test.html`
 
 

@@ -4,3 +4,4 @@ node_js:
 branches:
   only:
     - master
+sudo: required

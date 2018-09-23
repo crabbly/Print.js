@@ -7,12 +7,22 @@
   "types": "./index.d.ts",
   "repository": "https://github.com/crabbly/Print.js",
   "license": "MIT",
-  "dependences": {},
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "coveralls": "^3.0.2",
     "css-loader": "^1.0.0",
+    "istanbul-instrumenter-loader": "^3.0.1",
+    "jasmine-core": "^3.2.1",
+    "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^1.1.2",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^3.0.5",
     "mini-css-extract-plugin": "^0.4.1",
     "node-sass": "^4.9.3",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
@@ -23,16 +33,22 @@
     "webpack-cli": "^3.1.0"
   },
   "scripts": {
-    "test": "standard",
+    "test": "standard && karma start",
     "dev": "webpack --mode development --progress --hide-modules --devtool source-map",
     "watch": "webpack --mode development --watch --progress --hide-modules",
-    "production": "webpack --mode production --progress --hide-modules"
+    "production": "webpack --mode production --progress --hide-modules",
+    "coverage": "open coverage/lcov-report/index.html",
+    "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "author": "Rodrigo Vieira <rodrigo@crabbly.com>",
   "standard": {
     "ignore": [
       "/dist/print.js"
-    ]
+    ],
+    "env": {
+      "browser": true,
+      "jasmine": true
+    }
   },
   "keywords": [
     "printjs",

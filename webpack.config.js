@@ -27,6 +27,16 @@ module.exports = {
           }
         }
       },
+      // TODO: Configure istanbul to interpret how webpack bundles files
+      // {
+      //   test: /\.js$/,
+      //   use: {
+      //     loader: 'istanbul-instrumenter-loader',
+      //     options: { esModules: true }
+      //   },
+      //   enforce: 'post',
+      //   exclude: /node_modules|\.spec\.js$/
+      // },
       {
         test: /\.scss$/,
         use: [

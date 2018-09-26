@@ -1,13 +1,13 @@
 <html>
-  <script src='./dist/print.js'></script>
+  <script src='../../dist/print.js'></script>
   <script type="text/javascript">
     function printPdf() {
-      printJS('test.pdf');
+      printJS('/test/manual/test.pdf');
     }
 
     function printPdfWithModal() {
         printJS({
-            printable: 'test.pdf',
+            printable: '/test/manual/test.pdf',
             type: 'pdf',
             showModal: true
         });
@@ -15,7 +15,7 @@
     
     function printPdfWithModalAndCloseCallback() {
         printJS({
-            printable: 'test.pdf',
+            printable: '/test/manual/test.pdf',
             type: 'pdf',
             showModal: true,
             onPrintDialogClose: () => console.log('The print dialog was closed'),

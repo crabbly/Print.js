@@ -500,7 +500,7 @@
 							<div class="grid-row">
 								<div class="g1">maxWidth</div>
 								<div class="g1">800</div>
-								<div class="g2">Max document width in pixels. Many people would recommend this to be around 600px. We tested many prints with 800px and it fits well for us. Change this as you need.</div>
+								<div class="g2">Max document width in pixels. Change this as you need. Used when priting HTML, Images or JSON.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">css</div>
@@ -531,11 +531,6 @@
 								<div class="g1">ignoreElements</div>
 								<div class="g1">[ ]</div>
 								<div class="g2">Accepts an array of html ids that should be ignored when printing a parent html element.</div>
-							</div>
-							<div class="grid-row">
-								<div class="g1">imageStyle</div>
-								<div class="g1">'width:100%;'</div>
-								<div class="g2">Used when printing images. Accepts a string with custom styles to be applied to each image.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">properties</div>
@@ -581,7 +576,27 @@
 								<div class="g1">documentTitle</div>
 								<div class="g1">'Document'</div>
 								<div class="g2">When printing html, image or json, this will be shown as the document title. It will also be the name of the document, if the user tries to save the print job to a pdf file.</div>
-							</div>
+                            </div>
+							<div class="grid-row">
+								<div class="g1">fallbackPrintable</div>
+								<div class="g1">null</div>
+								<div class="g2">When printing pdf, if the browser is not compatible (check browser compatibility table), the library will open the pdf in a new tab. This allow you to pass a different pdf document to be opened instead of the original passed in `printable`. This may be useful if you inject javascript in your alternate pdf file.</div>
+                            </div>
+							<div class="grid-row">
+								<div class="g1">onPdfOpen</div>
+								<div class="g1">null</div>
+								<div class="g2">When printing pdf, if the browser is not compatible (check browser compatibility table), the library will open the pdf in a new tab. A callback function can be passed here, which will be executed when this happens. It may be useful in some situations where you want to handle your print flow, update user interface, etc.</div>
+                            </div>
+							<div class="grid-row">
+								<div class="g1">onPrintDialogClose</div>
+								<div class="g1">null</div>
+								<div class="g2">Callback function executed once the browser print dialog is closed.</div>
+                            </div>
+							<div class="grid-row">
+								<div class="g1">onError</div>
+								<div class="g1">error => throw error</div>
+								<div class="g2">Callback function to be executed when an error occurs.</div>
+                            </div>
 							<div class="grid-row">
 								<div class="g1">honorMarginPadding <span class="hint--top" aria-label="Use targetStyles, targetStyle, css or style parameters instead" style="font-size:14px;">(deprecated <i class="fa fa-info-circle"></i>)</span></div>
 								<div class="g1">true</div>
@@ -601,6 +616,11 @@
 								<div class="g1">font_size <span class="hint--top" aria-label="Use css or style parameters instead" style="font-size:14px;">(deprecated <i class="fa fa-info-circle"></i>)</span></div>
 								<div class="g1">'12pt'</div>
 								<div class="g2">Font size used when printing HTML or JSON.</div>
+                            </div>
+							<div class="grid-row">
+								<div class="g1">imageStyle <span class="hint--top" aria-label="Use css or style parameters instead" style="font-size:14px;">(deprecated <i class="fa fa-info-circle"></i>)</span></div>
+								<div class="g1">'width:100%;'</div>
+								<div class="g2">Used when printing images. Accepts a string with custom styles to be applied to each image.</div>
 							</div>
 						</div>
 					</section>

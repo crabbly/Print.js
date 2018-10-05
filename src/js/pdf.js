@@ -15,7 +15,7 @@ export default {
 
       req.addEventListener('load', () => {
         // Pass response data to a blob and create a local object url
-        let localPdf = new window.Blob([req.response], {type: 'application/pdf'})
+        let localPdf = new window.Blob([req.response], { type: 'application/pdf' })
         localPdf = window.URL.createObjectURL(localPdf)
 
         // Pass the url to the printable parameter (replacing the original pdf file url)

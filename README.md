@@ -1,6 +1,9 @@
 # Print.js
 
-[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](http://standardjs.com/) [![npm](https://img.shields.io/npm/v/print-js.svg)](https://www.npmjs.com/package/print-js)
+[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](http://standardjs.com/)
+[![npm](https://img.shields.io/npm/v/print-js.svg)](https://www.npmjs.com/package/print-js)
 
 A tiny javascript library to help printing from the web.
 
@@ -38,6 +41,7 @@ You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#
 
 [![devDependencies Status](https://david-dm.org/crabbly/print.js/dev-status.svg)](https://david-dm.org/crabbly/print.js?type=dev)
 [![dependencies Status](https://david-dm.org/crabbly/print.js/status.svg)](https://david-dm.org/crabbly/print.js)
+[![slack](https://img.shields.io/badge/slack-printjs-orange.svg?logo=slack)](https://publicslack.com/slacks/printjs/invites/new)
 
 Contributions to Print.js are welcome and encouraged.
 

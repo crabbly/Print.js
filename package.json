@@ -10,7 +10,7 @@
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "7",
     "babel-preset-env": "^1.7.0",
     "coveralls": "^3.0.2",
     "css-loader": "^1.0.0",

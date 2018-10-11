@@ -26,7 +26,7 @@ export default {
       return {
         field: typeof property === 'object' ? property.field : property,
         displayName: typeof property === 'object' ? property.displayName : property,
-        columnSize: typeof property === 'object' && property.columnSize + ';' ? property.columnSize : 100 / params.properties.length + '%;'
+        columnSize: typeof property === 'object' && property.columnSize ? property.columnSize + ';' : 100 / params.properties.length + '%;'
       }
     })
 

@@ -28,6 +28,9 @@ export interface Configuration {
   css?: string | string[];
   style?: string;
   scanStyles?: boolean;
+  onError?: (error: any) => void;
+  onPrintDialogClose?: () => void;
+  onPdfOpen?: () => void;
 }
 
 declare var printJS: (params: string | Configuration) => void;

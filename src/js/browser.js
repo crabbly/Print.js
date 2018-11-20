@@ -13,7 +13,7 @@ const Browser = {
   },
   // Chrome 1+
   isChrome: (context = window) => {
-    return !!context.chrome && !!context.chrome.webstore
+    return !!context.chrome
   },
   // At least Safari 3+: "[object HTMLElementConstructor]"
   isSafari: () => {

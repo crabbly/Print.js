@@ -21,6 +21,13 @@ describe('Browser', () => {
     expect(typeof Browser.isChrome()).toBe('boolean')
   })
 
+  describe('isChrome()', () => {
+    xit('returns true for Google Chrome', () => {
+      const stubbedWindow = { chrome: {} }
+      expect(Browser.isChrome(stubbedWindow)).toBeTruthy()
+    })
+  })
+
   it('has a function named isSafari that returns a boolean value', () => {
     expect(typeof Browser.isSafari).toBe('function')
     expect(typeof Browser.isSafari()).toBe('boolean')

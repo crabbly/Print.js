@@ -12,8 +12,8 @@ const Browser = {
     return !Browser.isIE() && !!window.StyleMedia
   },
   // Chrome 1+
-  isChrome: () => {
-    return !!window.chrome && !!window.chrome.webstore
+  isChrome: (context = window) => {
+    return !!context.chrome
   },
   // At least Safari 3+: "[object HTMLElementConstructor]"
   isSafari: () => {

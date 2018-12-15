@@ -110,7 +110,7 @@ function jsonToHTML(params) {
         stringData = stringData[properties[n].field];
       }
 
-      if (p2roperties[n].formatter) {
+      if (properties[n].formatter) {
         stringData = properties[n].formatter(properties[n].field, data[i]);
       }
 

@@ -25,7 +25,7 @@ export default {
         displayName:
           typeof property === "object" ? property.displayName : property,
         formatter:
-          typeof property === "function" ? property.formatter : undefined,
+          typeof property === "object" ? property.formatter : property,
         columnSize:
           typeof property === "object" && property.columnSize
             ? property.columnSize + ";"
@@ -110,8 +110,8 @@ function jsonToHTML(params) {
         stringData = stringData[properties[n].field];
       }
 
-      if (properties[n].formatter) {
-        stringData = properties[n].formatter(properties[n].field, stringData);
+      if (p2roperties[n].formatter) {
+        stringData = properties[n].formatter(properties[n].field, data[i]);
       }
 
       // Add the row contents and styles

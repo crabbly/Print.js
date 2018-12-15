@@ -98,11 +98,9 @@ function jsonToHTML (params) {
       } else {
         stringData = stringData[properties[n].field]
       }
-      
       if (properties[n].formatter) {
         stringData = properties[n].formatter(properties[n].field, data[i])
       }
-      
       // Add the row contents and styles
       htmlData += '<td style="width:' + properties[n].columnSize + params.gridStyle + '">' + stringData + '</td>'
     }

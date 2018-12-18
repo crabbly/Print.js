@@ -77,7 +77,7 @@ export default {
         params.onLoadingEnd = typeof args.onLoadingEnd !== 'undefined' ? args.onLoadingEnd : params.onLoadingEnd
         params.onPrintDialogClose = typeof args.onPrintDialogClose !== 'undefined' ? args.onPrintDialogClose : params.onPrintDialogClose
         params.onPdfOpen = typeof args.onPdfOpen !== 'undefined' ? args.onPdfOpen : params.onPdfOpen
-        params.onBrowserIncompatible = typeof args.onBrowserIncompatible !== 'undefined' ? args.onBrowserIncompatible : params.onBrowserIncompatible;
+        params.onBrowserIncompatible = typeof args.onBrowserIncompatible !== 'undefined' ? args.onBrowserIncompatible : params.onBrowserIncompatible
         params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
         params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
         params.targetStyle = typeof args.targetStyle !== 'undefined' ? args.targetStyle : params.targetStyle

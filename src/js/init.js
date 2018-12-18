@@ -31,6 +31,7 @@ export default {
       onLoadingEnd: null,
       onPrintDialogClose: null,
       onPdfOpen: null,
+      onBrowserIncompatible: () => true,
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
       htmlData: '',
@@ -76,6 +77,7 @@ export default {
         params.onLoadingEnd = typeof args.onLoadingEnd !== 'undefined' ? args.onLoadingEnd : params.onLoadingEnd
         params.onPrintDialogClose = typeof args.onPrintDialogClose !== 'undefined' ? args.onPrintDialogClose : params.onPrintDialogClose
         params.onPdfOpen = typeof args.onPdfOpen !== 'undefined' ? args.onPdfOpen : params.onPdfOpen
+        params.onBrowserIncompatible = typeof args.onBrowserIncompatible !== 'undefined' ? args.onBrowserIncompatible : params.onBrowserIncompatible;
         params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
         params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
         params.targetStyle = typeof args.targetStyle !== 'undefined' ? args.targetStyle : params.targetStyle
@@ -147,9 +149,11 @@ export default {
         if (Browser.isFirefox() || Browser.isEdge() || Browser.isIE()) {
           try {
             console.info('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
-            let win = window.open(params.fallbackPrintable, '_blank')
-            win.focus()
-            if (params.onPdfOpen) params.onPdfOpen()
+            if (params.onBrowserIncompatible() === true) {
+              let win = window.open(params.fallbackPrintable, '_blank')
+              win.focus()
+              if (params.onPdfOpen) params.onPdfOpen()
+            }
           } catch (e) {
             params.onError(e)
           } finally {

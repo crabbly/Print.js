@@ -116,6 +116,48 @@
           type: 'json'
         })
     }
+    
+    function printDynamicJson(){
+     let properties = [];
+     properties.push({
+       field: 'test1',
+       displayName: 'name',
+       formatter: "foo" // wrong type
+     },{
+       field: 'test2',
+       displayName: 'age',
+       formatter: function(arg1){
+
+       } // wrong parameter length
+     },{
+       field: 'test3',
+       displayName: 'sex',
+       formatter: function(arg1, args2, args3){
+         return args3
+       }
+     },
+     {
+       field: 'test4',
+       displayName: 'addr'
+     }
+     ) 
+
+     let data=[];
+     for(let i=0; i < 100; i++){
+       data.push({
+         test1: createRandomString(),
+         test2: createRandomString(),
+         test3: createRandomString(),
+         test4: createRandomString()
+       })
+     }
+
+     printJS({
+       printable: data,
+       properties,
+       type: 'json'
+     })
+    }
 
     function createRandomString() {
       var text = "";
@@ -161,6 +203,9 @@
         </button>
         <button onClick='printNestedJson();'>
           Print Nested JSON
+        </button>
+        <button onClick="printDynamicJson();">
+          Print Dynamic JSON
         </button>
       </p>
     </section>

@@ -23,6 +23,17 @@
         });
     }
 
+    function printPdfCompatibleBrowser() {
+      printJS({
+        printable: '/test/manual/test.pdf',
+        type: 'pdf',
+        onBrowserIncompatible: () => {
+          alert('Browser incompatible');
+          return false;
+        }
+      });
+    }
+
     function printHtml() {
       printJS({
         printable: 'test',
@@ -139,6 +150,9 @@
         </button>
         <button onClick='printPdfWithModalAndCloseCallback();'>
           Print PDF with Loading Modal and close callback
+        </button>
+        <button onClick='printPdfCompatibleBrowser();'>
+          Print PDF only on compatible browser
         </button>
       </p>
       <p>

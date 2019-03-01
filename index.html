@@ -399,6 +399,37 @@
 						<button type="button" onclick="printJS({ printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json', gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;', gridStyle: 'border: 2px solid #3971A5;' })">
 							Print Styled JSON Data
 						</button>
+
+						<hr/>
+
+						<p>We can customize the table header text sending an object array</p>
+
+<pre><code data-language="html">
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS({
+	    printable: someJSONdata,
+	    properties: [
+		{ field: 'name', displayName: 'Full Name'},
+		{ field: 'email', displayName: 'E-mail'},
+		{ field: 'phone', displayName: 'Phone'}
+	    ],
+	    type: 'json'
+        })&quot;&gt;
+    Print with custom table header text
+ &lt;/button&gt;
+
+</code></pre>
+						<p>Result:</p>
+						<button type="button" onclick="printJS({
+									printable: someJSONdata,
+									properties: [
+										{ field: 'name', displayName: 'Full Name'},
+										{ field: 'email', displayName: 'E-mail'},
+										{ field: 'phone', displayName: 'Phone'}
+									],
+									type: 'json'
+							})">
+							Print with custom table header text
+				 		</button>
 					</section>
 				</div>
 			</div>

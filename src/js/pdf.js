@@ -7,8 +7,8 @@ export default {
       ? params.printable
       : window.location.origin + (params.printable.charAt(0) !== '/' ? '/' + params.printable : params.printable)
 
-    // If showing a loading modal or using a hook function, we will preload the pdf file
-    if (params.showModal || params.onLoadingStart) {
+    // If showing a loading modal, using a hook function or accessing an external url, we will preload the pdf file
+    if (params.showModal || params.onLoadingStart || params.printable.indexOf(window.location.origin) === -1) {
       // Get the file through a http request
       let req = new window.XMLHttpRequest()
       req.responseType = 'arraybuffer'

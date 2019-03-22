@@ -7,7 +7,7 @@ import Html from './html'
 import Image from './image'
 import Json from './json'
 
-let printTypes = ['pdf', 'html', 'image', 'json']
+const printTypes = ['pdf', 'html', 'image', 'json']
 
 export default {
   init () {

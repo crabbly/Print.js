@@ -1,4 +1,5 @@
 import Print from './print'
+import { cleanUp } from './functions'
 
 export default {
   print: (params, printFrame) => {
@@ -7,29 +8,33 @@ export default {
       ? params.printable
       : window.location.origin + (params.printable.charAt(0) !== '/' ? '/' + params.printable : params.printable)
 
-    // If showing a loading modal, using a hook function or accessing an external url, we will preload the pdf file
-    if (params.showModal || params.onLoadingStart || params.printable.indexOf(window.location.origin) === -1) {
-      // Get the file through a http request
-      let req = new window.XMLHttpRequest()
-      req.responseType = 'arraybuffer'
+    // Get the file through a http request (Preload)
+    let req = new window.XMLHttpRequest()
+    req.responseType = 'arraybuffer'
 
-      req.addEventListener('load', () => {
-        // Pass response data to a blob and create a local object url
-        let localPdf = new window.Blob([req.response], { type: 'application/pdf' })
-        localPdf = window.URL.createObjectURL(localPdf)
+    req.addEventListener('load', () => {
+      // Check for errors
+      if (req.status !== 200) {
+        cleanUp(params)
+        params.onError(req.statusText)
 
-        // Pass the url to the printable parameter (replacing the original pdf file url)
-        // This will prevent a second request to the file (server) once the iframe loads
-        params.printable = localPdf
+        // Since we don't have a pdf document available, we will stop the print job
+        return
+      }
 
-        send(params, printFrame)
-      })
+      // Pass response data to a blob and create a local object url
+      let localPdf = new window.Blob([req.response], { type: 'application/pdf' })
+      localPdf = window.URL.createObjectURL(localPdf)
 
-      req.open('GET', params.printable, true)
-      req.send()
-    } else {
+      // Pass the url to the printable parameter (replacing the original pdf file url)
+      // This will prevent a second request to the file (server) once the iframe loads
+      params.printable = localPdf
+
       send(params, printFrame)
-    }
+    })
+
+    req.open('GET', params.printable, true)
+    req.send()
   }
 }
 

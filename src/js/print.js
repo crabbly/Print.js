@@ -1,5 +1,5 @@
 import Browser from './browser'
-import Modal from './modal'
+import { cleanUp } from './functions'
 
 const Print = {
   send: (params, printFrame) => {
@@ -11,11 +11,11 @@ const Print = {
 
     // Wait for iframe to load all content
     if (params.type === 'pdf' && (Browser.isIE() || Browser.isEdge())) {
-      iframeElement.setAttribute('onload', finishPrint(iframeElement, params))
+      iframeElement.setAttribute('onload', performPrint(iframeElement, params))
     } else {
       printFrame.onload = () => {
         if (params.type === 'pdf') {
-          finishPrint(iframeElement, params)
+          performPrint(iframeElement, params)
         } else {
           // Get iframe element document
           let printDocument = (iframeElement.contentWindow || iframeElement.contentDocument)
@@ -37,10 +37,10 @@ const Print = {
           // If printing image, wait for it to load inside the iframe
           if (params.type === 'image') {
             loadIframeImages(printDocument, params).then(() => {
-              finishPrint(iframeElement, params)
+              performPrint(iframeElement, params)
             })
           } else {
-            finishPrint(iframeElement, params)
+            performPrint(iframeElement, params)
           }
         }
       }
@@ -49,54 +49,20 @@ const Print = {
 }
 
 function performPrint (iframeElement, params) {
-  iframeElement.focus()
+  try {
+    iframeElement.focus()
 
-  // If Edge or IE, try catch with execCommand
-  if (Browser.isEdge() || Browser.isIE()) {
-    try {
-      iframeElement.contentWindow.document.execCommand('print', false, null)
-    } catch (e) {
+    // If Edge or IE, try catch with execCommand
+    if (Browser.isEdge() || Browser.isIE()) {
+      try {
+        iframeElement.contentWindow.document.execCommand('print', false, null)
+      } catch (e) {
+        iframeElement.contentWindow.print()
+      }
+    } else {
+      // Other browsers
       iframeElement.contentWindow.print()
     }
-  } else {
-    // Other browsers
-    iframeElement.contentWindow.print()
-  }
-}
-
-function cleanUp (params) {
-  // If we are showing a feedback message to user, remove it
-  if (params.showModal) Modal.close()
-
-  // Check for a finished loading hook function
-  if (params.onLoadingEnd) params.onLoadingEnd()
-
-  // If preloading pdf files, clean blob url
-  if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
-
-  // If a onPrintDialogClose callback is given, execute it
-  if (params.onPrintDialogClose) {
-    let event = 'mouseover'
-
-    if (Browser.isChrome() || Browser.isFirefox()) {
-      // Firefox will require an extra click in the document
-      // to fire the focus event. Should we console.warn that?
-      event = 'focus'
-    }
-    const handler = () => {
-      // Make sure the event only happens once.
-      window.removeEventListener(event, handler)
-
-      params.onPrintDialogClose()
-    }
-
-    window.addEventListener(event, handler)
-  }
-}
-
-function finishPrint (iframeElement, params) {
-  try {
-    performPrint(iframeElement, params)
   } catch (error) {
     params.onError(error)
   } finally {

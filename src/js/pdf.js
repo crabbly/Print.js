@@ -14,7 +14,7 @@ export default {
 
     req.addEventListener('load', () => {
       // Check for errors
-      if (req.status !== 200) {
+      if ([200, 201].indexOf(req.status) === -1) {
         cleanUp(params)
         params.onError(req.statusText)
 

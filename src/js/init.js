@@ -17,6 +17,8 @@ export default {
       type: 'pdf',
       header: null,
       headerStyle: 'font-weight: 300;',
+      imageHeader: null,
+      imageHeaderStyle: '',
       maxWidth: 800,
       font: 'TimesNewRoman',
       font_size: '12pt',
@@ -64,6 +66,8 @@ export default {
         params.frameId = typeof args.frameId !== 'undefined' ? args.frameId : params.frameId
         params.header = typeof args.header !== 'undefined' ? args.header : params.header
         params.headerStyle = typeof args.headerStyle !== 'undefined' ? args.headerStyle : params.headerStyle
+        params.imageHeader = typeof args.imageHeader !== 'undefined' ? args.imageHeader : params.imageHeader
+        params.imageHeaderStyle = typeof args.imageHeaderStyle !== 'undefined' ? args.imageHeaderStyle : params.imageHeaderStyle
         params.maxWidth = typeof args.maxWidth !== 'undefined' ? args.maxWidth : params.maxWidth
         params.font = typeof args.font !== 'undefined' ? args.font : params.font
         params.font_size = typeof args.font_size !== 'undefined' ? args.font_size : params.font_size

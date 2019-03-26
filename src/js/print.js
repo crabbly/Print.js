@@ -39,6 +39,8 @@ const Print = {
             loadIframeImages(printDocument, params).then(() => {
               performPrint(iframeElement, params)
             })
+          } else if (printDocument.getElementById('img-header')) {
+            printDocument.getElementById('img-header').onload = () => performPrint(iframeElement, params)
           } else {
             performPrint(iframeElement, params)
           }

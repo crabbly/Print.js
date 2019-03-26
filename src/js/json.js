@@ -33,6 +33,8 @@ export default {
     // Variable to hold the html string
     let htmlData = ''
 
+    if (params.imageHeader) htmlData += '<img id="img-header" style="' + params.imageHeaderStyle + '" src="' + params.imageHeader + '"/>'
+
     // Check if there is a header on top of the table
     if (params.header) htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
 

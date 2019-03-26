@@ -7,6 +7,8 @@ export interface Configuration {
   documentTitle?: string;
   header?: any;
   headerStyle?: string;
+  imageHeader?: string;
+  imageHeaderStyle?: string;
   maxWidth?: number;
   font?: string;
   font_size?: string;

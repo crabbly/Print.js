@@ -1,4 +1,4 @@
-import { collectStyles, loopNodesCollectStyles, addWrapper, addHeader } from './functions'
+import { collectStyles, loopNodesCollectStyles, addWrapper, addHeader, addImageHeader } from './functions'
 import Print from './print'
 
 export default {
@@ -46,6 +46,11 @@ export default {
     // Add header
     if (params.header) {
       addHeader(printableElement, params.header, params.headerStyle)
+    }
+
+    // Add image header
+    if (params.imageHeader) {
+      addImageHeader(printableElement, params.imageHeader, params.imageHeaderStyle)
     }
 
     // Remove DOM printableElement

@@ -131,3 +131,14 @@ export function cleanUp (params) {
     window.addEventListener(event, handler)
   }
 }
+
+export function addImageHeader (printElement, imageHeader, imageHeaderStyle) {
+  // Create image element
+  let imgElement = document.createElement('img')
+
+  imgElement.setAttribute('id', 'img-header')
+  imgElement.setAttribute('src', imageHeader)
+  imgElement.setAttribute('style', imageHeaderStyle)
+
+  printElement.insertBefore(imgElement, printElement.childNodes[0])
+}

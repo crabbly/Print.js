@@ -4,10 +4,11 @@ import Browser from './browser'
 import Modal from './modal'
 import Pdf from './pdf'
 import Html from './html'
+import RawHtml from './raw-html'
 import Image from './image'
 import Json from './json'
 
-const printTypes = ['pdf', 'html', 'image', 'json']
+const printTypes = ['pdf', 'html', 'image', 'json', 'raw-html']
 
 export default {
   init () {
@@ -170,6 +171,9 @@ export default {
         break
       case 'html':
         Html.print(params, printFrame)
+        break
+      case 'raw-html':
+        RawHtml.print(params, printFrame)
         break
       case 'json':
         Json.print(params, printFrame)

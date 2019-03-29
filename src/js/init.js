@@ -44,7 +44,8 @@ export default {
       repeatTableHeader: true,
       css: null,
       style: null,
-      scanStyles: true
+      scanStyles: true,
+      base64: false
     }
 
     // Check if a printable document or object was supplied
@@ -89,6 +90,7 @@ export default {
         params.css = typeof args.css !== 'undefined' ? args.css : params.css
         params.style = typeof args.style !== 'undefined' ? args.style : params.style
         params.scanStyles = typeof args.scanStyles !== 'undefined' ? args.scanStyles : params.scanStyles
+        params.base64 = typeof args.base64 !== 'undefined' ? true : false
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)

@@ -3,6 +3,12 @@ import { cleanUp } from './functions'
 
 export default {
   print: (params, printFrame) => {
+    // Check if we have base64 data
+    if (params.base64) {
+      createBlobAndPrint(params, printFrame, params.printable)
+      return
+    }
+
     // Format pdf url
     params.printable = /^(blob|http)/i.test(params.printable)
       ? params.printable
@@ -22,15 +28,8 @@ export default {
         return
       }
 
-      // Pass response data to a blob and create a local object url
-      let localPdf = new window.Blob([req.response], { type: 'application/pdf' })
-      localPdf = window.URL.createObjectURL(localPdf)
-
-      // Pass the url to the printable parameter (replacing the original pdf file url)
-      // This will prevent a second request to the file (server) once the iframe loads
-      params.printable = localPdf
-
-      send(params, printFrame)
+      // Print requested document
+      createBlobAndPrint(params, printFrame, req.response)
     })
 
     req.open('GET', params.printable, true)
@@ -38,8 +37,13 @@ export default {
   }
 }
 
-function send (params, printFrame) {
+function createBlobAndPrint (params, printFrame, data) {
+  // Pass response or base64 data to a blob and create a local object url
+  let localPdf = new window.Blob([data], { type: 'application/pdf' })
+  localPdf = window.URL.createObjectURL(localPdf)
+
   // Set iframe src with pdf document url
-  printFrame.setAttribute('src', params.printable)
+  printFrame.setAttribute('src', localPdf)
+
   Print.send(params, printFrame)
 }

@@ -131,17 +131,6 @@ export default {
     if (params.type !== 'pdf') {
       printFrame.srcdoc = '<html><head><title>' + params.documentTitle + '</title>'
 
-      // Attach css files
-      if (params.css !== null) {
-        // Add support for single file
-        if (!Array.isArray(params.css)) params.css = [params.css]
-
-        // Create link tags for each css file
-        params.css.forEach(file => {
-          printFrame.srcdoc += '<link rel="stylesheet" href="' + file + '">'
-        })
-      }
-
       printFrame.srcdoc += '</head><body></body></html>'
     }
 

@@ -37,10 +37,10 @@ const Print = {
           // If printing image, wait for it to load inside the iframe
           if (params.type === 'image') {
             loadIframeImages(printDocument, params).then(() => {
-              performPrint(iframeElement, params)
+              loadStyleSheets(iframeElement, params).then(() => performPrint(iframeElement, params))
             })
           } else {
-            performPrint(iframeElement, params)
+            loadStyleSheets(iframeElement, params).then(() => performPrint(iframeElement, params))
           }
         }
       }
@@ -48,6 +48,7 @@ const Print = {
   }
 }
 
+// Fire print job
 function performPrint (iframeElement, params) {
   try {
     iframeElement.focus()
@@ -70,12 +71,14 @@ function performPrint (iframeElement, params) {
   }
 }
 
+// Preload images inside the iframe
 function loadIframeImages (printDocument, params) {
   const promises = params.printable.map((image, index) => loadIframeImage(printDocument, index))
 
   return Promise.all(promises)
 }
 
+// Preload an image inside the iframe
 function loadIframeImage (printDocument, index) {
   return new Promise(resolve => {
     const pollImage = () => {
@@ -88,6 +91,37 @@ function loadIframeImage (printDocument, index) {
       }
     }
     pollImage()
+  })
+}
+
+// Confirm that all stylesheets are loaded inside the iframe (if any) before firing the print job
+function loadStyleSheets (iframeElement, params) {
+  // Check if we have stylesheets to load
+  if (!params.css) {
+    return Promise.resolve()
+  }
+
+  // Support single file passed as string
+  if (!Array.isArray(params.css)) params.css = [params.css]
+
+  // Get iframe document head element
+  const iframeHead = iframeElement.contentDocument.querySelector('head')
+
+  const promises = params.css.map(stylesheet => loadStyleSheet(stylesheet, iframeHead))
+
+  return Promise.all(promises)
+}
+
+// Preload a style sheet
+function loadStyleSheet (stylesheet, documentHead) {
+  return new Promise(resolve => {
+    let link = document.createElement('link')
+    link.type = 'text/css'
+    link.rel = 'stylesheet'
+    link.onload = () => resolve()
+    link.href = stylesheet
+
+    documentHead.appendChild(link)
   })
 }
 

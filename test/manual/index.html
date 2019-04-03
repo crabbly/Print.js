@@ -147,6 +147,29 @@
 
       return text;
     }
+
+    function printImage() {
+      printJS('test-01.jpg', 'image')
+    }
+
+    function printImages() {
+      printJS(
+        {
+          printable: ['test-01.jpg', 'test-02.jpg'],
+          type: 'image'
+        }
+      )
+    }
+
+    function printStyledImages() {
+      printJS(
+        {
+          printable: ['test-01.jpg', 'test-02.jpg'],
+          type: 'image',
+          style: 'img { max-width: 300px; margin: 30px; }'
+        }
+      )
+    }
   </script>
   <body>
     <section id="test" class="test">
@@ -188,6 +211,17 @@
         </button>
         <button onClick='printNestedJson();'>
           Print Nested JSON
+        </button>
+      </p>
+      <p>
+        <button onClick='printImage();'>
+          Print Image
+        </button>
+        <button onClick='printImages();'>
+          Print Multiple Images
+        </button>
+        <button onClick='printStyledImages();'>
+          Print Multiple Images Passing Custom Style
         </button>
       </p>
     </section>

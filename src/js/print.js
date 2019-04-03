@@ -71,9 +71,7 @@ function performPrint (iframeElement, params) {
 }
 
 function loadIframeImages (printDocument, params) {
-  let promises = []
-
-  params.printable.forEach((image, index) => promises.push(loadIframeImage(printDocument, index)))
+  const promises = params.printable.map((image, index) => loadIframeImage(printDocument, index))
 
   return Promise.all(promises)
 }

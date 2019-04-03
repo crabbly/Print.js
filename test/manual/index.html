@@ -170,6 +170,16 @@
         }
       )
     }
+
+    function printStyledImagesWithStyleSheet() {
+      printJS(
+        {
+          printable: ['test-01.jpg', 'test-02.jpg'],
+          type: 'image',
+          css: 'test.css'
+        }
+      )
+    }
   </script>
   <body>
     <section id="test" class="test">
@@ -222,6 +232,9 @@
         </button>
         <button onClick='printStyledImages();'>
           Print Multiple Images Passing Custom Style
+        </button>
+        <button onClick='printStyledImagesWithStyleSheet();'>
+          Print Multiple Images Passing a Style Sheet
         </button>
       </p>
     </section>

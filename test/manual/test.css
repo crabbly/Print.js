@@ -4,3 +4,8 @@
         font-size: 40px;
     }
 }
+
+img {
+    max-width: 500px;
+    margin: 50px;
+}

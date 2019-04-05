@@ -131,3 +131,8 @@ export function cleanUp (params) {
     window.addEventListener(event, handler)
   }
 }
+
+export function isRawHTML (raw) {
+  let regexHtml = new RegExp('<([A-Za-z][A-Za-z0-9]*)\\b[^>]*>(.*?)</\\1>')
+  return regexHtml.test(raw)
+}

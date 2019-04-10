@@ -436,15 +436,15 @@
 						 <p>Header as raw HTML.</p>
  
  <pre><code data-language="html">
-	&lt;button type=&quot;button&quot; onclick=&quot;printJS({
-			 header: '&lt;h3 class="custom-h3"&gt;My custom header&lt;/h3&gt;',
-			 printable: someJSONdata,
-			 properties: ['name', 'email', 'phone'],
-			 type: 'json',
-			 style: '.custom-h3 { color: red; }'
-	 })&quot;&gt;
-	 		Print header raw html
-	&lt;/button&gt;
+&lt;button type=&quot;button&quot; onclick=&quot;printJS({
+		printable: someJSONdata,
+		type: 'json',
+		properties: ['name', 'email', 'phone'],
+		header: '&lt;h3 class="custom-h3"&gt;My custom header&lt;/h3&gt;',
+		style: '.custom-h3 { color: red; }'
+	  })&quot;&gt;
+	Print header raw html
+&lt;/button&gt;
  
  </code></pre>
 						 <p>Result:</p>
@@ -548,12 +548,12 @@
 							<div class="grid-row">
 								<div class="g1">type</div>
 								<div class="g1">'pdf'</div>
-								<div class="g2">Document type.</div>
+								<div class="g2">Printable type. Availble print options are: pdf, html, image, json and raw-html.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">header</div>
 								<div class="g1">null</div>
-								<div class="g2">Optional header to be used with HTML, Image or JSON printing. It will be placed on the top of the page.</div>
+								<div class="g2">Optional header to be used with HTML, Image or JSON printing. It will be placed on the top of the page. This property will accept text or raw HTML.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">headerStyle</div>

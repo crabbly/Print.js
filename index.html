@@ -429,7 +429,39 @@
 									type: 'json'
 							})">
 							Print with custom table header text
-				 		</button>
+						</button>
+						 
+						 <hr/>
+
+						 <p>Header as raw HTML.</p>
+ 
+ <pre><code data-language="html">
+	&lt;button type=&quot;button&quot; onclick=&quot;printJS({
+			 header: '&lt;h3 class="custom-h3"&gt;My custom header&lt;/h3&gt;',
+			 printable: someJSONdata,
+			 properties: ['name', 'email', 'phone'],
+			 type: 'json',
+			 style: '.custom-h3 { color: red; }'
+	 })&quot;&gt;
+	 		Print header raw html
+	&lt;/button&gt;
+ 
+ </code></pre>
+						 <p>Result:</p>
+ 
+						 <button
+							 type="button"
+							 onclick="printJS({
+								 	 header: `<h3 class='custom-h3'>My custom header</h3>`,
+									 printable: someJSONdata,
+									 properties: ['name', 'email', 'phone'],
+									 type: 'json',
+									 style: '.custom-h3 { color: red; }'
+									})">
+							 Print header raw html
+						 </button>
+ 
+
 					</section>
 				</div>
 			</div>

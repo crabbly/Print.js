@@ -62,35 +62,14 @@ export default {
       case 'object':
         params.printable = args.printable
         params.fallbackPrintable = typeof args.fallbackPrintable !== 'undefined' ? args.fallbackPrintable : params.printable
-        params.type = typeof args.type !== 'undefined' ? args.type : params.type
-        params.frameId = typeof args.frameId !== 'undefined' ? args.frameId : params.frameId
-        params.header = typeof args.header !== 'undefined' ? args.header : params.header
-        params.headerStyle = typeof args.headerStyle !== 'undefined' ? args.headerStyle : params.headerStyle
-        params.maxWidth = typeof args.maxWidth !== 'undefined' ? args.maxWidth : params.maxWidth
-        params.font = typeof args.font !== 'undefined' ? args.font : params.font
-        params.font_size = typeof args.font_size !== 'undefined' ? args.font_size : params.font_size
-        params.honorMarginPadding = typeof args.honorMarginPadding !== 'undefined' ? args.honorMarginPadding : params.honorMarginPadding
-        params.properties = typeof args.properties !== 'undefined' ? args.properties : params.properties
-        params.gridHeaderStyle = typeof args.gridHeaderStyle !== 'undefined' ? args.gridHeaderStyle : params.gridHeaderStyle
-        params.gridStyle = typeof args.gridStyle !== 'undefined' ? args.gridStyle : params.gridStyle
-        params.showModal = typeof args.showModal !== 'undefined' ? args.showModal : params.showModal
-        params.onError = typeof args.onError !== 'undefined' ? args.onError : params.onError
-        params.onLoadingStart = typeof args.onLoadingStart !== 'undefined' ? args.onLoadingStart : params.onLoadingStart
-        params.onLoadingEnd = typeof args.onLoadingEnd !== 'undefined' ? args.onLoadingEnd : params.onLoadingEnd
-        params.onPrintDialogClose = typeof args.onPrintDialogClose !== 'undefined' ? args.onPrintDialogClose : params.onPrintDialogClose
-        params.onPdfOpen = typeof args.onPdfOpen !== 'undefined' ? args.onPdfOpen : params.onPdfOpen
-        params.onBrowserIncompatible = typeof args.onBrowserIncompatible !== 'undefined' ? args.onBrowserIncompatible : params.onBrowserIncompatible
-        params.modalMessage = typeof args.modalMessage !== 'undefined' ? args.modalMessage : params.modalMessage
-        params.documentTitle = typeof args.documentTitle !== 'undefined' ? args.documentTitle : params.documentTitle
-        params.targetStyle = typeof args.targetStyle !== 'undefined' ? args.targetStyle : params.targetStyle
-        params.targetStyles = typeof args.targetStyles !== 'undefined' ? args.targetStyles : params.targetStyles
-        params.ignoreElements = typeof args.ignoreElements !== 'undefined' ? args.ignoreElements : params.ignoreElements
-        params.imageStyle = typeof args.imageStyle !== 'undefined' ? args.imageStyle : params.imageStyle
-        params.repeatTableHeader = typeof args.repeatTableHeader !== 'undefined' ? args.repeatTableHeader : params.repeatTableHeader
-        params.css = typeof args.css !== 'undefined' ? args.css : params.css
-        params.style = typeof args.style !== 'undefined' ? args.style : params.style
-        params.scanStyles = typeof args.scanStyles !== 'undefined' ? args.scanStyles : params.scanStyles
         params.base64 = typeof args.base64 !== 'undefined'
+        
+        for (var k in params) {
+          if (k === 'printable' || k === 'fallbackPrintable' || k === 'base64') return;
+          
+          params[k] = typeof args[k] !== 'undefined' ? args[k] : params[k];
+        }
+        
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)

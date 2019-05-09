@@ -2,7 +2,7 @@ declare function printJS(configuration: printJS.Configuration): void;
 declare function printJS(source: string, type?: printJS.PrintTypes): void;
 
 declare namespace printJS {
-  type PrintTypes = 'pdf' | 'html' | 'image' | 'json';
+  type PrintTypes = 'pdf' | 'html' | 'image' | 'json' | 'raw-html';
 
   interface Configuration {
     printable: any;

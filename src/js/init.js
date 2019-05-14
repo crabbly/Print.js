@@ -63,13 +63,11 @@ export default {
         params.printable = args.printable
         params.fallbackPrintable = typeof args.fallbackPrintable !== 'undefined' ? args.fallbackPrintable : params.printable
         params.base64 = typeof args.base64 !== 'undefined'
-        
         for (var k in params) {
-          if (k === 'printable' || k === 'fallbackPrintable' || k === 'base64') return;
-          
-          params[k] = typeof args[k] !== 'undefined' ? args[k] : params[k];
+          if (k === 'printable' || k === 'fallbackPrintable' || k === 'base64') continue
+
+          params[k] = typeof args[k] !== 'undefined' ? args[k] : params[k]
         }
-        
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)

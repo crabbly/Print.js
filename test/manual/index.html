@@ -34,6 +34,18 @@
       });
     }
 
+    function printPdfBase64() {
+      fetch('/test/manual/base64.txt').then(function(response) {
+        response.text().then(function(base64) {
+          printJS({
+            printable: base64,
+            type: 'pdf',
+            base64: true
+          });
+        });
+      });
+    }
+
     function printHtml() {
       printJS({
         printable: 'test',
@@ -196,6 +208,9 @@
         </button>
         <button onClick='printPdfCompatibleBrowser();'>
           Print PDF only on compatible browser
+        </button>
+        <button onClick='printPdfBase64();'>
+          Print base64 PDF
         </button>
       </p>
       <p>

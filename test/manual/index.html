@@ -2,25 +2,25 @@
   <script src='../../dist/print.js'></script>
   <script type="text/javascript">
     function printPdf() {
-      printJS('/test/manual/test.pdf');
+      printJS('/test/manual/test.pdf')
     }
 
     function printPdfWithModal() {
-        printJS({
-            printable: '/test/manual/test.pdf',
-            type: 'pdf',
-            showModal: true
-        });
+      printJS({
+        printable: '/test/manual/test.pdf',
+        type: 'pdf',
+        showModal: true
+      })
     }
     
     function printPdfWithModalAndCloseCallback() {
-        printJS({
-            printable: '/test/manual/test.pdf',
-            type: 'pdf',
-            showModal: true,
-            onPrintDialogClose: () => console.log('The print dialog was closed'),
-            onPdfOpen: () => console.log('Pdf was opened in a new tab due to an incompatible browser')
-        });
+      printJS({
+        printable: '/test/manual/test.pdf',
+        type: 'pdf',
+        showModal: true,
+        onPrintDialogClose: () => console.log('The print dialog was closed'),
+        onPdfOpen: () => console.log('Pdf was opened in a new tab due to an incompatible browser')
+      })
     }
 
     function printPdfCompatibleBrowser() {
@@ -28,10 +28,10 @@
         printable: '/test/manual/test.pdf',
         type: 'pdf',
         onBrowserIncompatible: () => {
-          alert('Browser incompatible');
-          return false;
+          alert('Browser incompatible')
+          return false
         }
-      });
+      })
     }
 
     function printPdfBase64() {
@@ -41,16 +41,16 @@
             printable: base64,
             type: 'pdf',
             base64: true
-          });
-        });
-      });
+          })
+        })
+      })
     }
 
     function printHtml() {
       printJS({
         printable: 'test',
         type: 'html'
-      });
+      })
     }
 
     function printRawHtml() {
@@ -60,94 +60,104 @@
         <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>`,
         type: 'raw-html',
         style: '.blueText {color:blue;}'
-      });
+      })
     }
 
     function printHtmlCustomStyle() {
-      const style = '@page { margin: 0 } @media print { h1 { color: blue } }'
+      const style = '@page { margin-top: 400px } @media print { h1 { color: blue } }'
 
       printJS({
         printable: 'test',
         type: 'html',
         style: style,
         scanStyles: false
-      });
+      })
     }
 
     function printHtmlCss() {
-        printJS({
-            printable: 'test',
-            type: 'html',
-            css: 'test.css',
-            scanStyles: false
-        });
+      printJS({
+        printable: 'test',
+        type: 'html',
+        css: 'test.css',
+        scanStyles: false
+      })
     }
 
     function printJson() {
-      let data = [];
-      for (let i=0; i <= 1000; i++){
+      let data = []
+      for (let i=0; i <= 1000; i++) {
         data.push({
           test1: createRandomString(),
           test2: createRandomString()
-        });
+        })
       }
 
-      printJS(
-        {
-          printable: data,
-          properties: [{
+      printJS({
+        printable: data,
+        properties: [
+          {
             field: 'test1',
             displayName: 'test 1',
             columnSize: 1
-          },{
+          },
+          {
             field: 'test2',
             displayName: 'test 2',
             columnSize: 4
-          }],
-          type: 'json'
-        })
+          }
+        ],
+        type: 'json'
+      })
     }
 
     function printStyledJson() {
-        let data = [
-            {
-                test1: 'Test1 string',
-                test2: 'Test2 string'
-            },
-            {
-                test1: 'more Test1 string',
-                test2: 'more Test2 string'
-            }
-        ]
+      let data = [
+        {
+          test1: 'Test1 string',
+          test2: 'Test2 string'
+        },
+        {
+          test1: 'more Test1 string',
+          test2: 'more Test2 string'
+        }
+      ]
 
-        printJS({printable: data, properties: ['test1', 'test2'], type: 'json', gridStyle: 'border: 2px solid #3971A5;', gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;'})
+      printJS({
+        printable: data,
+        properties: ['test1', 'test2'],
+        type: 'json',
+        gridStyle: 'border: 2px solid #3971A5;',
+        gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;'
+      })
     }
 
     function printNestedJson() {
-      let data = [];
-      for (let i=0; i <= 100; i++){
+      let data = []
+      for (let i=0; i <= 100; i++) {
         data.push({
           test1: createRandomString(),
           test2: {
             a: createRandomString()
           }
-        });
+        })
       }
 
-      printJS(
-        {
-          printable: data,
-          properties: [{
+      printJS({
+        printable: data,
+        properties: [
+          {
             field: 'test1',
             displayName: 'test 1',
             columnSize: 1
-          },{
+          },
+          {
             field: 'test2.a',
             displayName: 'test 2 - a',
             columnSize: 4
-          }],
-          type: 'json'
-        })
+          }
+        ],
+        type: 'json'
+      })
     }
 
     function createRandomString() {
@@ -165,32 +175,35 @@
     }
 
     function printImages() {
-      printJS(
-        {
-          printable: ['test-01.jpg', 'test-02.jpg'],
-          type: 'image'
-        }
-      )
+      printJS({
+        printable: [
+          'test-01.jpg',
+          'test-02.jpg'
+        ],
+        type: 'image'
+      })
     }
 
     function printStyledImages() {
-      printJS(
-        {
-          printable: ['test-01.jpg', 'test-02.jpg'],
-          type: 'image',
-          style: 'img { max-width: 300px; margin: 30px; }'
-        }
-      )
+      printJS({
+        printable: [
+          'test-01.jpg',
+          'test-02.jpg'
+        ],
+        type: 'image',
+        style: 'img { max-width: 300px; margin: 30px; }'
+      })
     }
 
     function printStyledImagesWithStyleSheet() {
-      printJS(
-        {
-          printable: ['test-01.jpg', 'test-02.jpg'],
-          type: 'image',
-          css: 'test.css'
-        }
-      )
+      printJS({
+        printable: [
+          'test-01.jpg',
+          'test-02.jpg'
+        ],
+        type: 'image',
+        css: 'test.css',
+      })
     }
   </script>
   <body>

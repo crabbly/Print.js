@@ -35,8 +35,8 @@ const Print = {
           }
 
           // If printing image, wait for it to load inside the iframe
-          if (params.type === 'image') {
-            loadIframeImages(printDocument, params).then(() => {
+          if (printDocument.getElementsByTagName('img').length > 0) {
+            loadIframeImages(printDocument).then(() => {
               performPrint(iframeElement, params)
             })
           } else {
@@ -70,22 +70,24 @@ function performPrint (iframeElement, params) {
   }
 }
 
-function loadIframeImages (printDocument, params) {
-  const promises = params.printable.map((image, index) => loadIframeImage(printDocument, index))
+function loadIframeImages (printDocument) {
+  let tagsImg = printDocument.getElementsByTagName('img')
+
+  const promises = []
+
+  for (let index = 0; index < tagsImg.length; index++) {
+    promises.push(loadIframeImage(tagsImg[index]))
+  }
 
   return Promise.all(promises)
 }
 
-function loadIframeImage (printDocument, index) {
+function loadIframeImage (image) {
   return new Promise(resolve => {
     const pollImage = () => {
-      let image = printDocument ? printDocument.getElementById('printableImage' + index) : null
-
-      if (!image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0) {
-        setTimeout(pollImage, 500)
-      } else {
-        resolve()
-      }
+      !image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0
+        ? setTimeout(pollImage, 500)
+        : resolve()
     }
     pollImage()
   })

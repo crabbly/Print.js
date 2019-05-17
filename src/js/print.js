@@ -7,42 +7,39 @@ const Print = {
     document.getElementsByTagName('body')[0].appendChild(printFrame)
 
     // Get iframe element
-    let iframeElement = document.getElementById(params.frameId)
+    const iframeElement = document.getElementById(params.frameId)
 
     // Wait for iframe to load all content
-    if (params.type === 'pdf' && (Browser.isIE() || Browser.isEdge())) {
-      iframeElement.setAttribute('onload', performPrint(iframeElement, params))
-    } else {
-      printFrame.onload = () => {
-        if (params.type === 'pdf') {
-          performPrint(iframeElement, params)
-        } else {
-          // Get iframe element document
-          let printDocument = (iframeElement.contentWindow || iframeElement.contentDocument)
-          if (printDocument.document) printDocument = printDocument.document
+    iframeElement.onload = () => {
+      if (params.type === 'pdf') {
+        performPrint(iframeElement, params)
+        return
+      }
 
-          // Inject printable html into iframe body
-          printDocument.body.innerHTML = params.htmlData
+      // Get iframe element document
+      let printDocument = (iframeElement.contentWindow || iframeElement.contentDocument)
+      if (printDocument.document) printDocument = printDocument.document
 
-          // Add custom style
-          if (params.type !== 'pdf' && params.style !== null) {
-            // Create style element
-            const style = document.createElement('style')
-            style.innerHTML = params.style
+      // Inject printable html into iframe body
+      printDocument.body.innerHTML = params.htmlData
 
-            // Append style element to iframe's head
-            printDocument.head.appendChild(style)
-          }
+      // Add custom style
+      if (params.type !== 'pdf' && params.style !== null) {
+        // Create style element
+        const style = document.createElement('style')
+        style.innerHTML = params.style
 
-          // If printing image, wait for it to load inside the iframe
-          if (printDocument.getElementsByTagName('img').length > 0) {
-            loadIframeImages(printDocument).then(() => {
-              performPrint(iframeElement, params)
-            })
-          } else {
-            performPrint(iframeElement, params)
-          }
-        }
+        // Append style element to iframe's head
+        printDocument.head.appendChild(style)
+      }
+
+      // If printing images, wait for them to load inside the iframe
+      const images = printDocument.getElementsByTagName('img')
+
+      if (images.length > 0) {
+        loadIframeImages(images).then(() => performPrint(iframeElement, params))
+      } else {
+        performPrint(iframeElement, params)
       }
     }
   }
@@ -70,13 +67,11 @@ function performPrint (iframeElement, params) {
   }
 }
 
-function loadIframeImages (printDocument) {
-  let tagsImg = printDocument.getElementsByTagName('img')
-
+function loadIframeImages (images) {
   const promises = []
 
-  for (let index = 0; index < tagsImg.length; index++) {
-    promises.push(loadIframeImage(tagsImg[index]))
+  for (let image of images) {
+    promises.push(loadIframeImage(image))
   }
 
   return Promise.all(promises)
@@ -85,7 +80,7 @@ function loadIframeImages (printDocument) {
 function loadIframeImage (image) {
   return new Promise(resolve => {
     const pollImage = () => {
-      !image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0
+      !image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0 || !image.complete
         ? setTimeout(pollImage, 500)
         : resolve()
     }

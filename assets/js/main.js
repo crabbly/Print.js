@@ -60,5 +60,17 @@
 
         properties = ['name', 'email', 'phone'];
 
-    });
+	});
+	
+	window.printPdfBase64 = function() {
+		fetch('https://printjs.crabbly.com/docs/base64.txt').then(function(response) {
+		  response.text().then(function(base64) {
+			printJS({
+			  printable: base64,
+			  type: 'pdf',
+			  base64: true
+			})
+		  })
+		})
+	  }
 })(jQuery);

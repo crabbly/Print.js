@@ -25,7 +25,7 @@
 			ga('send', 'pageview');
 		</script>
 		<!-- Scripts -->
-		<script src="print.js?v1.0.56"></script>
+		<script src="print.js?v1.0.57"></script>
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.scrolly.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
@@ -41,7 +41,7 @@
 				<p>A tiny javascript library to help printing from the web.</p>
 			</header>
 			<footer>
-				<a href="#download" download="print.js" class="button scrolly">Download v1.0.56</a>
+				<a href="#download" download="print.js" class="button scrolly">Download v1.0.57</a>
 			</footer>
 		</section>
 
@@ -49,7 +49,6 @@
 		<section class="main" id="pdf">
 			<div class="content">
 				<div class="container">
-
 					<section>
 						<h2>PDF Printing</h2>
 						<p>Print.js was primarily written to help us print PDF files directly within our apps, without leaving the interface, and no use of embeds. For unique situations where there is no need for users to open or download the PDF files, and instead, they just need to print them.</p>
@@ -59,7 +58,6 @@
 					<section class="in-link light">
 						<blockquote>PDF files must be served from the same domain as your app is hosted under. Print.js uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
 					</section>
-
 				</div>
 			</div>
 
@@ -104,6 +102,32 @@
 						</button>
 						<button type="button" onclick="printJS({printable:'docs/x_large_printjs.pdf', type:'pdf', showModal:true})" style="margin-right:20px;">
 							Print Extra Large PDF ( 16mb file )
+						</button>
+					</section>
+
+					<section>
+						<p>The library supports base64 PDF printing:
+<!-- pdf code -->
+<pre><code data-language="html">
+function printPdfBase64() {
+  fetch('https://printjs.crabbly.com/docs/base64.txt').then(function(response) {
+	response.text().then(function(base64) {
+	  printJS({
+		printable: base64,
+		type: 'pdf',
+		base64: true
+	  })
+	})
+  })
+}
+ &lt;button type=&quot;button&quot; onclick=&quot;printPdfBase64()&quot;&gt;
+    Print PDF with Message
+ &lt;/button&gt;
+
+</code></pre>
+						<p>Result:</p>
+						<button type="button" onclick="printPdfBase64()" style="margin-right:20px;">
+							Print base64 PDF
 						</button>
 					</section>
 				</div>
@@ -432,8 +456,8 @@
 						</button>
 						 
 						 <hr/>
-
-						 <p>Header as raw HTML.</p>
+ 
+						 <p>JSON, HTML and Image print can receive a raw HTML header:</p>
  
  <pre><code data-language="html">
 &lt;button type=&quot;button&quot; onclick=&quot;printJS({
@@ -458,7 +482,7 @@
 									 type: 'json',
 									 style: '.custom-h3 { color: red; }'
 									})">
-							 Print header raw html
+							 Print JSON with raw HTML header
 						 </button>
  
 
@@ -476,7 +500,7 @@
 						</header>
 						<p>You can download the latest version of Print.js from the GitHub releases.</p>
 						<p style="margin-bottom:30px;">
-							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.56" class="button">Download v1.0.56</a>
+							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.57" class="button">Download v1.0.57</a>
 						</p>
 
 						<p>To install using npm:</p>

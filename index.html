@@ -109,18 +109,7 @@
 						<p>The library supports base64 PDF printing:
 <!-- pdf code -->
 <pre><code data-language="html">
-function printPdfBase64() {
-  fetch('https://printjs.crabbly.com/docs/base64.txt').then(function(response) {
-	response.text().then(function(base64) {
-	  printJS({
-		printable: base64,
-		type: 'pdf',
-		base64: true
-	  })
-	})
-  })
-}
- &lt;button type=&quot;button&quot; onclick=&quot;printPdfBase64()&quot;&gt;
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS({printable: base64, type: 'pdf', base64: true})&quot;&gt;
     Print PDF with Message
  &lt;/button&gt;
 

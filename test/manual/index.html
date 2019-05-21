@@ -191,7 +191,7 @@
           'test-02.jpg'
         ],
         type: 'image',
-        style: 'img { max-width: 300px; margin: 30px; }'
+        style: 'img { max-width: 400px; margin: 30px; }'
       })
     }
 
@@ -205,10 +205,24 @@
         css: 'test.css',
       })
     }
+
+    function printExternalImages() {
+      printJS({
+        printable: [
+          'https://printjs.crabbly.com/images/print-01-highres.jpg',
+          'https://printjs.crabbly.com/images/print-02-highres.jpg',
+          'https://printjs.crabbly.com/images/print-03-highres.jpg'
+        ],
+        type: 'image',
+        style: 'img { max-width: 300px; margin: 30px; }',
+        showModal: true,
+        modalMessage: 'Printing...'
+      })
+    }
   </script>
   <body>
     <section id="test" class="test">
-      <h1>Print.js Test Page</h1>
+      <h1></h1>
       <p>
         <button onClick='printPdf();'>
           Print PDF
@@ -263,6 +277,9 @@
         </button>
         <button onClick='printStyledImagesWithStyleSheet();'>
           Print Multiple Images Passing a Style Sheet
+        </button>
+        <button onClick='printExternalImages();'>
+          Print Multiple External Images
         </button>
       </p>
     </section>

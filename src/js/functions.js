@@ -80,7 +80,7 @@ export function loopNodesCollectStyles (elements, params) {
       currentElement.setAttribute('style', collectStyles(currentElement, params))
     }
 
-    // Check if more elements in tree
+    // Check if we have more elements in the tree
     let children = currentElement.children
 
     if (children && children.length) {

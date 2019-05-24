@@ -1,4 +1,4 @@
-import { collectStyles, loopNodesCollectStyles, addWrapper, addHeader } from './functions'
+import { addHeader } from './functions'
 import Print from './print'
 
 export default {
@@ -12,46 +12,16 @@ export default {
       return
     }
 
-    // Clone the target element including its children (if any) into a div container / wrapper
-    let printableElement = document.createElement('div')
-    printableElement.appendChild(cloneElement(printElement, params))
-
-    // Add cloned element to DOM, to have DOM element methods available. It will also be easier to colect styles
-    printableElement.setAttribute('style', 'height:0; overflow:hidden;')
-    printableElement.setAttribute('id', 'printJS-html')
-    printElement.parentNode.appendChild(printableElement)
-
-    // Update printableElement variable with newly created DOM element
-    printableElement = document.getElementById('printJS-html')
-
-    // Process html styles
-    if (params.scanStyles === true) {
-      // Optional - include margin and padding
-      if (params.honorMarginPadding) params.targetStyles.push('margin', 'padding')
-
-      // Optional - include color
-      if (params.honorColor) params.targetStyles.push('color')
-
-      // Get main element styling
-      printableElement.setAttribute('style', collectStyles(printableElement, params) + 'margin:0 !important;')
-
-      // Get all children elements
-      let elements = printableElement.children
-
-      // Get styles for all children elements
-      loopNodesCollectStyles(elements, params)
-    }
+    // Clone the target element including its children (if available)
+    const printableElement = cloneElement(printElement, params)
 
     // Add header
     if (params.header) {
       addHeader(printableElement, params.header, params.headerStyle)
     }
 
-    // Remove DOM printableElement
-    printableElement.parentNode.removeChild(printableElement)
-
     // Store html data
-    params.htmlData = addWrapper(printableElement.innerHTML, params)
+    params.htmlData = printableElement
 
     // Print html element contents
     Print.send(params, printFrame)
@@ -78,21 +48,13 @@ function cloneElement (element, params) {
 
   // Check if the element needs any state processing (copy user input data)
   switch (element.tagName) {
-    case 'INPUT':
-      switch (element.type) {
-        case 'checkbox':
-          // TODO
-          break
-      }
-      break
-    case 'TEXTAREA':
-      // TODO
-      break
     case 'SELECT':
-      // TODO
+      // Copy the current selection value to its clone
+      clone.value = element.value
       break
     case 'CANVAS':
-      // TODO
+      // Copy the canvas content to its clone
+      clone.getContext('2d').drawImage(element, 0, 0);
       break
   }
 

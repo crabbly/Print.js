@@ -10,8 +10,8 @@ export default {
     }
 
     // Create printable element (container)
-    let printableElement = document.createElement('div')
-    printableElement.setAttribute('style', 'width:100%')
+    params.printableElement = document.createElement('div')
+    params.printableElement.setAttribute('style', 'width:100%')
 
     // Create all image elements and append them to the printable container
     params.printable.forEach(src => {
@@ -29,14 +29,11 @@ export default {
       imageWrapper.appendChild(img)
 
       // Append wrapper to the printable element
-      printableElement.appendChild(imageWrapper)
+      params.printableElement.appendChild(imageWrapper)
     })
 
     // Check if we are adding a print header
-    if (params.header) addHeader(printableElement, params.header, params.headerStyle)
-
-    // Store html data
-    params.htmlData = printableElement.outerHTML
+    if (params.header) addHeader(params.printableElement, params)
 
     // Print image
     Print.send(params, printFrame)

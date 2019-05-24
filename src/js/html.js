@@ -13,15 +13,12 @@ export default {
     }
 
     // Clone the target element including its children (if available)
-    const printableElement = cloneElement(printElement, params)
+    params.printableElement = cloneElement(printElement, params)
 
     // Add header
     if (params.header) {
-      addHeader(printableElement, params.header, params.headerStyle)
+      addHeader(params.printableElement, params)
     }
-
-    // Store html data
-    params.htmlData = printableElement
 
     // Print html element contents
     Print.send(params, printFrame)

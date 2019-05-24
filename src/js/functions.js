@@ -89,18 +89,27 @@ export function loopNodesCollectStyles (elements, params) {
   }
 }
 
-export function addHeader (printElement, header, headerStyle) {
-  // Create header element
-  let headerElement = document.createElement('h1')
+export function addHeader (printElement, params) {
+  // Create the header container div
+  let headerContainer = document.createElement('div')
 
-  // Create header text node
-  let headerNode = document.createTextNode(header)
+  // Check if the header is text or raw html
+  if (isRawHTML(params.header)) {
+    headerContainer.innerHTML = params.header
+  } else {
+    // Create header element
+    let headerElement = document.createElement('h1')
 
-  // Build and style
-  headerElement.appendChild(headerNode)
-  headerElement.setAttribute('style', headerStyle)
+    // Create header text node
+    let headerNode = document.createTextNode(params.header)
 
-  printElement.insertBefore(headerElement, printElement.childNodes[0])
+    // Build and style
+    headerElement.appendChild(headerNode)
+    headerElement.setAttribute('style', params.headerStyle)
+    headerContainer.appendChild(headerElement)
+  }
+
+  printElement.insertBefore(headerContainer, printElement.childNodes[0])
 }
 
 export function cleanUp (params) {

@@ -2,7 +2,7 @@
   "name": "print-js",
   "homepage": "http://printjs.crabbly.com",
   "description": "A tiny javascript library to help printing from the web.",
-  "version": "1.0.57",
+  "version": "1.0.58",
   "main": "dist/print.js",
   "types": "src/index.d.ts",
   "repository": "https://github.com/crabbly/Print.js",

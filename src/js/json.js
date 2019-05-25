@@ -1,8 +1,4 @@
-import {
-  addWrapper,
-  capitalizePrint,
-  isRawHTML
-} from './functions'
+import { capitalizePrint, addHeader } from './functions'
 import Print from './print'
 
 export default {
@@ -31,21 +27,16 @@ export default {
       }
     })
 
-    // Variable to hold the html string
-    let htmlData = ''
+    // Create a print container element
+    params.printableElement = document.createElement('div')
 
-    // Check if there is a header on top of the table
+    // Check if we are adding a print header
     if (params.header) {
-      htmlData += isRawHTML(params.header)
-        ? params.header
-        : '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
+      addHeader(params.printableElement, params)
     }
 
     // Build the printable html data
-    htmlData += jsonToHTML(params)
-
-    // Store the data
-    params.htmlData = addWrapper(htmlData, params)
+    params.printableElement.innerHTML += jsonToHTML(params)
 
     // Print the json data
     Print.send(params, printFrame)

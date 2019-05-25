@@ -10,33 +10,29 @@ export default {
     }
 
     // Create printable element (container)
-    let printableElement = document.createElement('div')
-    printableElement.setAttribute('style', 'width:100%')
+    params.printableElement = document.createElement('div')
 
     // Create all image elements and append them to the printable container
     params.printable.forEach(src => {
       // Create the image element
       let img = document.createElement('img')
+      img.setAttribute('style', params.imageStyle)
 
       // Set image src with the file url
       img.src = src
 
       // Create the image wrapper
       let imageWrapper = document.createElement('div')
-      imageWrapper.setAttribute('style', params.imageStyle)
 
       // Append image to the wrapper element
       imageWrapper.appendChild(img)
 
       // Append wrapper to the printable element
-      printableElement.appendChild(imageWrapper)
+      params.printableElement.appendChild(imageWrapper)
     })
 
     // Check if we are adding a print header
-    if (params.header) addHeader(printableElement, params.header, params.headerStyle)
-
-    // Store html data
-    params.htmlData = printableElement.outerHTML
+    if (params.header) addHeader(params.printableElement, params)
 
     // Print image
     Print.send(params, printFrame)

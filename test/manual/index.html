@@ -106,7 +106,8 @@
             columnSize: 4
           }
         ],
-        type: 'json'
+        type: 'json',
+        header: 'JSON Print Test'
       })
     }
 
@@ -214,7 +215,6 @@
           'https://printjs.crabbly.com/images/print-03-highres.jpg'
         ],
         type: 'image',
-        style: 'img { max-width: 300px; margin: 30px; }',
         showModal: true,
         modalMessage: 'Printing...'
       })
@@ -222,7 +222,7 @@
   </script>
   <body>
     <section id="test" class="test">
-      <h1></h1>
+      <h1>Print.js Test Page</h1>
       <p>
         <button onClick='printPdf();'>
           Print PDF
@@ -282,6 +282,38 @@
           Print Multiple External Images
         </button>
       </p>
+      <div>
+        <h2>Form Elements</h2>
+        <div>
+          <input type="checkbox" /> Checkbox Example
+        </div>
+        <div>
+            <input type="text" value="Styled text input content..." style="color: red; min-width: 300px;" />
+        </div>
+        <div>
+            <textarea>Text area content...</textarea>
+        </div>
+        <div>
+            <canvas id="myCanvas" width="200" height="50"
+            style="border:2px solid blue;">
+            Your browser does not support the canvas element.
+            </canvas>
+
+            <script>
+              var canvas = document.getElementById("myCanvas");
+              var ctx = canvas.getContext("2d");
+              ctx.fillStyle = "#FF0000";
+              ctx.fillRect(0,0,150,25);
+            </script>
+        </div>
+        <div>
+          <select>
+            <option value="super" selected>Super</option>
+            <option value="test">Test</option>
+            <option value="printjs">Print.js</option>
+          </select>
+        </div>
+      </div>
     </section>
   </body>
 </html>

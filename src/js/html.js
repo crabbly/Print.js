@@ -51,7 +51,7 @@ function cloneElement (element, params) {
       break
     case 'CANVAS':
       // Copy the canvas content to its clone
-      clone.getContext('2d').drawImage(element, 0, 0);
+      clone.getContext('2d').drawImage(element, 0, 0)
       break
   }
 

@@ -1,4 +1,4 @@
-import { capitalizePrint, addHeader} from './functions'
+import { capitalizePrint, addHeader } from './functions'
 import Print from './print'
 
 export default {

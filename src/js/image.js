@@ -11,19 +11,18 @@ export default {
 
     // Create printable element (container)
     params.printableElement = document.createElement('div')
-    params.printableElement.setAttribute('style', 'width:100%')
 
     // Create all image elements and append them to the printable container
     params.printable.forEach(src => {
       // Create the image element
       let img = document.createElement('img')
+      img.setAttribute('style', params.imageStyle)
 
       // Set image src with the file url
       img.src = src
 
       // Create the image wrapper
       let imageWrapper = document.createElement('div')
-      imageWrapper.setAttribute('style', params.imageStyle)
 
       // Append image to the wrapper element
       imageWrapper.appendChild(img)

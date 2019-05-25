@@ -1,4 +1,3 @@
-import { addWrapper } from './functions'
 import Print from './print'
 
 export default {

@@ -40,7 +40,7 @@ export default {
       targetStyle: ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'],
       targetStyles: ['border', 'box', 'break', 'text-decoration'],
       ignoreElements: [],
-      imageStyle: 'width:100%;',
+      imageStyle: 'max-width: 100%;',
       repeatTableHeader: true,
       css: null,
       style: null,

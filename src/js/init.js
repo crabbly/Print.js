@@ -110,7 +110,7 @@ export default {
       printFrame.srcdoc = '<html><head><title>' + params.documentTitle + '</title>'
 
       // Attach css files
-      if (params.css !== null) {
+      if (params.css) {
         // Add support for single file
         if (!Array.isArray(params.css)) params.css = [params.css]
 

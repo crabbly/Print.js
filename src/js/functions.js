@@ -26,7 +26,7 @@ export function collectStyles (element, params) {
     }
   })
 
-  // Print friendly defaults
+  // Print friendly defaults (deprecated)
   elementStyle += 'max-width: ' + params.maxWidth + 'px !important;' + params.font_size + ' !important;'
 
   return elementStyle
@@ -37,56 +37,6 @@ function targetStylesMatch (styles, value) {
     if (typeof value === 'object' && value.indexOf(styles[i]) !== -1) return true
   }
   return false
-}
-
-export function loopNodesCollectStyles (elements, params) {
-  for (let n = 0; n < elements.length; n++) {
-    let currentElement = elements[n]
-
-    // Check if we are skiping this element
-    if (params.ignoreElements.indexOf(currentElement.getAttribute('id')) !== -1) {
-      currentElement.parentNode.removeChild(currentElement)
-      continue
-    }
-
-    // Form Printing - check if is element Input
-    let tag = currentElement.tagName
-    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
-      // Save style to variable
-      let textStyle = collectStyles(currentElement, params)
-
-      // Remove INPUT element and insert a text node
-      let parent = currentElement.parentNode
-
-      // Get text value
-      let textNode = tag === 'SELECT'
-        ? document.createTextNode(currentElement.options[currentElement.selectedIndex].text)
-        : document.createTextNode(currentElement.value)
-
-      // Create text element
-      let textElement = document.createElement('div')
-      textElement.appendChild(textNode)
-
-      // Add style to text
-      textElement.setAttribute('style', textStyle)
-
-      // Add text
-      parent.appendChild(textElement)
-
-      // Remove input
-      parent.removeChild(currentElement)
-    } else {
-      // Get all styling for print element
-      currentElement.setAttribute('style', collectStyles(currentElement, params))
-    }
-
-    // Check if we have more elements in the tree
-    let children = currentElement.children
-
-    if (children && children.length) {
-      loopNodesCollectStyles(children, params)
-    }
-  }
 }
 
 export function addHeader (printElement, params) {

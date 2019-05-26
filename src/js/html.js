@@ -1,4 +1,4 @@
-import { addHeader } from './functions'
+import { collectStyles, addHeader } from './functions'
 import Print from './print'
 
 export default {
@@ -42,6 +42,10 @@ function cloneElement (element, params) {
     // Attach the cloned child to the cloned parent node
     clone.appendChild(clonedChild)
   }
+
+  // Get all styling for print element (for nodes of type element only)
+  if (element.nodeType === 1)
+    clone.setAttribute('style', collectStyles(element, params))
 
   // Check if the element needs any state processing (copy user input data)
   switch (element.tagName) {

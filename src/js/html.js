@@ -44,8 +44,9 @@ function cloneElement (element, params) {
   }
 
   // Get all styling for print element (for nodes of type element only)
-  if (element.nodeType === 1)
+  if (params.scanStyles && element.nodeType === 1) {
     clone.setAttribute('style', collectStyles(element, params))
+  }
 
   // Check if the element needs any state processing (copy user input data)
   switch (element.tagName) {

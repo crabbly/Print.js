@@ -179,7 +179,7 @@
 							</div>
 						</form>
 
-						<button type="button" onclick="printJS('printJS-form', 'html')">
+						<button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', css: ['/assets/css/main.css?v1'] })">
 							Print Form
 						</button>
 
@@ -196,7 +196,7 @@
 </code></pre>
                         <p>Result:</p>
 
-						<button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">
+						<button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection', css: ['/assets/css/main.css?v1'] })">
 							Print Form with Header
 						</button>
 

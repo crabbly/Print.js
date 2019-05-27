@@ -19,6 +19,10 @@ const Browser = {
   isSafari: () => {
     return Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0 ||
         navigator.userAgent.toLowerCase().indexOf('safari') !== -1
+  },
+  // IOS Chrome
+  isIOSChrome: () => {
+    return navigator.userAgent.toLowerCase().indexOf('crios') !== -1
   }
 }
 

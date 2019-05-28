@@ -71,7 +71,7 @@ function loadIframeImages (images) {
   const promises = []
 
   for (let image of images) {
-    promises.push(loadIframeImage(image))
+    if (image.src && image.src !== window.location.href) promises.push(loadIframeImage(image))
   }
 
   return Promise.all(promises)

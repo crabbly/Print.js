@@ -30,14 +30,15 @@ function cloneElement (element, params) {
   const clone = element.cloneNode()
 
   // Loop over and process the children elements / nodes (including text nodes)
-  for (let child of element.childNodes) {
+  const childNodesArray = Array.prototype.slice.call(element.childNodes)
+  for (let i = 0; i < childNodesArray.length; i++) {
     // Check if we are skiping the current element
-    if (params.ignoreElements.indexOf(child.id) !== -1) {
+    if (params.ignoreElements.indexOf(childNodesArray[i].id) !== -1) {
       continue
     }
 
     // Clone the child element
-    const clonedChild = cloneElement(child, params)
+    const clonedChild = cloneElement(childNodesArray[i], params)
 
     // Attach the cloned child to the cloned parent node
     clone.appendChild(clonedChild)

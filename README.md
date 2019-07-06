@@ -7,8 +7,7 @@
 
 A tiny javascript library to help printing from the web.
 
->For documentation and examples please visit: [printjs.crabbly.com](http://printjs.crabbly.com)
-
+> For documentation and examples please visit: [printjs.crabbly.com](http://printjs.crabbly.com)
 
 ## Installation
 
@@ -26,7 +25,7 @@ To install via yarn:
 yarn add print-js
 ```
 
-When installing via npm or yarn, import the library into your project:
+Import the library into your project:
 
 ```js
 import printJS from 'print-js'
@@ -36,15 +35,12 @@ import printJS from 'print-js'
 
 You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#documentation).
 
-
 ## Contributing to Print.js
 
 [![devDependencies Status](https://david-dm.org/crabbly/print.js/dev-status.svg)](https://david-dm.org/crabbly/print.js?type=dev)
 [![dependencies Status](https://david-dm.org/crabbly/print.js/status.svg)](https://david-dm.org/crabbly/print.js)
-[![slack](https://img.shields.io/badge/slack-printjs-orange.svg?logo=slack)](https://publicslack.com/slacks/printjs/invites/new)
 
 Contributions to Print.js are welcome and encouraged.
-
 
 ##### Using issues
 
@@ -54,7 +50,6 @@ Keep in mind that we would like to keep this a lightweight library.
 
 Please do not use the issues channel for support requests. For help using Print.js, please ask questions on Stack Overflow and use the tag `printjs`.
 
-
 ##### Reporting bugs
 
 Well structured, detailed bug reports are hugely valuable for the project.
@@ -63,7 +58,6 @@ Well structured, detailed bug reports are hugely valuable for the project.
  - Isolate the problem to a simple test case
 
 Please provide any additional details associated with the bug.
-
 
 ##### Pull requests
 

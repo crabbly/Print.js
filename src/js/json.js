@@ -95,7 +95,13 @@ function jsonToHTML (params) {
       }
 
       // Add the row contents and styles
-      htmlData += '<td style="width:' + properties[n].columnSize + params.gridStyle + '">' + stringData + '</td>'
+      // if the data is of type array, splitting the cell to multiple rows
+      if (typeof stringData === 'object' && stringData.length && stringData.length > 0) {
+        const subTableHtmlData = stringData.reduce((acc, eachRowData) => (acc + '<tr><td style="' + params.gridStyle + '">' + eachRowData + '</td></tr>'), '')
+        htmlData += '<td style="padding:0;width:' + properties[n].columnSize + params.gridStyle + '"><table style="border-collapse: collapse; width: 100%;">' + subTableHtmlData + '</table></td>'
+      } else {
+        htmlData += '<td style="width:' + properties[n].columnSize + params.gridStyle + '">' + stringData + '</td>'
+      }
     }
 
     // Add the row closing tag

@@ -34,6 +34,7 @@ export default {
     })
 
     req.open('GET', params.printable, true)
+    req.setRequestHeader( 'Content-Type', 'application/pdf')
     req.send()
   }
 }

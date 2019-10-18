@@ -76,7 +76,7 @@ export function cleanUp (params) {
   if (params.onPrintDialogClose) {
     let event = 'mouseover'
 
-    if (Browser.isChrome() || Browser.isFirefox()) {
+    if ((Browser.isChrome()&&params.type !== 'image')|| Browser.isFirefox()) {
       // Ps.: Firefox will require an extra click in the document to fire the focus event.
       event = 'focus'
     }

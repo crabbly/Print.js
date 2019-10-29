@@ -22,7 +22,21 @@ const Print = {
 
       // Append printable element to the iframe body
       printDocument.body.appendChild(params.printableElement)
-
+      // IE does not support the srcdoc attribute of iframe tag. The previous CSS file does not take effect.
+      if (Browser.isIE()){
+        if (params.css) {
+          var linkElement = document.createElement('link');//printDocument.getElementsByTagName('head')[0].innerHTML;
+          // Add support for single file
+          if (!Array.isArray(params.css)) params.css = [params.css]
+          // Create link tags for each css file
+          params.css.forEach(file => {
+            linkElement.setAttribute("rel","stylesheet")
+            linkElement.setAttribute("href",file)
+            //IE9 does not support innerHtml
+            printDocument.getElementsByTagName('head')[0].appendChild(linkElement) ;
+          })
+        }
+      }
       // Add custom style
       if (params.type !== 'pdf' && params.style) {
         // Create style element

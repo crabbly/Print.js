@@ -68,11 +68,13 @@ function performPrint (iframeElement, params) {
 }
 
 function loadIframeImages (images) {
-  const promises = images.map(image => {
+  const promises = [];
+  for(let i in images) {
+    let image = images[i];
     if (image.src && image.src !== window.location.href) {
-      return loadIframeImage(image)
+      promises.push(loadIframeImage(image));
     }
-  })
+  }
 
   return Promise.all(promises)
 }

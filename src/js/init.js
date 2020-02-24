@@ -42,6 +42,7 @@ export default {
       ignoreElements: [],
       imageStyle: 'max-width: 100%;',
       repeatTableHeader: true,
+      expandNestedJsonObjects: true,
       css: null,
       style: null,
       scanStyles: true,

@@ -82,16 +82,18 @@ function jsonToHTML (params) {
 
     // Print selected properties only
     for (let n = 0; n < properties.length; n++) {
-      let stringData = data[i]
+      let dataEntry = data[i]
+      let stringData = dataEntry[properties[n].field]
 
       // Support nested objects
-      let property = properties[n].field.split('.')
-      if (property.length > 1) {
-        for (let p = 0; p < property.length; p++) {
-          stringData = stringData[property[p]]
+      if (params.expandNestedJsonObjects) {
+        let property = properties[n].field.split('.')
+        if (property.length > 1) {
+          for (let p = 0; p < property.length; p++) {
+            dataEntry = dataEntry[property[p]]
+          }
+          stringData = dataEntry
         }
-      } else {
-        stringData = stringData[properties[n].field]
       }
 
       // Add the row contents and styles

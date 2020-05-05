@@ -59,6 +59,12 @@ function performPrint (iframeElement, params) {
     } else {
       // Other browsers
       iframeElement.contentWindow.print()
+      
+      // in chrome print call is blocking, meaning the print window is closed when reaching this line
+      if(Browser.isChrome()){
+         // chrome does not raise 'focus' event, hence it needs to be raised manually
+        window.dispatchEvent(new Event("focus"));
+      }      
     }
   } catch (error) {
     params.onError(error)

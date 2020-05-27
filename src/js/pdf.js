@@ -11,7 +11,7 @@ export default {
     }
 
     // Format pdf url
-    params.printable = /^(blob|http)/i.test(params.printable)
+    params.printable = /^(blob|http|\/\/)/i.test(params.printable)
       ? params.printable
       : window.location.origin + (params.printable.charAt(0) !== '/' ? '/' + params.printable : params.printable)
 

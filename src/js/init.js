@@ -36,7 +36,7 @@ export default {
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
       printableElement: null,
-      documentTitle: 'Document',
+      documentTitle: '',
       targetStyle: ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'],
       targetStyles: ['border', 'box', 'break', 'text-decoration'],
       ignoreElements: [],

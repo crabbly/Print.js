@@ -18,6 +18,8 @@ export default {
       type: 'pdf',
       header: null,
       headerStyle: 'font-weight: 300;',
+      footer: null,
+      footerStyle: 'font-weight: 300;',
       maxWidth: 800,
       font: 'TimesNewRoman',
       font_size: '12pt',

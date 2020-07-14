@@ -62,6 +62,29 @@ export function addHeader (printElement, params) {
   printElement.insertBefore(headerContainer, printElement.childNodes[0])
 }
 
+export function addFooter (printElement, params) {
+  // Create the footer container div
+  let footerContainer = document.createElement('div')
+
+  // Check if the footer is text or raw html
+  if (isRawHTML(params.footer)) {
+    footerContainer.innerHTML = params.footer
+  } else {
+    // Create footer element
+    let footerElement = document.createElement('h1')
+
+    // Create footer text node
+    let footerNode = document.createTextNode(params.footer)
+
+    // Build and style
+    footerElement.appendChild(footerNode)
+    footerElement.setAttribute('style', params.footerStyle)
+    footerContainer.appendChild(footerElement)
+  }
+
+  printElement.insertBefore(footerContainer, printElement.childNodes.lastChild)
+}
+
 export function cleanUp (params) {
   // If we are showing a feedback message to user, remove it
   if (params.showModal) Modal.close()

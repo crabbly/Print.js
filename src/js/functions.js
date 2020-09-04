@@ -2,7 +2,7 @@ import Modal from './modal'
 import Browser from './browser'
 
 export function addWrapper (htmlData, params) {
-  let bodyStyle = 'font-family:' + params.font + ' !important; font-size: ' + params.font_size + ' !important; width:100%;'
+  const bodyStyle = 'font-family:' + params.font + ' !important; font-size: ' + params.font_size + ' !important; width:100%;'
   return '<div style="' + bodyStyle + '">' + htmlData + '</div>'
 }
 
@@ -11,13 +11,13 @@ export function capitalizePrint (obj) {
 }
 
 export function collectStyles (element, params) {
-  let win = document.defaultView || window
+  const win = document.defaultView || window
 
   // String variable to hold styling for each element
   let elementStyle = ''
 
   // Loop over computed styles
-  let styles = win.getComputedStyle(element, '')
+  const styles = win.getComputedStyle(element, '')
 
   Object.keys(styles).map(key => {
     // Check if style should be processed
@@ -41,17 +41,17 @@ function targetStylesMatch (styles, value) {
 
 export function addHeader (printElement, params) {
   // Create the header container div
-  let headerContainer = document.createElement('div')
+  const headerContainer = document.createElement('div')
 
   // Check if the header is text or raw html
   if (isRawHTML(params.header)) {
     headerContainer.innerHTML = params.header
   } else {
     // Create header element
-    let headerElement = document.createElement('h1')
+    const headerElement = document.createElement('h1')
 
     // Create header text node
-    let headerNode = document.createTextNode(params.header)
+    const headerNode = document.createTextNode(params.header)
 
     // Build and style
     headerElement.appendChild(headerNode)
@@ -92,6 +92,6 @@ export function cleanUp (params) {
 }
 
 export function isRawHTML (raw) {
-  let regexHtml = new RegExp('<([A-Za-z][A-Za-z0-9]*)\\b[^>]*>(.*?)</\\1>')
+  const regexHtml = new RegExp('<([A-Za-z][A-Za-z0-9]*)\\b[^>]*>(.*?)</\\1>')
   return regexHtml.test(raw)
 }

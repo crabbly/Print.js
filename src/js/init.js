@@ -12,7 +12,7 @@ const printTypes = ['pdf', 'html', 'image', 'json', 'raw-html']
 
 export default {
   init () {
-    let params = {
+    const params = {
       printable: null,
       fallbackPrintable: null,
       type: 'pdf',
@@ -49,7 +49,7 @@ export default {
     }
 
     // Check if a printable document or object was supplied
-    let args = arguments[0]
+    const args = arguments[0]
     if (args === undefined) throw new Error('printJS expects at least 1 attribute.')
 
     // Process parameters
@@ -89,15 +89,12 @@ export default {
     if (params.onLoadingStart) params.onLoadingStart()
 
     // To prevent duplication and issues, remove any used printFrame from the DOM
-    let usedFrame = document.getElementById(params.frameId)
+    const usedFrame = document.getElementById(params.frameId)
 
     if (usedFrame) usedFrame.parentNode.removeChild(usedFrame)
 
-    // Create a new iframe or embed element (IE prints blank pdf's if we use iframe)
-    let printFrame
-
-    // Create iframe element
-    printFrame = document.createElement('iframe')
+    // Create a new iframe for the print job
+    const printFrame = document.createElement('iframe')
 
     // Hide iframe
     printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute;')
@@ -131,7 +128,7 @@ export default {
           try {
             console.info('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
             if (params.onBrowserIncompatible() === true) {
-              let win = window.open(params.fallbackPrintable, '_blank')
+              const win = window.open(params.fallbackPrintable, '_blank')
               win.focus()
               if (params.onPdfOpen) params.onPdfOpen()
             }

@@ -16,7 +16,7 @@ export default {
       : window.location.origin + (params.printable.charAt(0) !== '/' ? '/' + params.printable : params.printable)
 
     // Get the file through a http request (Preload)
-    let req = new window.XMLHttpRequest()
+    const req = new window.XMLHttpRequest()
     req.responseType = 'arraybuffer'
 
     req.addEventListener('load', () => {

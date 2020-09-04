@@ -1,7 +1,7 @@
 const Modal = {
   show (params) {
     // Build modal
-    let modalStyle = 'font-family:sans-serif; ' +
+    const modalStyle = 'font-family:sans-serif; ' +
         'display:table; ' +
         'text-align:center; ' +
         'font-weight:300; ' +
@@ -16,27 +16,27 @@ const Modal = {
         'transition: opacity .3s ease;'
 
     // Create wrapper
-    let printModal = document.createElement('div')
+    const printModal = document.createElement('div')
     printModal.setAttribute('style', modalStyle)
     printModal.setAttribute('id', 'printJS-Modal')
 
     // Create content div
-    let contentDiv = document.createElement('div')
+    const contentDiv = document.createElement('div')
     contentDiv.setAttribute('style', 'display:table-cell; vertical-align:middle; padding-bottom:100px;')
 
     // Add close button (requires print.css)
-    let closeButton = document.createElement('div')
+    const closeButton = document.createElement('div')
     closeButton.setAttribute('class', 'printClose')
     closeButton.setAttribute('id', 'printClose')
     contentDiv.appendChild(closeButton)
 
     // Add spinner (requires print.css)
-    let spinner = document.createElement('span')
+    const spinner = document.createElement('span')
     spinner.setAttribute('class', 'printSpinner')
     contentDiv.appendChild(spinner)
 
     // Add message
-    let messageNode = document.createTextNode(params.modalMessage)
+    const messageNode = document.createTextNode(params.modalMessage)
     contentDiv.appendChild(messageNode)
 
     // Add contentDiv to printModal
@@ -51,7 +51,7 @@ const Modal = {
     })
   },
   close () {
-    let printFrame = document.getElementById('printJS-Modal')
+    const printFrame = document.getElementById('printJS-Modal')
 
     printFrame.parentNode.removeChild(printFrame)
   }

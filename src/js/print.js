@@ -37,7 +37,7 @@ const Print = {
       const images = printDocument.getElementsByTagName('img')
 
       if (images.length > 0) {
-        loadIframeImages(images).then(() => performPrint(iframeElement, params))
+        loadIframeImages(Array.from(images)).then(() => performPrint(iframeElement, params))
       } else {
         performPrint(iframeElement, params)
       }

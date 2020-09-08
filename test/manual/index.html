@@ -75,6 +75,33 @@
         })
     }
 
+    function printJsonOffooter() {
+      let data = [];
+      for (let i=0; i <= 1000; i++){
+        data.push({
+          test1: createRandomString(),
+          test2: createRandomString()
+        });
+      }
+
+      printJS(
+        {
+          printable: data,
+          footer: 'signature <u class="line" >　　　　　　　　　　　　</u> ',
+          footerStyle: 'font-size: 18px; padding: 10px;',
+          properties: [{
+            field: 'test1',
+            displayName: 'test 1',
+            columnSize: 1
+          },{
+            field: 'test2',
+            displayName: 'test 2',
+            columnSize: 4
+          }],
+          type: 'json'
+        })
+    }
+
     function printStyledJson() {
         let data = [
             {
@@ -161,6 +188,9 @@
         </button>
         <button onClick='printNestedJson();'>
           Print Nested JSON
+        </button>
+        <button onClick='printJsonOffooter();'>
+          Print JSON of footer
         </button>
       </p>
     </section>

@@ -42,7 +42,9 @@ export default {
       repeatTableHeader: true,
       css: null,
       style: null,
-      scanStyles: true
+      scanStyles: true,
+      footer: null,
+      footerStyle: 'font-weight: 300;'
     }
 
     // Check if a printable document or object was supplied
@@ -86,6 +88,8 @@ export default {
         params.css = typeof args.css !== 'undefined' ? args.css : params.css
         params.style = typeof args.style !== 'undefined' ? args.style : params.style
         params.scanStyles = typeof args.scanStyles !== 'undefined' ? args.scanStyles : params.scanStyles
+        params.footer = typeof args.footer !== 'undefined' ? args.footer : params.footer
+        params.footerStyle = typeof args.footerStyle !== 'undefined' ? args.footerStyle : params.footerStyle
         break
       default:
         throw new Error('Unexpected argument type! Expected "string" or "object", got ' + typeof args)

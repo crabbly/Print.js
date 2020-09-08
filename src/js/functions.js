@@ -99,3 +99,13 @@ export function addHeader (printElement, header, headerStyle) {
 
   printElement.insertBefore(headerElement, printElement.childNodes[0])
 }
+
+export function addFooter (printElement, footer, footerStyle) {
+  
+  let footerElement = document.createElement('div')
+  let footerNode = document.createTextNode(footer)
+
+  footerElement.appendChild(footerNode)
+  footerElement.setAttribute('style', footerStyle)
+  printElement.appendChild(footerElement)
+}

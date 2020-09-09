@@ -101,11 +101,12 @@ export function addHeader (printElement, header, headerStyle) {
 }
 
 export function addFooter (printElement, footer, footerStyle) {
-  
+  // Create footer element
   let footerElement = document.createElement('div')
-  let footerNode = document.createTextNode(footer)
 
-  footerElement.appendChild(footerNode)
+  //set html and style
+  footerElement.innerHTML = footer
   footerElement.setAttribute('style', footerStyle)
+
   printElement.appendChild(footerElement)
 }

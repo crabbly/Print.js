@@ -39,7 +39,7 @@ export default {
     // Build the printable html data
     htmlData += jsonToHTML(params)
 
-    //Check if there is a footer on end of the table
+    // Check if there is a footer on end of the table
     if (params.footer) htmlData += '<div style="' + params.footerStyle + '">' + params.footer + '</div>'
 
     // Store the data

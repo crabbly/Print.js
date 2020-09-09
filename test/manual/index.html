@@ -30,6 +30,15 @@
       });
     }
 
+    function printHtmlWithFooter() {
+      printJS({
+        printable: 'test',
+        footer: 'signature <u class="line" >　　　　　　　　　　　　</u> ',
+        footerStyle: 'font-size: 18px; padding: 10px;',
+        type: 'html'
+      });
+    }
+
     function printHtmlCustomStyle() {
       const style = '@page { margin: 0 } @media print { h1 { color: blue } }'
 
@@ -75,7 +84,7 @@
         })
     }
 
-    function printJsonOffooter() {
+    function printJsonWithFooter() {
       let data = [];
       for (let i=0; i <= 1000; i++){
         data.push({
@@ -153,6 +162,15 @@
 
       return text;
     }
+  
+    function printImgWithFooter() {
+      printJS({
+          printable: '/test/manual/test.png',
+          type: 'image',
+          footer: 'signature <u class="line" >　　　　　　　　　　　　</u> ',
+          footerStyle: 'font-size: 18px; padding: 10px;'
+      });
+    }
   </script>
   <body>
     <section id="test" class="test">
@@ -178,6 +196,9 @@
         <button onClick='printHtmlCss();'>
           Print HTML with custom css
         </button>
+        <button onClick='printHtmlWithFooter();'>
+          Print HTML with Footer
+        </button>
       </p>
       <p>
         <button onClick='printJson();'>
@@ -189,8 +210,13 @@
         <button onClick='printNestedJson();'>
           Print Nested JSON
         </button>
-        <button onClick='printJsonOffooter();'>
-          Print JSON of footer
+        <button onClick='printJsonWithFooter();'>
+          Print JSON With footer
+        </button>
+      </p>
+      <p>
+        <button onClick='printImgWithFooter();'>
+          Print Image With Footer
         </button>
       </p>
     </section>

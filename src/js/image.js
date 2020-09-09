@@ -1,4 +1,4 @@
-import { addHeader } from './functions'
+import { addHeader, addFooter } from './functions'
 import Print from './print'
 
 export default {
@@ -17,6 +17,11 @@ export default {
     loadImagesAndAppendToPrintableElement(printableElement, params).then(() => {
       // Check if we are adding a header
       if (params.header) addHeader(printableElement, params.header, params.headerStyle)
+
+      // Add footer
+      if (params.footer) {
+        addFooter(printableElement, params.footer, params.footerStyle)
+      }
 
       // Store html data
       params.htmlData = printableElement.outerHTML

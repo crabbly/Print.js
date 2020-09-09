@@ -1,6 +1,7 @@
 import {
   addWrapper,
-  capitalizePrint
+  capitalizePrint,
+  isRawHTML
 } from './functions'
 import Print from './print'
 
@@ -34,7 +35,11 @@ export default {
     let htmlData = ''
 
     // Check if there is a header on top of the table
-    if (params.header) htmlData += '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
+    if (params.header) {
+      htmlData += isRawHTML(params.header)
+        ? params.header
+        : '<h1 style="' + params.headerStyle + '">' + params.header + '</h1>'
+    }
 
     // Build the printable html data
     htmlData += jsonToHTML(params)

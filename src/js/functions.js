@@ -1,3 +1,6 @@
+import Modal from './modal'
+import Browser from './browser'
+
 export function addWrapper (htmlData, params) {
   let bodyStyle = 'font-family:' + params.font + ' !important; font-size: ' + params.font_size + ' !important; width:100%;'
   return '<div style="' + bodyStyle + '">' + htmlData + '</div>'
@@ -100,6 +103,7 @@ export function addHeader (printElement, header, headerStyle) {
   printElement.insertBefore(headerElement, printElement.childNodes[0])
 }
 
+
 export function addFooter (printElement, footer, footerStyle) {
   // Create footer element
   let footerElement = document.createElement('div')
@@ -109,4 +113,38 @@ export function addFooter (printElement, footer, footerStyle) {
   footerElement.setAttribute('style', footerStyle)
 
   printElement.appendChild(footerElement)
+}
+
+export function cleanUp (params) {
+  // If we are showing a feedback message to user, remove it
+  if (params.showModal) Modal.close()
+
+  // Check for a finished loading hook function
+  if (params.onLoadingEnd) params.onLoadingEnd()
+
+  // If preloading pdf files, clean blob url
+  if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
+
+  // If a onPrintDialogClose callback is given, execute it
+  if (params.onPrintDialogClose) {
+    let event = 'mouseover'
+
+    if (Browser.isChrome() || Browser.isFirefox()) {
+      // Ps.: Firefox will require an extra click in the document to fire the focus event.
+      event = 'focus'
+    }
+    const handler = () => {
+      // Make sure the event only happens once.
+      window.removeEventListener(event, handler)
+
+      params.onPrintDialogClose()
+    }
+
+    window.addEventListener(event, handler)
+  }
+}
+
+export function isRawHTML (raw) {
+  let regexHtml = new RegExp('<([A-Za-z][A-Za-z0-9]*)\\b[^>]*>(.*?)</\\1>')
+  return regexHtml.test(raw)
 }

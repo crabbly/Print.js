@@ -23,6 +23,17 @@
         });
     }
 
+    function printPdfCompatibleBrowser() {
+      printJS({
+        printable: '/test/manual/test.pdf',
+        type: 'pdf',
+        onBrowserIncompatible: () => {
+          alert('Browser incompatible');
+          return false;
+        }
+      });
+    }
+
     function printHtml() {
       printJS({
         printable: 'test',
@@ -36,6 +47,15 @@
         footer: 'signature <u class="line" >　　　　　　　　　　　　</u> ',
         footerStyle: 'font-size: 18px; padding: 10px;',
         type: 'html'
+      });
+    }
+    function printRawHtml() {
+      printJS({
+        printable: `<h1>Print.js Raw HTML Print Test</h1>
+        <p class="blueText">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>`,
+        type: 'raw-html',
+        style: '.blueText {color:blue;}'
       });
     }
 
@@ -165,11 +185,44 @@
   
     function printImgWithFooter() {
       printJS({
-          printable: '/test/manual/test.png',
+          printable: '/test/manual/test-01.jpg',
           type: 'image',
           footer: 'signature <u class="line" >　　　　　　　　　　　　</u> ',
           footerStyle: 'font-size: 18px; padding: 10px;'
       });
+    }
+
+    function printImage() {
+      printJS('test-01.jpg', 'image')
+    }
+
+    function printImages() {
+      printJS(
+        {
+          printable: ['test-01.jpg', 'test-02.jpg'],
+          type: 'image'
+        }
+      )
+    }
+
+    function printStyledImages() {
+      printJS(
+        {
+          printable: ['test-01.jpg', 'test-02.jpg'],
+          type: 'image',
+          style: 'img { max-width: 300px; margin: 30px; }'
+        }
+      )
+    }
+
+    function printStyledImagesWithStyleSheet() {
+      printJS(
+        {
+          printable: ['test-01.jpg', 'test-02.jpg'],
+          type: 'image',
+          css: 'test.css'
+        }
+      )
     }
   </script>
   <body>
@@ -185,6 +238,9 @@
         <button onClick='printPdfWithModalAndCloseCallback();'>
           Print PDF with Loading Modal and close callback
         </button>
+        <button onClick='printPdfCompatibleBrowser();'>
+          Print PDF only on compatible browser
+        </button>
       </p>
       <p>
         <button onClick='printHtml();'>
@@ -198,6 +254,9 @@
         </button>
         <button onClick='printHtmlWithFooter();'>
           Print HTML with Footer
+        </button>
+        <button onClick='printRawHtml();'>
+          Print Raw HTML
         </button>
       </p>
       <p>
@@ -215,8 +274,20 @@
         </button>
       </p>
       <p>
+        <button onClick='printImage();'>
+          Print Image
+        </button>
         <button onClick='printImgWithFooter();'>
           Print Image With Footer
+        </button>
+        <button onClick='printImages();'>
+          Print Multiple Images
+        </button>
+        <button onClick='printStyledImages();'>
+          Print Multiple Images Passing Custom Style
+        </button>
+        <button onClick='printStyledImagesWithStyleSheet();'>
+          Print Multiple Images Passing a Style Sheet
         </button>
       </p>
     </section>

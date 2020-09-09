@@ -1,5 +1,5 @@
 import Browser from './browser'
-import Modal from './modal'
+import { cleanUp } from './functions'
 
 const Print = {
   send: (params, printFrame) => {
@@ -11,11 +11,11 @@ const Print = {
 
     // Wait for iframe to load all content
     if (params.type === 'pdf' && (Browser.isIE() || Browser.isEdge())) {
-      iframeElement.setAttribute('onload', finishPrint(iframeElement, params))
+      iframeElement.setAttribute('onload', performPrint(iframeElement, params))
     } else {
       printFrame.onload = () => {
         if (params.type === 'pdf') {
-          finishPrint(iframeElement, params)
+          performPrint(iframeElement, params)
         } else {
           // Get iframe element document
           let printDocument = (iframeElement.contentWindow || iframeElement.contentDocument)
@@ -37,10 +37,10 @@ const Print = {
           // If printing image, wait for it to load inside the iframe
           if (params.type === 'image') {
             loadIframeImages(printDocument, params).then(() => {
-              finishPrint(iframeElement, params)
+              loadStyleSheets(iframeElement, params).then(() => performPrint(iframeElement, params))
             })
           } else {
-            finishPrint(iframeElement, params)
+            loadStyleSheets(iframeElement, params).then(() => performPrint(iframeElement, params))
           }
         }
       }
@@ -48,55 +48,22 @@ const Print = {
   }
 }
 
+// Fire print job
 function performPrint (iframeElement, params) {
-  iframeElement.focus()
+  try {
+    iframeElement.focus()
 
-  // If Edge or IE, try catch with execCommand
-  if (Browser.isEdge() || Browser.isIE()) {
-    try {
-      iframeElement.contentWindow.document.execCommand('print', false, null)
-    } catch (e) {
+    // If Edge or IE, try catch with execCommand
+    if (Browser.isEdge() || Browser.isIE()) {
+      try {
+        iframeElement.contentWindow.document.execCommand('print', false, null)
+      } catch (e) {
+        iframeElement.contentWindow.print()
+      }
+    } else {
+      // Other browsers
       iframeElement.contentWindow.print()
     }
-  } else {
-    // Other browsers
-    iframeElement.contentWindow.print()
-  }
-}
-
-function cleanUp (params) {
-  // If we are showing a feedback message to user, remove it
-  if (params.showModal) Modal.close()
-
-  // Check for a finished loading hook function
-  if (params.onLoadingEnd) params.onLoadingEnd()
-
-  // If preloading pdf files, clean blob url
-  if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
-
-  // If a onPrintDialogClose callback is given, execute it
-  if (params.onPrintDialogClose) {
-    let event = 'mouseover'
-
-    if (Browser.isChrome() || Browser.isFirefox()) {
-      // Firefox will require an extra click in the document
-      // to fire the focus event. Should we console.warn that?
-      event = 'focus'
-    }
-    const handler = () => {
-      // Make sure the event only happens once.
-      window.removeEventListener(event, handler)
-
-      params.onPrintDialogClose()
-    }
-
-    window.addEventListener(event, handler)
-  }
-}
-
-function finishPrint (iframeElement, params) {
-  try {
-    performPrint(iframeElement, params)
   } catch (error) {
     params.onError(error)
   } finally {
@@ -104,14 +71,14 @@ function finishPrint (iframeElement, params) {
   }
 }
 
+// Preload images inside the iframe
 function loadIframeImages (printDocument, params) {
-  let promises = []
-
-  params.printable.forEach((image, index) => promises.push(loadIframeImage(printDocument, index)))
+  const promises = params.printable.map((image, index) => loadIframeImage(printDocument, index))
 
   return Promise.all(promises)
 }
 
+// Preload an image inside the iframe
 function loadIframeImage (printDocument, index) {
   return new Promise(resolve => {
     const pollImage = () => {
@@ -124,6 +91,37 @@ function loadIframeImage (printDocument, index) {
       }
     }
     pollImage()
+  })
+}
+
+// Confirm that all stylesheets are loaded inside the iframe (if any) before firing the print job
+function loadStyleSheets (iframeElement, params) {
+  // Check if we have stylesheets to load
+  if (!params.css) {
+    return Promise.resolve()
+  }
+
+  // Support single file passed as string
+  if (!Array.isArray(params.css)) params.css = [params.css]
+
+  // Get iframe document head element
+  const iframeHead = iframeElement.contentDocument.querySelector('head')
+
+  const promises = params.css.map(stylesheet => loadStyleSheet(stylesheet, iframeHead))
+
+  return Promise.all(promises)
+}
+
+// Preload a style sheet
+function loadStyleSheet (stylesheet, documentHead) {
+  return new Promise(resolve => {
+    let link = document.createElement('link')
+    link.type = 'text/css'
+    link.rel = 'stylesheet'
+    link.onload = () => resolve()
+    link.href = stylesheet
+
+    documentHead.appendChild(link)
   })
 }
 

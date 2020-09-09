@@ -40,7 +40,7 @@ You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#
 [![devDependencies Status](https://david-dm.org/crabbly/print.js/dev-status.svg)](https://david-dm.org/crabbly/print.js?type=dev)
 [![dependencies Status](https://david-dm.org/crabbly/print.js/status.svg)](https://david-dm.org/crabbly/print.js)
 
-Contributions to Print.js are welcome and encouraged.
+Contributions to Print.js are greatly welcomed and encouraged.
 
 ##### Using issues
 
@@ -56,6 +56,7 @@ Well structured, detailed bug reports are hugely valuable for the project.
 
  - Check the issue search to see if it has already been reported
  - Isolate the problem to a simple test case
+ - Add a codepen, fiddle, codesandbox or similar online example replicating the issue
 
 Please provide any additional details associated with the bug.
 

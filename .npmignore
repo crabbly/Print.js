@@ -8,3 +8,4 @@ karma.conf.js
 yarn.lock
 coverage/
 .vscode
+package-lock.json

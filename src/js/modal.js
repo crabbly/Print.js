@@ -51,9 +51,11 @@ const Modal = {
     })
   },
   close () {
-    const printFrame = document.getElementById('printJS-Modal')
+    const printModal = document.getElementById('printJS-Modal')
 
-    printFrame.parentNode.removeChild(printFrame)
+    if (printModal) {
+      printModal.parentNode.removeChild(printModal)
+    }
   }
 }
 

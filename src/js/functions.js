@@ -18,8 +18,12 @@ export function collectStyles (element, params) {
 
   // Loop over computed styles
   const styles = win.getComputedStyle(element, '')
+  const styleKeys = []; // prepare keys array, because Object.keys(styles) returns empty array in IE
+  for (let i = 0; i < styles.length; i++) {
+    styleKeys.push(i);
+  }
 
-  Object.keys(styles).map(key => {
+  styleKeys.map(key => {
     // Check if style should be processed
     if (params.targetStyles.indexOf('*') !== -1 || params.targetStyle.indexOf(styles[key]) !== -1 || targetStylesMatch(params.targetStyles, styles[key])) {
       if (styles.getPropertyValue(styles[key])) elementStyle += styles[key] + ':' + styles.getPropertyValue(styles[key]) + ';'

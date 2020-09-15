@@ -9,10 +9,41 @@ const Print = {
     // Get iframe element
     const iframeElement = document.getElementById(params.frameId)
 
+    const performPrint = function () {
+      try {
+        iframeElement.focus()
+
+        // If Edge or IE, try catch with execCommand
+        if (Browser.isEdge() || Browser.isIE()) {
+          try {
+            iframeElement.contentWindow.document.execCommand('print', false, null)
+          } catch (e) {
+            iframeElement.contentWindow.print()
+          }
+        } else {
+          // Other browsers
+          iframeElement.contentWindow.print()
+        }
+      } catch (error) {
+        params.onError(error)
+      } finally {
+        // Move the iframe element off-screen and make it invisible
+        iframeElement.style.visibility = 'hidden'
+        iframeElement.style.left = '-1px'
+
+        cleanUp(params)
+      }
+    }
+
     // Wait for iframe to load all content
     iframeElement.onload = () => {
       if (params.type === 'pdf') {
-        performPrint(iframeElement, params)
+        // Add a delay for Firefox. In my tests, 1000ms was sufficient but 100ms was not
+        if (Browser.isFirefox()) {
+          setTimeout(performPrint, 1000)
+        } else {
+          performPrint()
+        }
         return
       }
 
@@ -24,7 +55,7 @@ const Print = {
       printDocument.body.appendChild(params.printableElement)
 
       // Add custom style
-      if (params.type !== 'pdf' && params.style) {
+      if (params.style) {
         // Create style element
         const style = document.createElement('style')
         style.innerHTML = params.style
@@ -37,33 +68,11 @@ const Print = {
       const images = printDocument.getElementsByTagName('img')
 
       if (images.length > 0) {
-        loadIframeImages(Array.from(images)).then(() => performPrint(iframeElement, params))
+        loadIframeImages(Array.from(images)).then(performPrint)
       } else {
-        performPrint(iframeElement, params)
+        performPrint()
       }
     }
-  }
-}
-
-function performPrint (iframeElement, params) {
-  try {
-    iframeElement.focus()
-
-    // If Edge or IE, try catch with execCommand
-    if (Browser.isEdge() || Browser.isIE()) {
-      try {
-        iframeElement.contentWindow.document.execCommand('print', false, null)
-      } catch (e) {
-        iframeElement.contentWindow.print()
-      }
-    } else {
-      // Other browsers
-      iframeElement.contentWindow.print()
-    }
-  } catch (error) {
-    params.onError(error)
-  } finally {
-    cleanUp(params)
   }
 }
 

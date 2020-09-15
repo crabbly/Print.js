@@ -18,17 +18,12 @@ export function collectStyles (element, params) {
 
   // Loop over computed styles
   let styles = win.getComputedStyle(element, '')
-  const styleKeys = []
-  for (let i = 0; i < styles.length; i++) {
-    styleKeys.push(i)
-  }
 
-  styleKeys.map(key => {
-    // Check if style should be processed
+  for (let key = 0; key < styles.length; key++) {
     if (params.targetStyles.indexOf('*') !== -1 || params.targetStyle.indexOf(styles[key]) !== -1 || targetStylesMatch(params.targetStyles, styles[key])) {
       if (styles.getPropertyValue(styles[key])) elementStyle += styles[key] + ':' + styles.getPropertyValue(styles[key]) + ';'
     }
-  })
+  }
 
   // Print friendly defaults
   elementStyle += 'max-width: ' + params.maxWidth + 'px !important;' + params.font_size + ' !important;'

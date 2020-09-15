@@ -20,6 +20,7 @@ export function collectStyles (element, params) {
   let styles = win.getComputedStyle(element, '')
 
   for (let key = 0; key < styles.length; key++) {
+    // Check if style should be processed
     if (params.targetStyles.indexOf('*') !== -1 || params.targetStyle.indexOf(styles[key]) !== -1 || targetStylesMatch(params.targetStyles, styles[key])) {
       if (styles.getPropertyValue(styles[key])) elementStyle += styles[key] + ':' + styles.getPropertyValue(styles[key]) + ';'
     }

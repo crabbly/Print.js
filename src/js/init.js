@@ -96,10 +96,15 @@ export default {
     // Create a new iframe for the print job
     const printFrame = document.createElement('iframe')
 
-    // Set the iframe to be is visible on the page (guaranteed by fixed position) but hidden using opacity 0, because
-    // this works in Firefox. The height needs to be sufficient for some part of the document other than the PDF
-    // viewer's toolbar to be visible in the page
-    printFrame.setAttribute('style', 'width: 1px; height: 100px; position: fixed; left: 0; top: 0; opacity: 0; border-width: 0; margin: 0; padding: 0')
+    if (Browser.isFirefox()) {
+      // Set the iframe to be is visible on the page (guaranteed by fixed position) but hidden using opacity 0, because
+      // this works in Firefox. The height needs to be sufficient for some part of the document other than the PDF
+      // viewer's toolbar to be visible in the page
+      printFrame.setAttribute('style', 'width: 1px; height: 100px; position: fixed; left: 0; top: 0; opacity: 0; border-width: 0; margin: 0; padding: 0')
+    } else {
+      // Hide the iframe in other browsers
+      printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute;')
+    }
 
     // Set iframe element id
     printFrame.setAttribute('id', params.frameId)

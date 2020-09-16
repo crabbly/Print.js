@@ -19,6 +19,14 @@ export default {
     const req = new window.XMLHttpRequest()
     req.responseType = 'arraybuffer'
 
+    req.addEventListener('error',() =>{
+        cleanUp(params)
+        params.onError(req.statusText)
+
+        // Since we don't have a pdf document available, we will stop the print job
+        return
+    });
+    
     req.addEventListener('load', () => {
       // Check for errors
       if ([200, 201].indexOf(req.status) === -1) {

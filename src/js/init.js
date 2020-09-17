@@ -103,7 +103,7 @@ export default {
       printFrame.setAttribute('style', 'width: 1px; height: 100px; position: fixed; left: 0; top: 0; opacity: 0; border-width: 0; margin: 0; padding: 0')
     } else {
       // Hide the iframe in other browsers
-      printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute;')
+      printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0')
     }
 
     // Set iframe element id

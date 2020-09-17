@@ -1,5 +1,6 @@
 import { addHeader } from './functions'
 import Print from './print'
+import Browser from './browser'
 
 export default {
   print: (params, printFrame) => {
@@ -20,11 +21,13 @@ export default {
 
       // Set image src with the file url
       img.src = src
-      const fullyQualifiedSrc = img.src
 
-      // Next line is for Firefox, which for some reason requires the image's src to be fully qualified in order to
-      // print it
-      img.src = fullyQualifiedSrc
+      // The following block is for Firefox, which for some reason requires the image's src to be fully qualified in
+      // order to print it
+      if (Browser.isFirefox()) {
+        const fullyQualifiedSrc = img.src
+        img.src = fullyQualifiedSrc
+      }
 
       // Create the image wrapper
       const imageWrapper = document.createElement('div')

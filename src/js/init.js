@@ -19,10 +19,6 @@ export default {
       header: null,
       headerStyle: 'font-weight: 300;',
       maxWidth: 800,
-      font: 'TimesNewRoman',
-      font_size: '12pt',
-      honorMarginPadding: true,
-      honorColor: false,
       properties: null,
       gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',
       gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
@@ -31,8 +27,7 @@ export default {
       onLoadingStart: null,
       onLoadingEnd: null,
       onPrintDialogClose: null,
-      onPdfOpen: null,
-      onBrowserIncompatible: () => true,
+      onIncompatibleBrowser: () => {},
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
       printableElement: null,
@@ -40,17 +35,26 @@ export default {
       targetStyle: ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'],
       targetStyles: ['border', 'box', 'break', 'text-decoration'],
       ignoreElements: [],
-      imageStyle: 'max-width: 100%;',
       repeatTableHeader: true,
       css: null,
       style: null,
       scanStyles: true,
-      base64: false
+      base64: false,
+
+      // Deprecated
+      onPdfOpen: null,
+      font: 'TimesNewRoman',
+      font_size: '12pt',
+      honorMarginPadding: true,
+      honorColor: false,
+      imageStyle: 'max-width: 100%;'
     }
 
     // Check if a printable document or object was supplied
     const args = arguments[0]
-    if (args === undefined) throw new Error('printJS expects at least 1 attribute.')
+    if (args === undefined) {
+      throw new Error('printJS expects at least 1 attribute.')
+    }
 
     // Process parameters
     switch (typeof args) {
@@ -133,14 +137,12 @@ export default {
         // Check browser support for pdf and if not supported we will just open the pdf file instead
         if (Browser.isIE()) {
           try {
-            console.info('PrintJS currently doesn\'t support PDF printing in Internet Explorer.')
-            if (params.onBrowserIncompatible() === true) {
-              const win = window.open(params.fallbackPrintable, '_blank')
-              win.focus()
-              if (params.onPdfOpen) params.onPdfOpen()
-            }
-          } catch (e) {
-            params.onError(e)
+            console.info('Print.js doesn\'t support PDF printing in Internet Explorer.')
+            const win = window.open(params.fallbackPrintable, '_blank')
+            win.focus()
+            params.onIncompatibleBrowser()
+          } catch (error) {
+            params.onError(error)
           } finally {
             // Make sure there is no loading modal opened
             if (params.showModal) Modal.close()

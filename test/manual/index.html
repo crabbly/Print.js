@@ -20,18 +20,7 @@
         type: 'pdf',
         showModal: true,
         onPrintDialogClose: () => console.log('The print dialog was closed'),
-        onPdfOpen: () => console.log('Pdf was opened in a new tab due to an incompatible browser')
-      })
-    }
-
-    function printPdfCompatibleBrowser() {
-      printJS({
-        printable: '/test/manual/test.pdf',
-        type: 'pdf',
-        onBrowserIncompatible: () => {
-          alert('Browser incompatible')
-          return false
-        }
+        onIncompatibleBrowser: () => console.log('Pdf was opened in a new tab due to an incompatible browser')
       })
     }
 
@@ -234,9 +223,6 @@
         </button>
         <button onClick='printPdfWithModalAndCloseCallback();'>
           Print PDF with Loading Modal and close callback
-        </button>
-        <button onClick='printPdfCompatibleBrowser();'>
-          Print PDF only on compatible browser
         </button>
         <button onClick='printPdfBase64();'>
           Print base64 PDF

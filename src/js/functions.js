@@ -72,23 +72,21 @@ export function cleanUp (params) {
   // If preloading pdf files, clean blob url
   if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
 
-  // If a onPrintDialogClose callback is given, execute it
-  if (params.onPrintDialogClose) {
-    let event = 'mouseover'
+  // Run onPrintDialogClose callback
+  let event = 'mouseover'
 
-    if (Browser.isChrome() || Browser.isFirefox()) {
-      // Ps.: Firefox will require an extra click in the document to fire the focus event.
-      event = 'focus'
-    }
-    const handler = () => {
-      // Make sure the event only happens once.
-      window.removeEventListener(event, handler)
-
-      params.onPrintDialogClose()
-    }
-
-    window.addEventListener(event, handler)
+  if (Browser.isChrome() || Browser.isFirefox()) {
+    // Ps.: Firefox will require an extra click in the document to fire the focus event.
+    event = 'focus'
   }
+  const handler = () => {
+    // Make sure the event only happens once.
+    window.removeEventListener(event, handler)
+
+    params.onPrintDialogClose()
+  }
+
+  window.addEventListener(event, handler)
 }
 
 export function isRawHTML (raw) {

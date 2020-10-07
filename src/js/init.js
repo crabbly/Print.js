@@ -26,7 +26,7 @@ export default {
       onError: (error) => { throw error },
       onLoadingStart: null,
       onLoadingEnd: null,
-      onPrintDialogClose: null,
+      onPrintDialogClose: () => {},
       onIncompatibleBrowser: () => {},
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',

@@ -84,6 +84,13 @@ export function cleanUp (params) {
     window.removeEventListener(event, handler)
 
     params.onPrintDialogClose()
+
+    // Remove iframe from the DOM
+    const iframe = document.getElementById(params.frameId)
+
+    if (iframe) {
+      iframe.remove()
+    }
   }
 
   window.addEventListener(event, handler)

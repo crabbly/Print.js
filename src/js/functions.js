@@ -79,6 +79,7 @@ export function cleanUp (params) {
     // Ps.: Firefox will require an extra click in the document to fire the focus event.
     event = 'focus'
   }
+
   const handler = () => {
     // Make sure the event only happens once.
     window.removeEventListener(event, handler)

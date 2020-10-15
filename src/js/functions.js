@@ -1,16 +1,16 @@
 import Modal from './modal'
 import Browser from './browser'
 
-export function addWrapper (htmlData, params) {
+const addWrapper = (htmlData, params) => {
   const bodyStyle = 'font-family:' + params.font + ' !important; font-size: ' + params.font_size + ' !important; width:100%;'
   return '<div style="' + bodyStyle + '">' + htmlData + '</div>'
 }
 
-export function capitalizePrint (obj) {
+const capitalizePrint = (obj) => {
   return obj.charAt(0).toUpperCase() + obj.slice(1)
 }
 
-export function collectStyles (element, params) {
+const collectStyles = (element, params) => {
   const win = document.defaultView || window
 
   // String variable to hold styling for each element
@@ -32,14 +32,14 @@ export function collectStyles (element, params) {
   return elementStyle
 }
 
-function targetStylesMatch (styles, value) {
+const targetStylesMatch = (styles, value) => {
   for (let i = 0; i < styles.length; i++) {
     if (typeof value === 'object' && value.indexOf(styles[i]) !== -1) return true
   }
   return false
 }
 
-export function addHeader (printElement, params) {
+const addHeader = (printElement, params) => {
   // Create the header container div
   const headerContainer = document.createElement('div')
 
@@ -62,7 +62,7 @@ export function addHeader (printElement, params) {
   printElement.insertBefore(headerContainer, printElement.childNodes[0])
 }
 
-export function cleanUp (params) {
+const cleanUp = (params) => {
   // If we are showing a feedback message to user, remove it
   if (params.showModal) Modal.close()
 
@@ -97,7 +97,17 @@ export function cleanUp (params) {
   window.addEventListener(event, handler)
 }
 
-export function isRawHTML (raw) {
+const isRawHTML = (raw) => {
   const regexHtml = new RegExp('<([A-Za-z][A-Za-z0-9]*)\\b[^>]*>(.*?)</\\1>')
   return regexHtml.test(raw)
+}
+
+export {
+  addHeader,
+  addWrapper,
+  capitalizePrint,
+  collectStyles,
+  cleanUp,
+  isRawHTML,
+  targetStylesMatch
 }

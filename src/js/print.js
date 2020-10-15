@@ -54,18 +54,24 @@ function performPrint (iframeElement, params) {
   try {
     iframeElement.focus()
 
+    let target
+
     // If Edge or IE, try catch with execCommand
     if (Browser.isEdge() || Browser.isIE()) {
       try {
-        iframeElement.contentWindow.document.execCommand('print', false, null)
+        target = iframeElement.contentWindow.document.execCommand('print', false, null)
       } catch (e) {
-        iframeElement.contentWindow.print()
+        target = iframeElement.contentWindow.print()
       }
     } else {
       // Other browsers
-      iframeElement.contentWindow.print()
+      target = iframeElement.contentWindow
     }
+
+    // target.onafterprint = cleanUp
+    target.print()
   } catch (error) {
+    // cleanUp(params)
     params.onError(error)
   } finally {
     if (Browser.isFirefox()) {

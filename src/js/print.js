@@ -25,6 +25,14 @@ const Print = {
       let printDocument = (iframeElement.contentWindow || iframeElement.contentDocument)
       if (printDocument.document) printDocument = printDocument.document
 
+      // Define page size
+      if(params.pageSize){
+        const pageSize = document.createElement('style')
+        pageSize.innerHTML = '@page { size:' +params.pageSize +'; }'
+        printDocument.head.appendChild(pageSize)
+      }
+
+
       // Append printable element to the iframe body
       printDocument.body.appendChild(params.printableElement)
 

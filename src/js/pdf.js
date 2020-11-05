@@ -21,7 +21,7 @@ export default {
 
     req.addEventListener('error', () => {
       cleanUp(params)
-      params.onError(req.statusText)
+      params.onError(req.statusText, req)
 
       // Since we don't have a pdf document available, we will stop the print job
     })
@@ -30,7 +30,7 @@ export default {
       // Check for errors
       if ([200, 201].indexOf(req.status) === -1) {
         cleanUp(params)
-        params.onError(req.statusText)
+        params.onError(req.statusText, req)
 
         // Since we don't have a pdf document available, we will stop the print job
         return

@@ -27,7 +27,7 @@ declare namespace printJS {
     css?: string | string[];
     style?: string;
     scanStyles?: boolean;
-    onError?: (error: any) => void;
+    onError?: (error: any, xmlHttpRequest?: XMLHttpRequest) => void;
     onPrintDialogClose?: () => void;
     onIncompatibleBrowser?: () => void;
     base64?: boolean;

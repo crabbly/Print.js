@@ -75,7 +75,7 @@ export function cleanUp (params) {
   // Run onPrintDialogClose callback
   let event = 'mouseover'
 
-  if (Browser.isChrome() || Browser.isFirefox()) {
+  if (Browser.isFirefox()) {
     // Ps.: Firefox will require an extra click in the document to fire the focus event.
     event = 'focus'
   }

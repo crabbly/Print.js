@@ -73,7 +73,7 @@ export function cleanUp (params) {
   if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
 
   // Run onPrintDialogClose callback
-  let event = 'mouseover'
+  let event = 'mousemove'
 
   if (Browser.isFirefox()) {
     // Ps.: Firefox will require an extra click in the document to fire the focus event.

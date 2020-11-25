@@ -96,9 +96,9 @@ export function cleanUp (params) {
 
   if (Browser.isChrome()) {
     // waiting for load print dialog
-    setTimeout(() => { window.addEventListener(event, handler) }, 1500);
-  } else { 
-    window.addEventListener(event, handler);
+    setTimeout(() => { window.addEventListener(event, handler) }, 1500)
+  } else {
+    window.addEventListener(event, handler)
   }
 }
 

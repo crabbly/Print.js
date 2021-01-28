@@ -4,7 +4,7 @@ import Print from './print'
 export default {
   print: (params, printFrame) => {
     // Get the DOM printable element
-    const printElement = document.getElementById(params.printable)
+    const printElement = params.printable instanceof Node ? params.printable : document.getElementById(params.printable)
 
     // Check if the element exists
     if (!printElement) {

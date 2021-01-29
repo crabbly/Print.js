@@ -4,7 +4,7 @@ import Print from './print'
 export default {
   print: (params, printFrame) => {
     // Get the DOM printable element
-    const printElement = params.printable instanceof Node ? params.printable : document.getElementById(params.printable)
+    const printElement = isHtmlElement(params.printable) ? params.printable : document.getElementById(params.printable)
 
     // Check if the element exists
     if (!printElement) {
@@ -62,4 +62,9 @@ function cloneElement (element, params) {
   }
 
   return clone
+}
+
+function isHtmlElement (printable) {
+  // Check if element is instance of HTMLElement or has nodeType === 1 (for elements in iframe)
+  return typeof printable === 'object' && printable && (printable instanceof HTMLElement || printable.nodeType === 1);
 }

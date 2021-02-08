@@ -66,5 +66,5 @@ function cloneElement (element, params) {
 
 function isHtmlElement (printable) {
   // Check if element is instance of HTMLElement or has nodeType === 1 (for elements in iframe)
-  return typeof printable === 'object' && printable && (printable instanceof HTMLElement || printable.nodeType === 1);
+  return typeof printable === 'object' && printable && (printable instanceof HTMLElement || printable.nodeType === 1)
 }

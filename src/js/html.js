@@ -32,7 +32,7 @@ function cloneElement (element, params) {
   // Loop over and process the children elements / nodes (including text nodes)
   const childNodesArray = Array.prototype.slice.call(element.childNodes)
   for (let i = 0; i < childNodesArray.length; i++) {
-    // Check if we are skiping the current element
+    // Check if we are skipping the current element
     if (params.ignoreElements.indexOf(childNodesArray[i].id) !== -1) {
       continue
     }

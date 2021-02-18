@@ -73,9 +73,9 @@ export function cleanUp (params) {
   if (params.showModal || params.onLoadingStart) window.URL.revokeObjectURL(params.printable)
 
   // Run onPrintDialogClose callback
-  let event = 'mouseover'
+  let event = 'mousemove'
 
-  if (Browser.isChrome() || Browser.isFirefox()) {
+  if (Browser.isFirefox()) {
     // Ps.: Firefox will require an extra click in the document to fire the focus event.
     event = 'focus'
   }
@@ -94,7 +94,12 @@ export function cleanUp (params) {
     }
   }
 
-  window.addEventListener(event, handler)
+  if (Browser.isChrome()) {
+    // waiting for load print dialog
+    setTimeout(() => { window.addEventListener(event, handler) }, 1500)
+  } else {
+    window.addEventListener(event, handler)
+  }
 }
 
 export function isRawHTML (raw) {

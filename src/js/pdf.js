@@ -41,6 +41,11 @@ export default {
     })
 
     req.open('GET', params.printable, true)
+    if (params.httpHeaders) {
+      for (const [header, value] of Object.entries(params.httpHeaders)) {
+        req.setRequestHeader(header, value)
+      }
+    }
     req.send()
   }
 }

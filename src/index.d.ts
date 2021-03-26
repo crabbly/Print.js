@@ -31,6 +31,7 @@ declare namespace printJS {
     onPrintDialogClose?: () => void;
     onIncompatibleBrowser?: () => void;
     base64?: boolean;
+    httpHeaders?: { [key: string]: string }
 
     // Deprecated
     onPdfOpen?: () => void;

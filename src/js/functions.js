@@ -90,7 +90,7 @@ export function cleanUp (params) {
     const iframe = document.getElementById(params.frameId)
 
     if (iframe) {
-      iframe.remove()
+      setTimeout(()=>{iframe.remove()},1000);
     }
   }
 

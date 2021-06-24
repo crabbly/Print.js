@@ -39,8 +39,8 @@
     "production": "webpack --mode production --progress --hide-modules",
     "coverage": "open coverage/lcov-report/index.html",
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-		"start": "webpack-dev-server --public http://localhost:8080/test/manual --open",
-		"standard:fix": "standard --fix"
+    "start": "webpack-dev-server --public http://localhost:8080/test/manual --open",
+    "standard:fix": "standard --fix"
   },
   "author": "Rodrigo Vieira <rodrigo@crabbly.com>",
   "standard": {

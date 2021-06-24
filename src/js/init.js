@@ -20,6 +20,7 @@ export default {
       headerStyle: 'font-weight: 300;',
       maxWidth: 800,
       properties: null,
+      rowsBefore: null,
       gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',
       gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
       showModal: false,
@@ -65,9 +66,10 @@ export default {
         break
       case 'object':
         params.printable = args.printable
+        params.rowsBefore = args.rowsBefore
         params.fallbackPrintable = typeof args.fallbackPrintable !== 'undefined' ? args.fallbackPrintable : params.printable
         params.fallbackPrintable = params.base64 ? `data:application/pdf;base64,${params.fallbackPrintable}` : params.fallbackPrintable
-        for (var k in params) {
+        for (const k in params) {
           if (k === 'printable' || k === 'fallbackPrintable') continue
 
           params[k] = typeof args[k] !== 'undefined' ? args[k] : params[k]

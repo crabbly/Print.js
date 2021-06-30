@@ -5,7 +5,12 @@ export default {
   print: (params, printFrame) => {
     // Get the DOM printable element
     const printElement = isHtmlElement(params.printable) ? params.printable : document.getElementById(params.printable)
-
+    
+    // check if data-printid for the element exist
+    if (!printElement) {
+      printElement = document.querySelector('[data-printid="'+ params.printable +'"]');
+    }
+    
     // Check if the element exists
     if (!printElement) {
       window.console.error('Invalid HTML element id: ' + params.printable)

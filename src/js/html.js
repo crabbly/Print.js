@@ -20,6 +20,11 @@ export default {
       addHeader(params.printableElement, params)
     }
 
+    // Add footer
+    if (params.footer) {
+      addFooter(params.printableElement, params)
+    }
+
     // Print html element contents
     Print.send(params, printFrame)
   }

@@ -30,6 +30,7 @@ export default {
       onIncompatibleBrowser: () => {},
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
+      frameRemoveDelay: null,
       printableElement: null,
       documentTitle: 'Document',
       targetStyle: ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'],

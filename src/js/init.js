@@ -40,6 +40,7 @@ export default {
       style: null,
       scanStyles: true,
       base64: false,
+      blob: false,
 
       // Deprecated
       onPdfOpen: null,

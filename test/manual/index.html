@@ -215,10 +215,10 @@
   function printWithHeaderAndFooter() {
 
     var headerElement = document.createElement('div');
-    headerElement.innerHTML = '<strong>test html header</strong>'
+    headerElement.innerHTML = '<strong>test html header</strong><div style="float:right">test right</div>'
 
     var footerElement = document.createElement('div');
-    footerElement.innerHTML = '<strong>test html footer</strong>'
+    footerElement.innerHTML = '<strong>test html footer</strong><div style="float:right">test right</div>'
 
     printJS({
       type: 'html',

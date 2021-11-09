@@ -212,7 +212,7 @@
       })
     }
 	
-	function printWithHeaderAndFooter() {
+  function printWithHeaderAndFooter() {
 
     var headerElement = document.createElement('div');
     headerElement.innerHTML = '<strong>test html header</strong>'
@@ -220,17 +220,17 @@
     var footerElement = document.createElement('div');
     footerElement.innerHTML = '<strong>test html footer</strong>'
 
-	  printJS({
-	    type: 'html',
+    printJS({
+      type: 'html',
         printable: 'test',
         showModal: false,
-		    base64: false,
-		    header: headerElement,
+        base64: false,
+        header: headerElement,
         headerHeight: '100px',
-		    footer: footerElement,
+        footer: footerElement,
         footerHeight: '100px'
       })
-	}
+  }
   </script>
   <body>
     <section id="test" class="test">

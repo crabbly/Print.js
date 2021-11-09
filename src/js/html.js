@@ -1,4 +1,4 @@
-import { collectStyles, addHeader } from './functions'
+import { collectStyles, addHeader, addFooter } from './functions'
 import Print from './print'
 
 export default {
@@ -18,6 +18,50 @@ export default {
     // Add header
     if (params.header) {
       addHeader(params.printableElement, params)
+    }
+
+    if (params.header || params.footer) {
+      // Table structure required for ensuring adequate space to header / footer (applied to every page)
+      var tableElement = document.createElement('table')
+      var tHeadElement = document.createElement('thead')
+      var headTrElement = document.createElement('tr')
+      var headTdElement = document.createElement('td')
+      var headDivElement = document.createElement('div')
+      headDivElement.style.height = params.headerHeight
+      headDivElement.innerHTML = '&nbsp;'
+
+      var tBodyElement = document.createElement('tbody')
+      var bodyTrElement = document.createElement('tr')
+      var bodyTdElement = document.createElement('td')
+
+      var tFootElement = document.createElement('tfoot')
+      var footTrElement = document.createElement('tr')
+      var footTdElement = document.createElement('td')
+      var footDivElement = document.createElement('div')
+      footDivElement.style.height = params.footerHeight
+      footDivElement.innerHTML = '&nbsp;'
+
+      headTdElement.appendChild(headDivElement)
+      headTrElement.appendChild(headTdElement)
+      tHeadElement.appendChild(headTrElement)
+      tableElement.appendChild(tHeadElement)
+
+      bodyTdElement.appendChild(params.printableElement)
+      bodyTrElement.appendChild(bodyTdElement)
+      tBodyElement.appendChild(bodyTrElement)
+      tableElement.appendChild(tBodyElement)
+
+      footTdElement.appendChild(footDivElement)
+      footTrElement.appendChild(footTdElement)
+      tFootElement.appendChild(footTrElement)
+      tableElement.appendChild(tFootElement)
+
+      params.printableElement = tableElement
+    }
+
+    // Add footer
+    if (params.footer) {
+      addFooter(params.printableElement, params)
     }
 
     // Print html element contents

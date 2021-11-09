@@ -1,5 +1,5 @@
 <html>
-	<link rel="stylesheet" href="../../dist/print.css" type="text/css">
+  <link rel="stylesheet" href="../../dist/print.css" type="text/css">
   <script src='../../dist/print.js'></script>
   <script type="text/javascript">
     function printPdf() {
@@ -11,7 +11,7 @@
         printable: '/test/manual/test.pdf',
         type: 'pdf',
         showModal: true,
-				base64: false,
+        base64: false,
       })
     }
 
@@ -211,6 +211,26 @@
         modalMessage: 'Printing...'
       })
     }
+	
+  function printWithHeaderAndFooter() {
+
+    var headerElement = document.createElement('div');
+    headerElement.innerHTML = '<strong>test html header</strong>'
+
+    var footerElement = document.createElement('div');
+    footerElement.innerHTML = '<strong>test html footer</strong>'
+
+    printJS({
+      type: 'html',
+        printable: 'test',
+        showModal: false,
+        base64: false,
+        header: headerElement,
+        headerHeight: '100px',
+        footer: footerElement,
+        footerHeight: '100px'
+      })
+  }
   </script>
   <body>
     <section id="test" class="test">
@@ -270,6 +290,10 @@
         <button onClick='printExternalImages();'>
           Print Multiple External Images
         </button>
+
+        <button onClick='printWithHeaderAndFooter();'>
+          Print with Header and Footer
+        </button>
       </p>
       <div>
         <h2>Form Elements</h2>
@@ -303,6 +327,86 @@
           </select>
         </div>
       </div>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
     </section>
   </body>
 </html>

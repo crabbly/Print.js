@@ -42,7 +42,7 @@ function targetStylesMatch (styles, value) {
 export function addHeader (printElement, params) {
   // Create the header container div
   const headerContainer = document.createElement('div')
-  headerContainer.setAttribute('style', 'height: ' + params.headerHeight + ';position: fixed;top: 0')
+  headerContainer.setAttribute('style', 'height: ' + params.headerHeight + ';position: fixed;top: 0;left: 0;right: 0')
 
   // Check if the header is text or raw html
   if (isRawHTML(params.header)) {
@@ -57,7 +57,7 @@ export function addHeader (printElement, params) {
 export function addFooter (printElement, params) {
   // Create the footer container div
   const footerContainer = document.createElement('div')
-  footerContainer.setAttribute('style', 'height: ' + params.footerHeight + ';position: fixed;bottom: 0')
+  footerContainer.setAttribute('style', 'height: ' + params.footerHeight + ';position: fixed;bottom: 0;left: 0;right: 0')
 
   // Check if the footer is text or raw html
   if (isRawHTML(params.footer)) {

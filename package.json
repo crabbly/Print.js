@@ -2,10 +2,13 @@
   "name": "print-js-with-headers-footers",
   "homepage": "https://github.com/listylister/Print.js-with-headers-footers",
   "description": "A tiny javascript library to help printing from the web. With headers / footers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/print.js",
   "types": "src/index.d.ts",
-  "repository": "https://github.com/listylister/Print.js-with-headers-footers",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/listylister/Print.js-with-headers-footers.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.11.6",
@@ -56,5 +59,12 @@
     "printjs",
     "print.js",
     "print-js"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/listylister/Print.js-with-headers-footers/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {}
 }

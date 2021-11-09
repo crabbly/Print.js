@@ -1,13 +1,10 @@
 # Print.js
 
-[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](http://standardjs.com/)
-[![npm](https://img.shields.io/npm/v/print-js.svg)](https://www.npmjs.com/package/print-js)
+[![npm](https://img.shields.io/npm/v/print-js.svg)](https://www.npmjs.com/package/print-js-with-headers-footers)
 
 A tiny javascript library to help printing from the web.
-
-> For documentation and examples please visit: [printjs.crabbly.com](http://printjs.crabbly.com)
 
 ## Installation
 
@@ -16,13 +13,7 @@ You can download the latest version of Print.js from the [GitHub releases](https
 To install via npm:
 
 ```bash
-npm install print-js --save
-```
-
-To install via yarn:
-
-```bash
-yarn add print-js
+npm install print-js-with-headers-footers --save
 ```
 
 Import the library into your project:
@@ -30,41 +21,6 @@ Import the library into your project:
 ```js
 import printJS from 'print-js'
 ```
-
-## Documentation
-
-You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#documentation).
-
-## Contributing to Print.js
-
-[![devDependencies Status](https://david-dm.org/crabbly/print.js/dev-status.svg)](https://david-dm.org/crabbly/print.js?type=dev)
-[![dependencies Status](https://david-dm.org/crabbly/print.js/status.svg)](https://david-dm.org/crabbly/print.js)
-
-Contributions to Print.js are greatly welcomed and encouraged.
-
-##### Using issues
-
-The [issue tracker](https://github.com/crabbly/Print.js/issues) is the preferred channel for reporting bugs, requesting new features and submitting pull requests.
-
-Keep in mind that we would like to keep this a lightweight library.
-
-Please do not use the issues channel for support requests. For help with using Print.js, please ask questions on Stack Overflow and use the tag `printjs`.
-
-##### Reporting bugs
-
-Well structured, detailed bug reports are hugely valuable for the project.
-
-* Check the issue search to see if it has already been reported.
-* Isolate the problem to a simple test case.
-* Create a codepen, fiddle, codesandbox or similar online example replicating the issue.
-
-Please provide any additional details associated with the bug.
-
-##### Pull requests
-
-Clear, concise pull requests are excellent at continuing the project's community driven growth.  
-
-Please make your commits in logical sections with clear commit messages.  
 
 ##### Setting up a dev environment
 

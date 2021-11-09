@@ -1,11 +1,11 @@
 {
-  "name": "print-js",
-  "homepage": "http://printjs.crabbly.com",
-  "description": "A tiny javascript library to help printing from the web.",
-  "version": "1.6.0",
+  "name": "print-js-with-headers-footers",
+  "homepage": "https://github.com/listylister/Print.js-with-headers-footers",
+  "description": "A tiny javascript library to help printing from the web. With headers / footers",
+  "version": "1.0.0",
   "main": "dist/print.js",
   "types": "src/index.d.ts",
-  "repository": "https://github.com/crabbly/Print.js",
+  "repository": "https://github.com/listylister/Print.js-with-headers-footers",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.11.6",
@@ -39,10 +39,10 @@
     "production": "webpack --mode production --progress --hide-modules",
     "coverage": "open coverage/lcov-report/index.html",
     "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-		"start": "webpack-dev-server --public http://localhost:8080/test/manual --open",
-		"standard:fix": "standard --fix"
+    "start": "webpack-dev-server --public http://localhost:8080/test/manual --open",
+    "standard:fix": "standard --fix"
   },
-  "author": "Rodrigo Vieira <rodrigo@crabbly.com>",
+  "author": "Chris Priestland",
   "standard": {
     "ignore": [
       "/dist/print.js"

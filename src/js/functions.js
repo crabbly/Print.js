@@ -42,24 +42,40 @@ function targetStylesMatch (styles, value) {
 export function addHeader (printElement, params) {
   // Create the header container div
   const headerContainer = document.createElement('div')
+  headerContainer.setAttribute('style', 'height: ' + params.headerHeight + ';position: fixed;top: 0')
 
   // Check if the header is text or raw html
   if (isRawHTML(params.header)) {
     headerContainer.innerHTML = params.header
   } else {
-    // Create header element
-    const headerElement = document.createElement('h1')
-
-    // Create header text node
-    const headerNode = document.createTextNode(params.header)
-
-    // Build and style
-    headerElement.appendChild(headerNode)
-    headerElement.setAttribute('style', params.headerStyle)
-    headerContainer.appendChild(headerElement)
+    headerContainer.appendChild(params.header)
   }
 
   printElement.insertBefore(headerContainer, printElement.childNodes[0])
+}
+
+export function addFooter (printElement, params) {
+  // Create the footer container div
+  const footerContainer = document.createElement('div')
+  footerContainer.setAttribute('style', 'height: ' + params.footerHeight + ';position: fixed;bottom: 0')
+
+  // Check if the footer is text or raw html
+  if (isRawHTML(params.footer)) {
+    footerContainer.innerHTML = params.footer
+  } else {
+    footerContainer.appendChild(params.footer)
+  }
+
+  insertAfter(footerContainer, printElement.childNodes[printElement.childNodes.length - 1])
+}
+
+export function insertAfter (newElement, targetElement) {
+  var parent = targetElement.parentNode
+  if (parent.lastChild === targetElement) {
+    parent.appendChild(newElement)
+  } else {
+    parent.insertBefore(newElement, targetElement.nextSibling)
+  }
 }
 
 export function cleanUp (params) {

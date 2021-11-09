@@ -19,7 +19,7 @@ npm install print-js-with-headers-footers --save
 Import the library into your project:
 
 ```js
-import printJS from 'print-js'
+import printJS from 'print-js-with-headers-footers'
 ```
 
 ##### Setting up a dev environment

@@ -10,9 +10,9 @@ declare namespace printJS {
     type?: PrintTypes;
     documentTitle?: string;
     header?: any;
-    headerHeight: '20px',
+    headerHeight: string,
     footer?: any;
-    footerHeight: '20px',
+    footerHeight: string,
     maxWidth?: number;
     targetStyle?: string | string[];
     targetStyles?: string | string[];

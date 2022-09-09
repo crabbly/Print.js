@@ -59,10 +59,16 @@ function performPrint (iframeElement, params) {
       try {
         iframeElement.contentWindow.document.execCommand('print', false, null)
       } catch (e) {
+        iframeElement.contentWindow.onafterprint = function (event) {
+          params.onAfterPrint(event)
+        }
         iframeElement.contentWindow.print()
       }
     } else {
       // Other browsers
+      iframeElement.contentWindow.onafterprint = function (event) {
+        params.onAfterPrint(event)
+      }
       iframeElement.contentWindow.print()
     }
   } catch (error) {

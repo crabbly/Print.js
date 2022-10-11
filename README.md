@@ -1,4 +1,4 @@
-# Print.js
+# Print.js [Fork for fix #TT-6276]
 
 [![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)

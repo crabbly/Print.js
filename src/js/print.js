@@ -13,7 +13,7 @@ const Print = {
     iframeElement.onload = () => {
       if (params.type === 'pdf') {
         // Add a delay for Firefox. In my tests, 1000ms was sufficient but 100ms was not
-        if (Browser.isFirefox() || Browser.isSafari()) {
+        if (Browser.isFirefox()) {
           setTimeout(() => performPrint(iframeElement, params), 1000)
         } else {
           performPrint(iframeElement, params)
@@ -61,9 +61,23 @@ function performPrint (iframeElement, params) {
       } catch (e) {
         iframeElement.contentWindow.print()
       }
+    } else if (Browser.isSafari()) {
+      const popup = window.open("", "_blank", "width=1,height=1");
+      popup.addEventListener("afterprint", (event) => {
+      popup.close();
+    });
+      const content = document.getElementById(params.frameId);
+      popup.document.head.innerHTML = document.head.innerHTML;
+      popup.document.body.innerHTML = content.innerHTML;
+      setTimeout(() => {
+        popup.print();
+        setTimeout(() => {
+          popup.close();
+        });
+      });
     } else {
       // Other browsers
-      iframeElement.contentWindow.print()
+    iframeElement.contentWindow.print()
     }
   } catch (error) {
     params.onError(error)

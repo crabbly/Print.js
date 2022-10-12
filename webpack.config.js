@@ -75,7 +75,7 @@ module.exports = {
       new TerserPlugin({
         cache: false,
         parallel: true,
-        sourceMap: true, // Must be set to true if using source-maps in production
+        sourceMap: false, // Must be set to true if using source-maps in production
         terserOptions: {
           mangle: true,
           ie8: true,

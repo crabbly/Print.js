@@ -13,7 +13,7 @@ const Print = {
     iframeElement.onload = () => {
       if (params.type === 'pdf') {
         // Add a delay for Firefox. In my tests, 1000ms was sufficient but 100ms was not
-        if (Browser.isFirefox()) {
+        if (Browser.isFirefox() && Browser.getFirefoxMajorVersion() < 110) {
           setTimeout(() => performPrint(iframeElement, params), 1000)
         } else {
           performPrint(iframeElement, params)
@@ -68,7 +68,7 @@ function performPrint (iframeElement, params) {
   } catch (error) {
     params.onError(error)
   } finally {
-    if (Browser.isFirefox()) {
+    if (Browser.isFirefox() && Browser.getFirefoxMajorVersion() < 110) {
       // Move the iframe element off-screen and make it invisible
       iframeElement.style.visibility = 'hidden'
       iframeElement.style.left = '-1px'

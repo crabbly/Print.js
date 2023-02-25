@@ -6,6 +6,14 @@
       printJS('/test/manual/test.pdf')
     }
 
+    function printPdfKioskPrint() {
+      printJS({
+        printable: '/test/manual/test.pdf',
+        type: 'pdf',
+        frameRemoveDelay: 1000,
+      })
+    }
+
     function printPdfWithModal() {
       printJS({
         printable: '/test/manual/test.pdf',
@@ -270,6 +278,10 @@
         <button onClick='printExternalImages();'>
           Print Multiple External Images
         </button>
+        <button onClick='printPdfKioskPrint();'>
+          Print PDF In --kiosk-printing Chrome frameRemoveDelay
+        </button>
+        
       </p>
       <div>
         <h2>Form Elements</h2>

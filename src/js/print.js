@@ -59,11 +59,15 @@ function performPrint (iframeElement, params) {
       try {
         iframeElement.contentWindow.document.execCommand('print', false, null)
       } catch (e) {
-        iframeElement.contentWindow.print()
+        setTimeout(function(){
+          iframeElement.contentWindow.print()
+        },1000)
       }
     } else {
       // Other browsers
-      iframeElement.contentWindow.print()
+      setTimeout(function(){
+        iframeElement.contentWindow.print()
+      },1000)
     }
   } catch (error) {
     params.onError(error)

@@ -12,7 +12,12 @@ const Print = {
     // Wait for iframe to load all content
     iframeElement.onload = () => {
       if (params.type === 'pdf') {
-        performPrint(iframeElement, params)
+        // Add a delay for Firefox. In my tests, 1000ms was sufficient but 100ms was not
+        if (Browser.isFirefox()) {
+          setTimeout(() => performPrint(iframeElement, params), 1000)
+        } else {
+          performPrint(iframeElement, params)
+        }
         return
       }
 
@@ -37,7 +42,7 @@ const Print = {
       const images = printDocument.getElementsByTagName('img')
 
       if (images.length > 0) {
-        loadIframeImages(images).then(() => performPrint(iframeElement, params))
+        loadIframeImages(Array.from(images)).then(() => performPrint(iframeElement, params))
       } else {
         performPrint(iframeElement, params)
       }
@@ -54,15 +59,25 @@ function performPrint (iframeElement, params) {
       try {
         iframeElement.contentWindow.document.execCommand('print', false, null)
       } catch (e) {
-        iframeElement.contentWindow.print()
+        setTimeout(function(){
+          iframeElement.contentWindow.print()
+        },1000)
       }
     } else {
       // Other browsers
-      iframeElement.contentWindow.print()
+      setTimeout(function(){
+        iframeElement.contentWindow.print()
+      },1000)
     }
   } catch (error) {
     params.onError(error)
   } finally {
+    if (Browser.isFirefox()) {
+      // Move the iframe element off-screen and make it invisible
+      iframeElement.style.visibility = 'hidden'
+      iframeElement.style.left = '-1px'
+    }
+
     cleanUp(params)
   }
 }

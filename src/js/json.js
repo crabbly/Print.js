@@ -50,8 +50,8 @@ export default {
 
 function jsonToHTML (params) {
   // Get the row and column data
-  let data = params.printable
-  let properties = params.properties
+  const data = params.printable
+  const properties = params.properties
 
   // Create a html table
   let htmlData = '<table style="border-collapse: collapse; width: 100%;">'
@@ -90,7 +90,7 @@ function jsonToHTML (params) {
       let stringData = data[i]
 
       // Support nested objects
-      let property = properties[n].field.split('.')
+      const property = properties[n].field.split('.')
       if (property.length > 1) {
         for (let p = 0; p < property.length; p++) {
           stringData = stringData[property[p]]

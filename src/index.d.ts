@@ -14,10 +14,6 @@ declare namespace printJS {
     footer?: any;
     footerStyle?: string;
     maxWidth?: number;
-    font?: string;
-    font_size?: string;
-    honorMarginPadding?: boolean;
-    honorColor?: boolean;
     targetStyle?: string | string[];
     targetStyles?: string | string[];
     properties?: any;
@@ -29,15 +25,22 @@ declare namespace printJS {
     modalMessage?: string;
     frameId?: string;
     ignoreElements?: string | string[];
-    imageStyle?: string;
     repeatTableHeader?: boolean;
     css?: string | string[];
     style?: string;
     scanStyles?: boolean;
-    onError?: (error: any) => void;
+    onError?: (error: any, xmlHttpRequest?: XMLHttpRequest) => void;
     onPrintDialogClose?: () => void;
-    onPdfOpen?: () => void;
+    onIncompatibleBrowser?: () => void;
     base64?: boolean;
+
+    // Deprecated
+    onPdfOpen?: () => void;
+    font?: string;
+    font_size?: string;
+    honorMarginPadding?: boolean;
+    honorColor?: boolean;
+    imageStyle?: string;
   }
 }
 

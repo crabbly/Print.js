@@ -12,7 +12,7 @@ const printTypes = ['pdf', 'html', 'image', 'json', 'raw-html']
 
 export default {
   init () {
-    let params = {
+    const params = {
       printable: null,
       fallbackPrintable: null,
       type: 'pdf',
@@ -21,10 +21,6 @@ export default {
       footer: null,
       footerStyle: 'font-weight: 300;',
       maxWidth: 800,
-      font: 'TimesNewRoman',
-      font_size: '12pt',
-      honorMarginPadding: true,
-      honorColor: false,
       properties: null,
       gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',
       gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
@@ -32,9 +28,8 @@ export default {
       onError: (error) => { throw error },
       onLoadingStart: null,
       onLoadingEnd: null,
-      onPrintDialogClose: null,
-      onPdfOpen: null,
-      onBrowserIncompatible: () => true,
+      onPrintDialogClose: () => {},
+      onIncompatibleBrowser: () => {},
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
       printableElement: null,
@@ -42,17 +37,26 @@ export default {
       targetStyle: ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'],
       targetStyles: ['border', 'box', 'break', 'text-decoration'],
       ignoreElements: [],
-      imageStyle: 'max-width: 100%;',
       repeatTableHeader: true,
       css: null,
       style: null,
       scanStyles: true,
-      base64: false
+      base64: false,
+
+      // Deprecated
+      onPdfOpen: null,
+      font: 'TimesNewRoman',
+      font_size: '12pt',
+      honorMarginPadding: true,
+      honorColor: false,
+      imageStyle: 'max-width: 100%;'
     }
 
     // Check if a printable document or object was supplied
-    let args = arguments[0]
-    if (args === undefined) throw new Error('printJS expects at least 1 attribute.')
+    const args = arguments[0]
+    if (args === undefined) {
+      throw new Error('printJS expects at least 1 attribute.')
+    }
 
     // Process parameters
     switch (typeof args) {
@@ -63,11 +67,10 @@ export default {
         break
       case 'object':
         params.printable = args.printable
-        params.base64 = typeof args.base64 !== 'undefined'
         params.fallbackPrintable = typeof args.fallbackPrintable !== 'undefined' ? args.fallbackPrintable : params.printable
         params.fallbackPrintable = params.base64 ? `data:application/pdf;base64,${params.fallbackPrintable}` : params.fallbackPrintable
         for (var k in params) {
-          if (k === 'printable' || k === 'fallbackPrintable' || k === 'base64') continue
+          if (k === 'printable' || k === 'fallbackPrintable') continue
 
           params[k] = typeof args[k] !== 'undefined' ? args[k] : params[k]
         }
@@ -91,18 +94,22 @@ export default {
     if (params.onLoadingStart) params.onLoadingStart()
 
     // To prevent duplication and issues, remove any used printFrame from the DOM
-    let usedFrame = document.getElementById(params.frameId)
+    const usedFrame = document.getElementById(params.frameId)
 
     if (usedFrame) usedFrame.parentNode.removeChild(usedFrame)
 
-    // Create a new iframe or embed element (IE prints blank pdf's if we use iframe)
-    let printFrame
+    // Create a new iframe for the print job
+    const printFrame = document.createElement('iframe')
 
-    // Create iframe element
-    printFrame = document.createElement('iframe')
-
-    // Hide iframe
-    printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute;')
+    if (Browser.isFirefox()) {
+      // Set the iframe to be is visible on the page (guaranteed by fixed position) but hidden using opacity 0, because
+      // this works in Firefox. The height needs to be sufficient for some part of the document other than the PDF
+      // viewer's toolbar to be visible in the page
+      printFrame.setAttribute('style', 'width: 1px; height: 100px; position: fixed; left: 0; top: 0; opacity: 0; border-width: 0; margin: 0; padding: 0')
+    } else {
+      // Hide the iframe in other browsers
+      printFrame.setAttribute('style', 'visibility: hidden; height: 0; width: 0; position: absolute; border: 0')
+    }
 
     // Set iframe element id
     printFrame.setAttribute('id', params.frameId)
@@ -129,16 +136,14 @@ export default {
     switch (params.type) {
       case 'pdf':
         // Check browser support for pdf and if not supported we will just open the pdf file instead
-        if (Browser.isFirefox() || Browser.isEdge() || Browser.isIE()) {
+        if (Browser.isIE()) {
           try {
-            console.info('PrintJS currently doesn\'t support PDF printing in Firefox, Internet Explorer and Edge.')
-            if (params.onBrowserIncompatible() === true) {
-              let win = window.open(params.fallbackPrintable, '_blank')
-              win.focus()
-              if (params.onPdfOpen) params.onPdfOpen()
-            }
-          } catch (e) {
-            params.onError(e)
+            console.info('Print.js doesn\'t support PDF printing in Internet Explorer.')
+            const win = window.open(params.fallbackPrintable, '_blank')
+            win.focus()
+            params.onIncompatibleBrowser()
+          } catch (error) {
+            params.onError(error)
           } finally {
             // Make sure there is no loading modal opened
             if (params.showModal) Modal.close()

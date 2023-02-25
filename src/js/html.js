@@ -4,7 +4,7 @@ import Print from './print'
 export default {
   print: (params, printFrame) => {
     // Get the DOM printable element
-    let printElement = document.getElementById(params.printable)
+    const printElement = isHtmlElement(params.printable) ? params.printable : document.getElementById(params.printable)
 
     // Check if the element exists
     if (!printElement) {
@@ -37,7 +37,7 @@ function cloneElement (element, params) {
   // Loop over and process the children elements / nodes (including text nodes)
   const childNodesArray = Array.prototype.slice.call(element.childNodes)
   for (let i = 0; i < childNodesArray.length; i++) {
-    // Check if we are skiping the current element
+    // Check if we are skipping the current element
     if (params.ignoreElements.indexOf(childNodesArray[i].id) !== -1) {
       continue
     }
@@ -67,4 +67,9 @@ function cloneElement (element, params) {
   }
 
   return clone
+}
+
+function isHtmlElement (printable) {
+  // Check if element is instance of HTMLElement or has nodeType === 1 (for elements in iframe)
+  return typeof printable === 'object' && printable && (printable instanceof HTMLElement || printable.nodeType === 1)
 }

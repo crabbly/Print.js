@@ -1,4 +1,5 @@
 <html>
+	<link rel="stylesheet" href="../../dist/print.css" type="text/css">
   <script src='../../dist/print.js'></script>
   <script type="text/javascript">
     function printPdf() {
@@ -9,7 +10,8 @@
       printJS({
         printable: '/test/manual/test.pdf',
         type: 'pdf',
-        showModal: true
+        showModal: true,
+				base64: false,
       })
     }
 
@@ -18,19 +20,8 @@
         printable: '/test/manual/test.pdf',
         type: 'pdf',
         showModal: true,
-        onPrintDialogClose: () => console.log('The print dialog was closed'),
-        onPdfOpen: () => console.log('Pdf was opened in a new tab due to an incompatible browser')
-      })
-    }
-
-    function printPdfCompatibleBrowser() {
-      printJS({
-        printable: '/test/manual/test.pdf',
-        type: 'pdf',
-        onBrowserIncompatible: () => {
-          alert('Browser incompatible')
-          return false
-        }
+        onPrintDialogClose: () => alert('The print dialog was closed'),
+        onIncompatibleBrowser: () => console.log('Pdf was opened in a new tab due to an incompatible browser')
       })
     }
 
@@ -112,7 +103,8 @@
         ],
         type: 'json',
         header: 'JSON Print Test',
-        footer: 'JSON Print Footer'
+        footer: 'JSON Print Footer',
+				documentTitle: 'Print.js JSON Test'
       })
     }
 
@@ -133,7 +125,7 @@
         properties: ['test1', 'test2'],
         type: 'json',
         gridStyle: 'border: 2px solid #3971A5;',
-        gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;'
+				gridHeaderStyle: 'color: red;  border: 2px solid #3971A5;',
       })
     }
 
@@ -239,9 +231,6 @@
         </button>
         <button onClick='printPdfWithModalAndCloseCallback();'>
           Print PDF with Loading Modal and close callback
-        </button>
-        <button onClick='printPdfCompatibleBrowser();'>
-          Print PDF only on compatible browser
         </button>
         <button onClick='printPdfBase64();'>
           Print base64 PDF

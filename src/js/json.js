@@ -1,4 +1,4 @@
-import { capitalizePrint, addHeader } from './functions'
+import { capitalizePrint, addHeader, addFooter } from './functions'
 import Print from './print'
 
 export default {
@@ -37,6 +37,11 @@ export default {
 
     // Build the printable html data
     params.printableElement.innerHTML += jsonToHTML(params)
+
+    // Check if we are adding a print footer
+    if (params.footer) {
+      addFooter(params.printableElement, params)
+    }
 
     // Print the json data
     Print.send(params, printFrame)

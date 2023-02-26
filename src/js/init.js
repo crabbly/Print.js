@@ -18,6 +18,8 @@ export default {
       type: 'pdf',
       header: null,
       headerStyle: 'font-weight: 300;',
+      footer: null,
+      footerStyle: 'font-weight: 300;',
       maxWidth: 800,
       properties: null,
       gridHeaderStyle: 'font-weight: bold; padding: 5px; border: 1px solid #dddddd;',

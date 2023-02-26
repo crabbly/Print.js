@@ -48,6 +48,8 @@
     function printHtml() {
       printJS({
         printable: 'test',
+        header: 'JSON Print Test',
+        footer: 'JSON Print Footer',
         type: 'html'
       })
     }
@@ -58,6 +60,8 @@
         <p class="blueText">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>`,
         type: 'raw-html',
+        header: 'JSON Print Header',
+        footer: 'JSON Print Footer',
         style: '.blueText {color:blue;}'
       })
     }
@@ -106,7 +110,8 @@
           }
         ],
         type: 'json',
-				header: 'JSON Print Test',
+        header: 'JSON Print Test',
+        footer: 'JSON Print Footer',
 				documentTitle: 'Print.js JSON Test'
       })
     }
@@ -181,6 +186,8 @@
           'test-01.jpg',
           'test-02.jpg'
         ],
+        header: 'JSON Print Test',
+        footer: 'JSON Print Footer',
         type: 'image'
       })
     }

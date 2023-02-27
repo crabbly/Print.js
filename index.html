@@ -25,7 +25,7 @@
 			ga('send', 'pageview');
 		</script>
 		<!-- Scripts -->
-		<script src="print.js?v1.0.55"></script>
+		<script src="print.js?v1.5.0"></script>
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.scrolly.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
@@ -41,7 +41,7 @@
 				<p>A tiny javascript library to help printing from the web.</p>
 			</header>
 			<footer>
-				<a href="#download" download="print.js" class="button scrolly">Download v1.0.55</a>
+				<a href="#download" download="print.js" class="button scrolly">Download v1.5.0</a>
 			</footer>
 		</section>
 
@@ -49,7 +49,6 @@
 		<section class="main" id="pdf">
 			<div class="content">
 				<div class="container">
-
 					<section>
 						<h2>PDF Printing</h2>
 						<p>Print.js was primarily written to help us print PDF files directly within our apps, without leaving the interface, and no use of embeds. For unique situations where there is no need for users to open or download the PDF files, and instead, they just need to print them.</p>
@@ -59,7 +58,6 @@
 					<section class="in-link light">
 						<blockquote>PDF files must be served from the same domain as your app is hosted under. Print.js uses iframe to load files before printing them, therefore, it is limited by the <a href="https://en.wikipedia.org/wiki/Same-origin_policy" target="_blank">Same Origin Policy</a>. This helps preventing <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank">Cross-site scripting</a> (XSS) attacks.</blockquote>
 					</section>
-
 				</div>
 			</div>
 
@@ -85,10 +83,6 @@
 
 					</section>
 
-					<section class="in-link">
-						<blockquote>Firefox currently doesn't allow printing PDF documents using iframes. There is an open <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=911444" target="_blank">bug</a> in Mozilla's website about this. When using Firefox, Print.js will open the PDF file into a new tab.</blockquote>
-					</section>
-
 					<section>
 						<p>For large files, you can show a message to the user when loading files.
 <!-- pdf code -->
@@ -104,6 +98,21 @@
 						</button>
 						<button type="button" onclick="printJS({printable:'docs/x_large_printjs.pdf', type:'pdf', showModal:true})" style="margin-right:20px;">
 							Print Extra Large PDF ( 16mb file )
+						</button>
+					</section>
+
+					<section>
+						<p>The library supports base64 PDF printing:
+<!-- pdf code -->
+<pre><code data-language="html">
+ &lt;button type=&quot;button&quot; onclick=&quot;printJS({printable: base64, type: 'pdf', base64: true})&quot;&gt;
+    Print PDF with Message
+ &lt;/button&gt;
+
+</code></pre>
+						<p>Result:</p>
+						<button type="button" onclick="printPdfBase64()" style="margin-right:20px;">
+							Print base64 PDF
 						</button>
 					</section>
 				</div>
@@ -166,7 +175,7 @@
 							</div>
 						</form>
 
-						<button type="button" onclick="printJS('printJS-form', 'html')">
+						<button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', css: ['/assets/css/main.css?v1'] })">
 							Print Form
 						</button>
 
@@ -183,7 +192,7 @@
 </code></pre>
             <p>Result:</p>
 
-						<button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection' })">
+						<button type="button" onclick="printJS({ printable: 'printJS-form', type: 'html', header: 'PrintJS - Form Element Selection', css: ['/assets/css/main.css?v1'] })">
 							Print Form with Header
 						</button>
 
@@ -312,6 +321,22 @@
 					</section>
 
 					<section>
+						<p>You can also add a footer to the image being printed:</p>
+
+<pre><code data-language="generic">
+ printJS({printable: 'images/print-01-highres.jpg', type: 'image', footer: 'My cool image footer'})
+
+</code></pre>
+
+						<div>
+							<p>Result:</p>
+							<button onclick="printJS({printable: 'images/print-01-highres.jpg', type: 'image', footer: 'My cool image footer'});return false;">
+								Print Image With Footer
+							</button>
+						</div>
+					</section>
+
+					<section>
 						<p>To print multiple images together, we can pass an array of images. We can also pass the style to be applied on each image:</p>
 
 <pre><code data-language="generic">
@@ -391,7 +416,7 @@
 </code></pre>
 						<p>Result:</p>
 
-						<button type="button" onclick="printJS({ printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json' })">
+						<button type="button" onclick="printJS({ printable: someJSONdata, properties: ['name', 'email', 'phone'], type: 'json', documentTitle: 'Print.js JSON Test' })">
 							Print JSON Data
 						</button>
 
@@ -446,7 +471,69 @@
 									type: 'json'
 							})">
 							Print with custom table header text
-				 		</button>
+						</button>
+						 
+						 <hr/>
+ 
+						 <p>JSON, HTML and Image print can receive a raw HTML header:</p>
+ 
+ <pre><code data-language="html">
+&lt;button type=&quot;button&quot; onclick=&quot;printJS({
+		printable: someJSONdata,
+		type: 'json',
+		properties: ['name', 'email', 'phone'],
+		header: '&lt;h3 class="custom-h3"&gt;My custom header&lt;/h3&gt;',
+		style: '.custom-h3 { color: red; }'
+	  })&quot;&gt;
+	Print header raw html
+&lt;/button&gt;
+ 
+ </code></pre>
+						 <p>Result:</p>
+ 
+						 <button
+							 type="button"
+							 onclick="printJS({
+								 	 header: `<h3 class='custom-h3'>My custom header</h3>`,
+									 printable: someJSONdata,
+									 properties: ['name', 'email', 'phone'],
+									 type: 'json',
+									 style: '.custom-h3 { color: red; }'
+									})">
+							 Print JSON with raw HTML header
+						 </button>
+
+						<hr/>
+
+						<p>JSON, HTML and Image print can receive a raw HTML footer:</p>
+
+						<pre><code data-language="html">
+&lt;button type=&quot;button&quot; onclick=&quot;printJS({
+		printable: someJSONdata,
+		type: 'json',
+		properties: ['name', 'email', 'phone'],
+		footer: '&lt;h3 class="custom-h3"&gt;My custom footer&lt;/h3&gt;',
+		style: '.custom-h3 { color: red; }'
+	  })&quot;&gt;
+	Print footer raw html
+&lt;/button&gt;
+
+ </code></pre>
+						<p>Result:</p>
+
+						<button
+							type="button"
+							onclick="printJS({
+								 	 footer: `<h3 class='custom-h3'>My custom footer</h3>`,
+									 printable: someJSONdata,
+									 properties: ['name', 'email', 'phone'],
+									 type: 'json',
+									 style: '.custom-h3 { color: red; }'
+									})">
+							Print JSON with raw HTML footer
+						</button>
+ 
+
 					</section>
 				</div>
 			</div>
@@ -461,7 +548,7 @@
 						</header>
 						<p>You can download the latest version of Print.js from the GitHub releases.</p>
 						<p style="margin-bottom:30px;">
-							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.0.55" class="button">Download v1.0.55</a>
+							<a href="https://github.com/crabbly/Print.js/releases/tag/v1.5.0" class="button">Download v1.5.0</a>
 						</p>
 
 						<p>To install using npm:</p>
@@ -533,17 +620,27 @@
 							<div class="grid-row">
 								<div class="g1">type</div>
 								<div class="g1">'pdf'</div>
-								<div class="g2">Document type.</div>
+								<div class="g2">Printable type. Availble print options are: pdf, html, image, json and raw-html.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">header</div>
 								<div class="g1">null</div>
-								<div class="g2">Optional header to be used with HTML, Image or JSON printing. It will be placed on the top of the page.</div>
+								<div class="g2">Optional header to be used with HTML, Image or JSON printing. It will be placed on the top of the page. This property will accept text or raw HTML.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">headerStyle</div>
 								<div class="g1">'font-weight: 300;'</div>
 								<div class="g2">Optional header style to be applied to the header text.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">footer</div>
+								<div class="g1">null</div>
+								<div class="g2">Optional footer to be used with HTML, Image or JSON printing. It will be placed on the bottom of the page. This property will accept text or raw HTML.</div>
+							</div>
+							<div class="grid-row">
+								<div class="g1">footerStyle</div>
+								<div class="g1">'font-weight: 300;'</div>
+								<div class="g2">Optional footer style to be applied to the footer text.</div>
 							</div>
 							<div class="grid-row">
 								<div class="g1">maxWidth</div>
@@ -623,7 +720,7 @@
 							<div class="grid-row">
 								<div class="g1">documentTitle</div>
 								<div class="g1">'Document'</div>
-								<div class="g2">When printing html, image or json, this will be shown as the document title. It will also be the name of the document, if the user tries to save the print job to a pdf file.</div>
+								<div class="g2">When printing html, image or json, this will be shown as the document title.</div>
                             </div>
 							<div class="grid-row">
 								<div class="g1">fallbackPrintable</div>
@@ -703,8 +800,8 @@
 								<div class="g1">PDF</div>
 								<div class="g15"><i class="fa fa-check fa-2x success" aria-hidden="true"></i></div>
 								<div class="g1"><i class="fa fa-check fa-2x success" aria-hidden="true"></i></div>
-								<div class="g1"><i class="fa fa-times fa-2x danger" aria-hidden="true"></i></div>
-								<div class="g1"><i class="fa fa-times fa-2x danger" aria-hidden="true"></i></div>
+								<div class="g1"><i class="fa fa-check fa-2x success" aria-hidden="true"></i></div>
+								<div class="g1"><i class="fa fa-check fa-2x success" aria-hidden="true"></i></div>
 								<div class="g1"><i class="fa fa-check fa-2x success" aria-hidden="true"></i></div>
 								<div class="g15"><i class="fa fa-times fa-2x danger" aria-hidden="true"></i></div>
 							</div>
@@ -773,7 +870,7 @@
 			</ul>
 			<div class="copyright">
 				<ul class="menu">
-					<li>&copy; 2019 Crabbly</li><li>Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></li><li>HTML Template by <a href="https://html5up.net" target="_blank">HTML5 UP</a></li><li>CDN by <a href="https://www.keycdn.com/" target="_blank">KeyCDN</a></li>
+					<li>&copy; 2020 Crabbly</li><li>Released under the <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a></li><li>HTML Template by <a href="https://html5up.net" target="_blank">HTML5 UP</a></li><li>CDN by <a href="https://www.keycdn.com/" target="_blank">KeyCDN</a></li>
 				</ul>
 			</div>
 		</section>

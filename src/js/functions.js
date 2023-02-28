@@ -27,7 +27,7 @@ export function collectStyles (element, params) {
   }
 
   // Print friendly defaults (deprecated)
-  elementStyle += 'max-width: ' + params.maxWidth + 'px !important; font-size: ' + params.font_size + ' !important;'
+  elementStyle += 'max-width: ' + params.maxWidth + 'px !important;'
 
   return elementStyle
 }

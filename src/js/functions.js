@@ -34,7 +34,7 @@ export function collectStyles (element, params) {
 
 function targetStylesMatch (styles, value) {
   for (let i = 0; i < styles.length; i++) {
-    if (typeof value === 'object' && value.indexOf(styles[i]) !== -1) return true
+    if (typeof value === 'string' && value.indexOf(styles[i]) !== -1) return true
   }
   return false
 }

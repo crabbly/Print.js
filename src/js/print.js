@@ -78,7 +78,7 @@ function performPrint (iframeElement, params) {
       iframeElement.style.left = '-1px'
     }
 
-    cleanUp(params)
+    setTimeout(() => cleanUp(params), 100)
   }
 }
 

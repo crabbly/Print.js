@@ -45,6 +45,18 @@
       })
     }
 
+    function printPdfBlob() {
+      fetch('/test/manual/test.pdf').then(function(response) {
+        response.blob().then(function(blob) {
+          printJS({
+            printable: blob,
+            type: 'pdf',
+            blob: true
+          })
+        })
+      })
+    }
+
     function printHtml() {
       printJS({
         printable: 'test',
@@ -242,6 +254,9 @@
         </button>
         <button onClick='printPdfBase64();'>
           Print base64 PDF
+        </button>
+        <button onClick='printPdfBlob();'>
+          Print blob PDF
         </button>
       </p>
       <p>

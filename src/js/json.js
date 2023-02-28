@@ -61,6 +61,11 @@ function jsonToHTML (params) {
     htmlData += '<thead>'
   }
 
+  // Add rows before normal header
+  if (params.rowsBefore) {
+    htmlData += params.rowsBefore
+  }
+
   // Add the table header row
   htmlData += '<tr>'
 

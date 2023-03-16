@@ -5,7 +5,7 @@ declare namespace printJS {
   type PrintTypes = 'pdf' | 'html' | 'image' | 'json' | 'raw-html';
 
   interface Configuration {
-    printable: any;
+    printable: string;
     fallbackPrintable?: string;
     type?: PrintTypes;
     documentTitle?: string;

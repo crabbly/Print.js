@@ -64,17 +64,17 @@ export function addHeader (printElement, params) {
 
 export function addFooter (printElement, params) {
   // Create the footer container div
-  let footerContainer = document.createElement('div')
+  const footerContainer = document.createElement('div')
 
   // Check if the footer is text or raw html
   if (isRawHTML(params.footer)) {
     footerContainer.innerHTML = params.footer
   } else {
     // Create footer element
-    let footerElement = document.createElement('h1')
+    const footerElement = document.createElement('h1')
 
     // Create footer text node
-    let footerNode = document.createTextNode(params.footer)
+    const footerNode = document.createTextNode(params.footer)
 
     // Build and style
     footerElement.appendChild(footerNode)

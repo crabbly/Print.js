@@ -28,6 +28,8 @@
     "sass-loader": "10.0.2",
     "standard": "14.3.4",
     "terser-webpack-plugin": "4.1.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^3.9.10",
     "webpack": "4.44.1",
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.11.0"
@@ -56,5 +58,8 @@
     "printjs",
     "print.js",
     "print-js"
-  ]
+  ],
+  "dependencies": {
+    "source-map-loader": "^4.0.1"
+  }
 }

@@ -7,7 +7,7 @@ module.exports = {
   mode: 'development',
   devtool: 'source-map',
   entry: [
-    './src/index.js'
+    './src/index.ts'
   ],
   output: {
     library: 'printJS',

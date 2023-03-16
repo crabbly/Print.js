@@ -140,7 +140,7 @@ export default {
         if (Browser.isIE()) {
           try {
             console.info('Print.js doesn\'t support PDF printing in Internet Explorer.')
-            const win = window.open(params.fallbackPrintable, '_blank')
+            const win = window.open(params.fallbackPrintable, '_blank') as Window
             win.focus()
             params.onIncompatibleBrowser()
           } catch (error) {

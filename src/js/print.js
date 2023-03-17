@@ -62,17 +62,21 @@ function performPrint (iframeElement, params) {
         }
         iframeElement.contentWindow.document.execCommand('print', false, null)
       } catch (e) {
+        setTimeout(function(){
+          iframeElement.contentWindow.onafterprint = function (event) {
+            params.onAfterPrint.call(this,event)
+          }
+          iframeElement.contentWindow.print()
+        },1000)
+      }
+    } else {
+       // Other browsers
+      setTimeout(function(){
         iframeElement.contentWindow.onafterprint = function (event) {
           params.onAfterPrint.call(this,event)
         }
         iframeElement.contentWindow.print()
-      }
-    } else {
-      // Other browsers
-      iframeElement.contentWindow.onafterprint = function (event) {
-        params.onAfterPrint.call(this,event)
-      }
-      iframeElement.contentWindow.print()
+      },1000)
     }
   } catch (error) {
     params.onError(error)

@@ -4,11 +4,11 @@ module.exports = function (config) {
   config.set({
     frameworks: ['jasmine'],
     files: [
-      'test/**/*.spec.js'
+      'test/**/*.spec.ts'
     ],
     exclude: [],
     preprocessors: {
-      'test/**/*.js': ['webpack', 'sourcemap', 'coverage']
+      'test/**/*.ts': ['webpack', 'sourcemap', 'coverage']
     },
     reporters: ['progress', 'coverage'],
     coverageReporter: {

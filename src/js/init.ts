@@ -13,8 +13,8 @@ const printTypes = ['pdf', 'html', 'image', 'json', 'raw-html']
 export default {
   init () {
     const params = {
-      printable: '',
-      fallbackPrintable: '',
+      printable: null,
+      fallbackPrintable: null,
       type: 'pdf',
       header: null,
       headerStyle: 'font-weight: 300;',

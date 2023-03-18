@@ -1,5 +1,5 @@
-import Print from './print'
-import { cleanUp } from './functions'
+import Print from './print.ts'
+import { cleanUp } from './functions.ts'
 
 export default {
   print: (params, printFrame) => {

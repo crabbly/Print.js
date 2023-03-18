@@ -1,5 +1,5 @@
-import Print from './print'
-import { addHeader, addFooter } from './functions'
+import Print from './print.ts'
+import { addHeader, addFooter } from './functions.ts'
 
 export default {
   print: (params, printFrame) => {

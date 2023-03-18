@@ -1,4 +1,4 @@
-import Image from '../../src/js/image'
+import Image from '../../src/js/image.ts'
 
 describe('Image', () => {
   it('has a method named print', () => {

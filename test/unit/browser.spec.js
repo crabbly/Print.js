@@ -1,4 +1,4 @@
-import Browser from '../../src/js/browser'
+import Browser from '../../src/js/browser.ts'
 
 describe('Browser', () => {
   it('has a function named isFirefox that returns a boolean value', () => {

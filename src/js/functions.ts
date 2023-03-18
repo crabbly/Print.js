@@ -1,5 +1,5 @@
-import Modal from './modal'
-import Browser from './browser'
+import Modal from './modal.ts'
+import Browser from './browser.ts'
 
 export function addWrapper (htmlData, params) {
   const bodyStyle = 'font-family:' + params.font + ' !important; font-size: ' + params.font_size + ' !important; width:100%;'

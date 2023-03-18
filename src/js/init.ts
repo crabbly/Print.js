@@ -1,20 +1,20 @@
 'use strict'
 
-import Browser from './browser'
-import Modal from './modal'
-import Pdf from './pdf'
-import Html from './html'
-import RawHtml from './raw-html'
-import Image from './image'
-import Json from './json'
+import Browser from './browser.ts'
+import Modal from './modal.ts'
+import Pdf from './pdf.ts'
+import Html from './html.ts'
+import RawHtml from './raw-html.ts'
+import Image from './image.ts'
+import Json from './json.ts'
 
 const printTypes = ['pdf', 'html', 'image', 'json', 'raw-html']
 
 export default {
   init () {
     const params = {
-      printable: null,
-      fallbackPrintable: null,
+      printable: '',
+      fallbackPrintable: '',
       type: 'pdf',
       header: null,
       headerStyle: 'font-weight: 300;',
@@ -26,8 +26,8 @@ export default {
       gridStyle: 'border: 1px solid lightgray; margin-bottom: -1px;',
       showModal: false,
       onError: (error) => { throw error },
-      onLoadingStart: null,
-      onLoadingEnd: null,
+      onLoadingStart: () => {},
+      onLoadingEnd: () => {},
       onPrintDialogClose: () => {},
       onIncompatibleBrowser: () => {},
       modalMessage: 'Retrieving Document...',
@@ -39,8 +39,8 @@ export default {
       targetStyles: ['border', 'box', 'break', 'text-decoration'],
       ignoreElements: [],
       repeatTableHeader: true,
-      css: null,
-      style: null,
+      css: [],
+      style: '',
       scanStyles: true,
       base64: false,
 
@@ -84,7 +84,7 @@ export default {
     if (!params.printable) throw new Error('Missing printable information.')
 
     // Validate type
-    if (!params.type || typeof params.type !== 'string' || printTypes.indexOf(params.type.toLowerCase()) === -1) {
+    if (!params.type || (typeof params.type !== 'string') || printTypes.indexOf(params.type.toLowerCase()) === -1) {
       throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
     }
 
@@ -97,7 +97,9 @@ export default {
     // To prevent duplication and issues, remove any used printFrame from the DOM
     const usedFrame = document.getElementById(params.frameId)
 
-    if (usedFrame) usedFrame.parentNode.removeChild(usedFrame)
+    if (usedFrame) {
+      usedFrame.parentNode.removeChild(usedFrame)
+    }
 
     // Create a new iframe for the print job
     const printFrame = document.createElement('iframe')
@@ -122,7 +124,9 @@ export default {
       // Attach css files
       if (params.css) {
         // Add support for single file
-        if (!Array.isArray(params.css)) params.css = [params.css]
+        if (!Array.isArray(params.css)) {
+          params.css = [params.css]
+        }
 
         // Create link tags for each css file
         params.css.forEach(file => {
@@ -140,15 +144,19 @@ export default {
         if (Browser.isIE()) {
           try {
             console.info('Print.js doesn\'t support PDF printing in Internet Explorer.')
-            const win = window.open(params.fallbackPrintable, '_blank') as Window
+            const win = window.open(params.fallbackPrintable, '_blank')
             win.focus()
             params.onIncompatibleBrowser()
           } catch (error) {
             params.onError(error)
           } finally {
             // Make sure there is no loading modal opened
-            if (params.showModal) Modal.close()
-            if (params.onLoadingEnd) params.onLoadingEnd()
+            if (params.showModal) {
+              Modal.close()
+            }
+            if (params.onLoadingEnd) {
+              params.onLoadingEnd()
+            }
           }
         } else {
           Pdf.print(params, printFrame)

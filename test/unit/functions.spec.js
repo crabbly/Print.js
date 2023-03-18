@@ -1,4 +1,4 @@
-import { addWrapper, capitalizePrint, isRawHTML } from '../../src/js/functions'
+import { addWrapper, capitalizePrint, isRawHTML } from '../../src/js/functions.ts'
 
 describe('addWrapper()', () => {
   it('add a div wrapper to a raw html', () => {

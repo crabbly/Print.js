@@ -1,4 +1,4 @@
-import Html from '../../src/js/html'
+import Html from '../../src/js/html.ts'
 
 describe('Html', () => {
   it('has a method named print', () => {

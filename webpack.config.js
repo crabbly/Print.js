@@ -9,6 +9,9 @@ module.exports = {
   entry: [
     './src/index.ts'
   ],
+  resolve: {
+    extensions: ['.ts', '.js', '.json']
+  },
   output: {
     library: 'printJS',
     libraryTarget: 'umd',
@@ -23,7 +26,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: 'ts-loader'
         }
       },
       // TODO: Configure istanbul to interpret how webpack bundles files

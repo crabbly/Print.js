@@ -1,5 +1,5 @@
-import Browser from './browser'
-import { cleanUp } from './functions'
+import Browser from './browser.ts'
+import { cleanUp } from './functions.ts'
 
 const Print = {
   send: (params, printFrame) => {

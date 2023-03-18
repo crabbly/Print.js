@@ -1,4 +1,4 @@
-import Json from '../../src/js/json'
+import Json from '../../src/js/json.ts'
 
 describe('Json', () => {
   it('has a method named print', () => {

@@ -8,6 +8,11 @@
   "repository": "https://github.com/crabbly/Print.js",
   "license": "MIT",
   "devDependencies": {
+    "@types/jasmine": "^3.4.0",
+    "karma": "^6.1.0",
+    "karma-cli": "^2.0.0",
+    "karma-typescript": "^5.5.3",
+    "typescript": "^5.0.2",
     "@babel/core": "7.11.6",
     "@babel/preset-env": "7.11.5",
     "babel-loader": "8.1.0",
@@ -15,7 +20,6 @@
     "css-loader": "4.2.2",
     "istanbul-instrumenter-loader": "3.0.1",
     "jasmine-core": "3.6.0",
-    "karma": "5.2.1",
     "karma-chrome-launcher": "3.1.0",
     "karma-coverage": "2.0.3",
     "karma-jasmine": "4.0.1",
@@ -29,12 +33,10 @@
     "standard": "14.3.4",
     "terser-webpack-plugin": "4.1.0",
     "ts-loader": "^9.4.2",
-    "typescript": "^3.9.10",
     "webpack": "4.44.1",
     "webpack-cli": "3.3.12",
-    "webpack-dev-server": "3.11.0",
-    "karma-typescript": "^5.5.3",
-    "source-map-loader": "^4.0.1"
+    "source-map-loader": "^4.0.1",
+    "webpack-dev-server": "3.11.0"
   },
   "scripts": {
     "test": "standard && karma start",

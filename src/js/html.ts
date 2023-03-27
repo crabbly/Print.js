@@ -1,5 +1,5 @@
-import { collectStyles, addHeader, addFooter } from './functions.ts'
-import Print from './print.ts'
+import { collectStyles, addHeader, addFooter } from './functions'
+import Print from './print'
 
 export default {
   print: (params, printFrame) => {

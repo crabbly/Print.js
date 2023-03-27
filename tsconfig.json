@@ -1,22 +1,22 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
     "module": "esnext",
     "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
+    "noImplicitAny": false,
+    "outDir": "tmp",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "target": "es5",
     "sourceMap": true,
     "baseUrl": ".",
-    "allowJs": true,
-    "experimentalDecorators": true,
-    "noImplicitAny": false,
-    "types": [
-      "webpack-env",
-      "jest"
+    "allowSyntheticDefaultImports": true,
+    "types" : [
+      "jasmine",
+      "node"
     ],
+    "typeRoots": ["./node_modules/@types", "./src/js/types"],
     "paths": {
       "@/*": [
         "src/*"
@@ -28,10 +28,11 @@
       "dom.iterable",
       "scripthost"
     ]
+
   },
   "include": [
     "src/**/*.ts",
-    "tests/**/*.ts"
+    "test/**/*.ts"
   ],
   "exclude": [
     "node_modules"

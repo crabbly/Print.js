@@ -1,6 +1,6 @@
-import { addHeader, addFooter } from './functions.ts'
-import Print from './print.ts'
-import Browser from './browser.ts'
+import { addHeader, addFooter } from './functions'
+import Print from './print'
+import Browser from './browser'
 
 export default {
   print: (params, printFrame) => {

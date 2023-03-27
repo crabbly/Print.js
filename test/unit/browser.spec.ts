@@ -1,4 +1,4 @@
-import Browser from '../../src/js/browser.ts'
+import Browser from '../../src/js/browser'
 
 describe('Browser', () => {
   it('has a function named isFirefox that returns a boolean value', () => {
@@ -35,12 +35,12 @@ describe('Browser', () => {
 
   describe('isChrome()', () => {
     it('returns true for Google Chrome', () => {
-      const stubbedWindow = { chrome: {} }
+      const stubbedWindow = <Window & typeof globalThis> { chrome: {} }
       expect(Browser.isChrome(stubbedWindow)).toBeTruthy()
     })
 
     it('returns false for non Google Chrome', () => {
-      const stubbedWindow = {}
+      const stubbedWindow = <Window & typeof globalThis> {}
       expect(Browser.isChrome(stubbedWindow)).toBeFalsy()
     })
   })

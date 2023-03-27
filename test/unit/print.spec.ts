@@ -1,4 +1,4 @@
-import Print from '../../src/js/print.ts'
+import Print from '../../src/js/print'
 
 describe('Print', () => {
   it('has a method named send', () => {

@@ -1,4 +1,4 @@
-import Modal from '../../src/js/modal.ts'
+import Modal from '../../src/js/modal'
 
 describe('Modal', () => {
   it('has a method named show', () => {

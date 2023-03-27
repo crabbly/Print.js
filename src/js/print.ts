@@ -1,5 +1,5 @@
-import Browser from './browser.ts'
-import { cleanUp } from './functions.ts'
+import Browser from './browser'
+import { cleanUp } from './functions'
 
 const Print = {
   send: (params, printFrame) => {
@@ -82,7 +82,7 @@ function performPrint (iframeElement, params) {
   }
 }
 
-function loadIframeImages (images) {
+function loadIframeImages (images){
   const promises = images.map(image => {
     if (image.src && image.src !== window.location.href) {
       return loadIframeImage(image)
@@ -93,11 +93,11 @@ function loadIframeImages (images) {
 }
 
 function loadIframeImage (image) {
-  return new Promise(resolve => {
+  return new Promise (resolve => {
     const pollImage = () => {
       !image || typeof image.naturalWidth === 'undefined' || image.naturalWidth === 0 || !image.complete
         ? setTimeout(pollImage, 500)
-        : resolve()
+        : resolve(true)
     }
     pollImage()
   })

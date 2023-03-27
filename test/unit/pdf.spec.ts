@@ -1,4 +1,4 @@
-import Pdf from '../../src/js/pdf.ts'
+import Pdf from '../../src/js/pdf'
 
 describe('Pdf', () => {
   it('has a method named print', () => {

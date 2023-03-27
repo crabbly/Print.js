@@ -1,12 +1,12 @@
 'use strict'
 
-import Browser from './browser.ts'
-import Modal from './modal.ts'
-import Pdf from './pdf.ts'
-import Html from './html.ts'
-import RawHtml from './raw-html.ts'
-import Image from './image.ts'
-import Json from './json.ts'
+import Browser from './browser'
+import Modal from './modal'
+import Pdf from './pdf'
+import Html from './html'
+import RawHtml from './raw-html'
+import Image from './image'
+import Json from './json'
 
 const printTypes = ['pdf', 'html', 'image', 'json', 'raw-html']
 

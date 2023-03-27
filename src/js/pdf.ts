@@ -1,5 +1,5 @@
-import Print from './print.ts'
-import { cleanUp } from './functions.ts'
+import Print from './print'
+import { cleanUp } from './functions'
 
 export default {
   print: (params, printFrame) => {
@@ -51,8 +51,7 @@ export default {
 
 function createBlobAndPrint (params, printFrame, data) {
   // Pass response or base64 data to a blob and create a local object url
-  let localPdf = new window.Blob([data], { type: 'application/pdf' })
-  localPdf = window.URL.createObjectURL(localPdf)
+  let localPdf = window.URL.createObjectURL(new window.Blob([data], { type: 'application/pdf' }))
 
   // Set iframe src with pdf document url
   printFrame.setAttribute('src', localPdf)

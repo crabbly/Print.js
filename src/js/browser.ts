@@ -3,7 +3,7 @@ const Browser = {
   isFirefox: () => {
     return typeof InstallTrigger !== 'undefined'
   },
-  getFirefoxMajorVersion: (userAgent) => {
+  getFirefoxMajorVersion: (userAgent = null) => {
     userAgent = userAgent || navigator.userAgent
     const firefoxVersionRegex = /firefox\/(\S+)/
     const match = userAgent.toLowerCase().match(firefoxVersionRegex)

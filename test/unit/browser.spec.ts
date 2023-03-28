@@ -35,12 +35,12 @@ describe('Browser', () => {
 
   describe('isChrome()', () => {
     it('returns true for Google Chrome', () => {
-      const stubbedWindow = { chrome: {} }
+      const stubbedWindow = <Window & typeof globalThis> { chrome: {} }
       expect(Browser.isChrome(stubbedWindow)).toBeTruthy()
     })
 
     it('returns false for non Google Chrome', () => {
-      const stubbedWindow = {}
+      const stubbedWindow = <Window & typeof globalThis> {}
       expect(Browser.isChrome(stubbedWindow)).toBeFalsy()
     })
   })

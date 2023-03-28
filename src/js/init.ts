@@ -84,7 +84,7 @@ export default {
     if (!params.printable) throw new Error('Missing printable information.')
 
     // Validate type
-    if (!params.type || typeof params.type !== 'string' || printTypes.indexOf(params.type.toLowerCase()) === -1) {
+    if (!params.type || (typeof params.type !== 'string') || printTypes.indexOf(params.type.toLowerCase()) === -1) {
       throw new Error('Invalid print type. Available types are: pdf, html, image and json.')
     }
 
@@ -97,7 +97,9 @@ export default {
     // To prevent duplication and issues, remove any used printFrame from the DOM
     const usedFrame = document.getElementById(params.frameId)
 
-    if (usedFrame) usedFrame.parentNode.removeChild(usedFrame)
+    if (usedFrame) {
+      usedFrame.parentNode.removeChild(usedFrame)
+    }
 
     // Create a new iframe for the print job
     const printFrame = document.createElement('iframe')
@@ -122,7 +124,9 @@ export default {
       // Attach css files
       if (params.css) {
         // Add support for single file
-        if (!Array.isArray(params.css)) params.css = [params.css]
+        if (!Array.isArray(params.css)) {
+          params.css = [params.css]
+        }
 
         // Create link tags for each css file
         params.css.forEach(file => {
@@ -147,8 +151,12 @@ export default {
             params.onError(error)
           } finally {
             // Make sure there is no loading modal opened
-            if (params.showModal) Modal.close()
-            if (params.onLoadingEnd) params.onLoadingEnd()
+            if (params.showModal) {
+              Modal.close()
+            }
+            if (params.onLoadingEnd) {
+              params.onLoadingEnd()
+            }
           }
         } else {
           Pdf.print(params, printFrame)

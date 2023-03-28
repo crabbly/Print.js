@@ -1,6 +1,24 @@
+export {}
+
 declare function printJS(configuration: printJS.Configuration): void;
 declare function printJS(source: string, type?: printJS.PrintTypes): void;
 
+declare global {
+  interface Window {
+    printJS: Function;
+    StyleMedia: any;
+    chrome: any;
+  }
+
+  interface Document {
+    documentMode: any;
+  }
+
+  interface HTMLElement {
+    contentWindow: any;
+    contentDocument: any;
+  }
+}
 declare namespace printJS {
   type PrintTypes = 'pdf' | 'html' | 'image' | 'json' | 'raw-html';
 
@@ -44,5 +62,3 @@ declare namespace printJS {
     imageStyle?: string;
   }
 }
-
-export = printJS;

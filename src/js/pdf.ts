@@ -5,10 +5,10 @@ export default {
   print: (params, printFrame) => {
     // Check if we have base64 data
     if (params.base64) {
-        if (params.printable.indexOf(',') !== -1) {
-            //If pdf base64 start with `data:application/pdf;base64,`,Excute the atob function will throw an error.So we get the content after `,`
-            params.printable = params.printable.split(',')[1];
-        }
+      if (params.printable.indexOf(',') !== -1) {
+        // If pdf base64 start with `data:application/pdf;base64,`,Excute the atob function will throw an error.So we get the content after `,`
+        params.printable = params.printable.split(',')[1]
+      }
       const bytesArray = Uint8Array.from(atob(params.printable), c => c.charCodeAt(0))
       createBlobAndPrint(params, printFrame, bytesArray)
       return
@@ -51,8 +51,7 @@ export default {
 
 function createBlobAndPrint (params, printFrame, data) {
   // Pass response or base64 data to a blob and create a local object url
-  let localPdf = new window.Blob([data], { type: 'application/pdf' })
-  localPdf = window.URL.createObjectURL(localPdf)
+  let localPdf = window.URL.createObjectURL(new window.Blob([data], { type: 'application/pdf' }))
 
   // Set iframe src with pdf document url
   printFrame.setAttribute('src', localPdf)

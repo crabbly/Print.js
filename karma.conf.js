@@ -1,16 +1,17 @@
-// const path = require('path')
-
 module.exports = function (config) {
   config.set({
-    frameworks: ['jasmine'],
+
+    frameworks: ['jasmine', 'karma-typescript'],
+
     files: [
-      'test/**/*.spec.js'
+      { pattern: 'test/**/*.ts' },
+      { pattern: 'src/**/*.ts' }
     ],
-    exclude: [],
+
     preprocessors: {
-      'test/**/*.js': ['webpack', 'sourcemap', 'coverage']
+      '**/*.ts': ['karma-typescript', 'sourcemap', 'coverage']
     },
-    reporters: ['progress', 'coverage'],
+    reporters: ['dots', 'coverage', 'karma-typescript'],
     coverageReporter: {
       dir: 'coverage/',
       type: 'lcov',

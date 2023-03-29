@@ -16,19 +16,19 @@ You can download the latest version of Print.js from the [GitHub releases](https
 To install via npm:
 
 ```bash
-npm install custom-print-js --save
+npm install print-js --save
 ```
 
 To install via yarn:
 
 ```bash
-yarn add custom-print-js
+yarn add print-js
 ```
 
 Import the library into your project:
 
 ```js
-import printJS from 'custom-print-js'
+import printJS from 'print-js'
 ```
 
 ## Documentation

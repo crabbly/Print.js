@@ -1,5 +1,5 @@
 {
-  "name": "custom-print-js",
+  "name": "print-js",
   "homepage": "http://printjs.crabbly.com",
   "description": "A tiny javascript library to help printing from the web.",
   "version": "1.6.0",

@@ -84,7 +84,7 @@ function performPrint (iframeElement, params) {
 
 function loadIframeImages (images) {
   const promises = images.map(image => {
-    if (image.src && image.src !== window.location.href) {
+    if (image.getAttribute('src')) {
       return loadIframeImage(image)
     }
   })

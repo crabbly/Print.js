@@ -57,15 +57,24 @@ function performPrint (iframeElement, params) {
     // If Edge or IE, try catch with execCommand
     if (Browser.isEdge() || Browser.isIE()) {
       try {
+        iframeElement.contentWindow.onafterprint = function (event) {
+          params.onAfterPrint.call(this,event)
+        }
         iframeElement.contentWindow.document.execCommand('print', false, null)
       } catch (e) {
         setTimeout(function(){
+          iframeElement.contentWindow.onafterprint = function (event) {
+            params.onAfterPrint.call(this,event)
+          }
           iframeElement.contentWindow.print()
         },1000)
       }
     } else {
-      // Other browsers
+       // Other browsers
       setTimeout(function(){
+        iframeElement.contentWindow.onafterprint = function (event) {
+          params.onAfterPrint.call(this,event)
+        }
         iframeElement.contentWindow.print()
       },1000)
     }

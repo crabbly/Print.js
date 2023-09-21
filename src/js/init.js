@@ -30,6 +30,7 @@ export default {
       onLoadingEnd: null,
       onPrintDialogClose: () => {},
       onIncompatibleBrowser: () => {},
+      onAfterPrint: () => {},
       modalMessage: 'Retrieving Document...',
       frameId: 'printJS',
       frameRemoveDelay: null,

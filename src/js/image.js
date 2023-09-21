@@ -1,4 +1,4 @@
-import { addHeader } from './functions'
+import { addHeader, addFooter } from './functions'
 import Print from './print'
 import Browser from './browser'
 
@@ -41,6 +41,11 @@ export default {
 
     // Check if we are adding a print header
     if (params.header) addHeader(params.printableElement, params)
+
+    // Check if we are adding a print footer
+    if (params.footer) {
+      addFooter(params.printableElement, params)
+    }
 
     // Print image
     Print.send(params, printFrame)

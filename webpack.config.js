@@ -2,12 +2,13 @@ const path = require('path')
 const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
   entry: [
-    './src/index.js'
+    './src/index.ts'
   ],
   output: {
     library: 'printJS',
@@ -17,8 +18,23 @@ module.exports = {
     sourceMapFilename: 'print.map',
     libraryExport: 'default'
   },
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
+        ]
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -62,6 +78,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'print.css'
     })

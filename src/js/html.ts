@@ -116,7 +116,7 @@ function cloneElement(element: Node, params: PrintJSParams): Node {
   return clone;
 }
 
-function isHtmlElement(printable: any): printable is HTMLElement {
+function isHtmlElement(printable: unknown): printable is HTMLElement {
   // Check if element is instance of HTMLElement or has nodeType === 1 (for elements in iframe)
   return (
     typeof printable === 'object' &&

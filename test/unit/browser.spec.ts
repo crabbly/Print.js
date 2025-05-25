@@ -37,12 +37,12 @@ describe('Browser', () => {
 
   describe('isChrome()', () => {
     it('returns true for Google Chrome', () => {
-      const stubbedWindow: any = { chrome: {} };
+      const stubbedWindow: Window & { chrome?: unknown } = { chrome: {} };
       expect(Browser.isChrome(stubbedWindow)).toBeTruthy();
     });
 
     it('returns false for non Google Chrome', () => {
-      const stubbedWindow: any = {};
+      const stubbedWindow: Window & { chrome?: unknown } = {};
       expect(Browser.isChrome(stubbedWindow)).toBeFalsy();
     });
   });

@@ -96,7 +96,7 @@ function performPrint(iframeElement: HTMLIFrameElement, params: PrintJSParams): 
     if (Browser.isEdge() || Browser.isIE()) {
       try {
         contentWindow.document.execCommand('print', false, null);
-      } catch (e: any) {
+      } catch (e: unknown) {
         // execCommand failed, try calling print()
         setTimeout(function () {
           if (contentWindow) contentWindow.print(); // Check contentWindow again inside timeout
@@ -124,7 +124,7 @@ function performPrint(iframeElement: HTMLIFrameElement, params: PrintJSParams): 
         if (typeof msg !== 'string') {
           msg = 'Error message could not be stringified.';
         }
-        // @ts-ignore TS2345: Suppressing persistent and likely misreported error. msg is string.
+        // @ts-expect-error TS2345: Suppressing persistent and likely misreported error. msg is string.
         errInstance = new Error(msg);
       }
       params.onError(errInstance);
@@ -143,7 +143,7 @@ function performPrint(iframeElement: HTMLIFrameElement, params: PrintJSParams): 
         if (typeof msg !== 'string') {
           msg = 'Error message could not be stringified.';
         }
-        // @ts-ignore TS2345: Suppressing persistent and likely misreported error. msg is string.
+        // @ts-expect-error TS2345: Suppressing persistent and likely misreported error. msg is string.
         errToThrow = new Error(msg);
       }
       throw errToThrow;

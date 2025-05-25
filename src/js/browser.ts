@@ -11,7 +11,7 @@ interface BrowserInterface {
 const Browser: BrowserInterface = {
   // Firefox 1.0+
   isFirefox: (): boolean => {
-    return typeof (window as any).InstallTrigger !== 'undefined';
+    return typeof (window as Window & { InstallTrigger?: unknown }).InstallTrigger !== 'undefined';
   },
   getFirefoxMajorVersion: (userAgent?: string): number | undefined => {
     userAgent = userAgent || navigator.userAgent;
@@ -23,11 +23,13 @@ const Browser: BrowserInterface = {
   },
   // Internet Explorer 6-11
   isIE: (): boolean => {
-    return navigator.userAgent.indexOf('MSIE') !== -1 || !!(document as any).documentMode;
+    return (
+      navigator.userAgent.indexOf('MSIE') !== -1 || !!(document as Document & { documentMode?: unknown }).documentMode
+    );
   },
   // Edge 20+
   isEdge: (): boolean => {
-    return !Browser.isIE() && !!(window as any).StyleMedia;
+    return !Browser.isIE() && !!(window as Window & { StyleMedia?: unknown }).StyleMedia;
   },
   // Chrome 1+
   isChrome: (context: Window & { chrome?: unknown } = window): boolean => {
@@ -36,8 +38,9 @@ const Browser: BrowserInterface = {
   // At least Safari 3+: "[object HTMLElementConstructor]"
   isSafari: (): boolean => {
     return (
-      Object.prototype.toString.call((window as any).HTMLElement).indexOf('Constructor') > 0 ||
-      navigator.userAgent.toLowerCase().indexOf('safari') !== -1
+      Object.prototype.toString
+        .call((window as Window & { HTMLElement?: { name: string } }).HTMLElement)
+        .indexOf('Constructor') > 0 || navigator.userAgent.toLowerCase().indexOf('safari') !== -1
     );
   },
   // IOS Chrome

@@ -25,7 +25,7 @@ const jsonModule: JsonModule = {
 
     // We will format the property objects to keep the JSON api compatible with older releases
     params.properties = params.properties.map((property: PrintJSProperty | string) => {
-      const defaultColumnSize = 100 / (params.properties as any[]).length + '%;';
+      const defaultColumnSize = 100 / (params.properties as PrintJSProperty[]).length + '%;';
       if (typeof property === 'object' && property !== null) {
         return {
           field: property.field,
@@ -65,7 +65,7 @@ export default jsonModule;
 
 function jsonToHTML(params: PrintJSParams): string {
   // Get the row and column data
-  const data: any[] = params.printable as any[];
+  const data: Record<string, unknown>[] = params.printable as Record<string, unknown>[];
   const properties: PrintJSProperty[] = params.properties as PrintJSProperty[];
 
   // Create a html table
@@ -109,16 +109,16 @@ function jsonToHTML(params: PrintJSParams): string {
 
     // Print selected properties only
     for (let n = 0; n < properties.length; n++) {
-      let stringData: any = data[i];
+      let stringData: Record<string, unknown> = data[i] as Record<string, unknown>;
 
       // Support nested objects
       const propertyField = properties[n].field.split('.');
       if (propertyField.length > 1) {
         for (let p = 0; p < propertyField.length; p++) {
-          stringData = stringData[propertyField[p]];
+          stringData = stringData[propertyField[p]] as Record<string, unknown>;
         }
       } else {
-        stringData = stringData[properties[n].field];
+        stringData = stringData[properties[n].field] as Record<string, unknown>;
       }
 
       // Add the row contents and styles

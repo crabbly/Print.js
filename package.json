@@ -14,12 +14,12 @@
     "@types/karma": "^6.3.9",
     "@types/node": "^20.14.10",
     "@types/webpack": "^5.28.5",
-    "@typescript-eslint/parser": "^7.16.0",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "coveralls": "^3.1.1",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
-    "coveralls": "^3.1.1",
     "jasmine-core": "^5.1.2",
     "karma": "^6.4.3",
     "karma-chrome-launcher": "^3.2.0",
@@ -29,7 +29,7 @@
     "prettier": "^3.0.0",
     "sass": "^1.89.0",
     "typescript": "^5.5.3",
-    "vite": "^5.0.0"
+    "vite": "^6.3.5"
   },
   "scripts": {
     "test": "karma start",
@@ -47,5 +47,8 @@
     "printjs",
     "print.js",
     "print-js"
-  ]
+  ],
+  "dependencies": {
+    "inquirer": "^12.6.2"
+  }
 }

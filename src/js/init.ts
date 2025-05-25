@@ -15,7 +15,7 @@ export interface PrintJSProperty {
 }
 
 export interface PrintJSParams {
-  printable: string | string[] | HTMLElement | any[] | null; // any[] for json type
+  printable: string | string[] | HTMLElement | Record<string, unknown>[] | null; // any[] for json type
   fallbackPrintable?: string | null; // Allow null in case user explicitly passes it
   type?: 'pdf' | 'html' | 'image' | 'json' | 'raw-html';
   header?: string | null;
@@ -153,7 +153,7 @@ const printJS: PrintJS = {
               continue; // Already handled
             }
             if (params.hasOwnProperty(paramKey) && options[paramKey] !== undefined) {
-              (params as Record<string, any>)[paramKey] = options[paramKey];
+              (params as Record<string, unknown>)[paramKey] = options[paramKey] as unknown;
             }
           }
         }
@@ -228,8 +228,9 @@ const printJS: PrintJS = {
             const win = window.open(params.fallbackPrintable || '', '_blank');
             if (win) win.focus();
             if (params.onIncompatibleBrowser) params.onIncompatibleBrowser();
-          } catch (error: any) {
-            if (params.onError) params.onError(error);
+          } catch (error: unknown) {
+            // This change was already applied but is included for completeness
+            if (params.onError) params.onError(error as Error);
           } finally {
             // Make sure there is no loading modal opened
             if (params.showModal && Modal) Modal.close();

@@ -4,13 +4,14 @@ module.exports = function (config) {
   config.set({
     frameworks: ['jasmine'],
     files: [
-      'test/**/*.spec.js',
-      'test/**/*.spec.ts'
+      { pattern: 'src/**/*.ts', type: 'module', included: false },
+      { pattern: 'test/**/*.spec.ts', type: 'module' },
+      { pattern: 'test/**/*.spec.js', type: 'module', included: true, nocache: true }
     ],
     exclude: [],
     preprocessors: {
-      'test/**/*.js': ['webpack', 'sourcemap'],
-      'test/**/*.ts': ['webpack', 'sourcemap']
+      'test/**/*.spec.js': ['sourcemap'],
+      'test/**/*.spec.ts': ['sourcemap']
     },
     reporters: ['progress'], // Removed 'coverage' for now
     // coverageReporter: { // Removed coverage reporter config for now
@@ -34,41 +35,9 @@ module.exports = function (config) {
     browsers: ['ChromeHeadlessCI'],
     singleRun: true,
     concurrency: 1,
-    webpack: {
-      mode: 'development',
-      resolve: {
-        extensions: ['.ts', '.js']
-      },
-      module: {
-        rules: [
-          {
-            test: /\.ts$/,
-            exclude: /node_modules/,
-            use: [
-              {
-                loader: 'ts-loader',
-                options: {
-                  transpileOnly: true
-                }
-              }
-            ]
-          },
-          {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: 'babel-loader'
-          },
-          {
-            test: /\.scss$/,
-            use: [
-              'style-loader', // In Karma, style-loader is often simpler than MiniCssExtractPlugin
-              'css-loader',
-              'sass-loader'
-            ]
-          }
-        ]
-      }
-      // istanbul-instrumenter-loader and its configuration have been removed
+    mime: {
+      'text/x-typescript': ['ts','tsx']
     }
+    // Webpack configuration removed
   })
 }

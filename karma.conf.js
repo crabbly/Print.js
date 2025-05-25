@@ -9,23 +9,29 @@ module.exports = function (config) {
     ],
     exclude: [],
     preprocessors: {
-      'test/**/*.js': ['webpack', 'sourcemap', 'coverage'],
-      'test/**/*.ts': ['webpack', 'sourcemap', 'coverage']
+      'test/**/*.js': ['webpack', 'sourcemap'],
+      'test/**/*.ts': ['webpack', 'sourcemap']
     },
-    reporters: ['progress', 'coverage'],
-    coverageReporter: {
-      dir: 'coverage/',
-      type: 'lcov',
-      subdir: '.',
-      includeAllSources: true,
-      fixWebpackSourcePaths: true,
-      combineBrowserReports: true
-    },
+    reporters: ['progress'], // Removed 'coverage' for now
+    // coverageReporter: { // Removed coverage reporter config for now
+    //   dir: 'coverage/',
+    //   type: 'lcov',
+    //   subdir: '.',
+    //   includeAllSources: true,
+    //   fixWebpackSourcePaths: true,
+    //   combineBrowserReports: true
+    // },
     port: 9876,
     colors: true,
     logLevel: config.LOG_ERROR,
     autoWatch: false,
-    browsers: ['ChromeHeadless'],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
+    browsers: ['ChromeHeadlessCI'],
     singleRun: true,
     concurrency: 1,
     webpack: {
@@ -62,16 +68,7 @@ module.exports = function (config) {
           }
         ]
       }
-      // TODO: Configure istanbul to interpret how webpack bundles files
-      // module: {
-      //   rules: [
-      //     {
-      //       test: /\.js$/,
-      //       use: { loader: 'istanbul-instrumenter-loader' },
-      //       include: path.resolve('src/js/index.js')
-      //     }
-      //   ]
-      // }
+      // istanbul-instrumenter-loader and its configuration have been removed
     }
   })
 }

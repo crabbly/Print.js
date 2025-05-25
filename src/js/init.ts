@@ -55,8 +55,10 @@ export interface PrintJSParams {
   imageStyle?: string | null;
 }
 
+export type PrintInitFn = (optionsOrPrintable: PrintJSParams | string, type?: PrintJSParams['type']) => void;
+
 interface PrintJS {
-  init: (optionsOrPrintable: PrintJSParams | string, type?: PrintJSParams['type']) => void;
+  init: PrintInitFn;
 }
 
 const printJS: PrintJS = {

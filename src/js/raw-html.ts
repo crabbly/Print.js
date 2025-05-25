@@ -1,6 +1,6 @@
 import Print from './print';
 import { addHeader, addFooter } from './functions';
-import { PrintJSParams } from './init'; // Assuming PrintJSParams is defined in init.ts
+import { PrintJSParams } from './init';
 
 interface RawHtmlModule {
   print: (params: PrintJSParams, printFrame: HTMLIFrameElement) => void;

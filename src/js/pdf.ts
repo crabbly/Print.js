@@ -1,6 +1,6 @@
 import Print from './print';
 import { cleanUp } from './functions';
-import { PrintJSParams } from './init'; // Assuming PrintJSParams is defined in init.ts
+import { PrintJSParams } from './init';
 
 interface PdfModule {
   print: (params: PrintJSParams, printFrame: HTMLIFrameElement) => void;

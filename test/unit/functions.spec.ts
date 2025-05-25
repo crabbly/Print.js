@@ -1,5 +1,5 @@
 import { addWrapper, capitalizePrint, isRawHTML } from '../../src/js/functions';
-import { PrintJSParams } from '../../src/js/init'; // Assuming PrintJSParams is defined in init.ts
+import { PrintJSParams } from '../../src/js/init';
 
 describe('addWrapper()', () => {
   it('add a div wrapper to a raw html', () => {

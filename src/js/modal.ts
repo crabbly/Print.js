@@ -1,4 +1,4 @@
-import { PrintJSParams } from './init'; // Assuming PrintJSParams is defined in init.ts
+import { PrintJSParams } from './init';
 
 interface ModalInterface {
   show: (params: PrintJSParams) => void;

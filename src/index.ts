@@ -1,14 +1,18 @@
 import './sass/index.scss';
 import printJSModule from './js/init';
-import { PrintJSParams } from './js/init'; // Import the interface
+import { PrintInitFn } from './js/init';
 
-const printJS = printJSModule.init;
+const printJS: PrintInitFn = printJSModule.init;
 
-if (typeof window !== 'undefined') {
-  (window as any).printJS = printJS;
+// Extend the Window interface to include printJS
+declare global {
+  interface Window {
+    printJS: PrintInitFn;
+  }
 }
 
-// Define a type for the printJS function for better clarity
-type PrintJSFn = (optionsOrPrintable: PrintJSParams | string, type?: PrintJSParams['type']) => void;
+if (typeof window !== 'undefined') {
+  (window as Window).printJS = printJS;
+}
 
-export default printJS as PrintJSFn;
+export default printJS as PrintInitFn;

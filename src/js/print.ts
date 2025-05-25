@@ -1,6 +1,6 @@
 import Browser from './browser';
 import { cleanUp } from './functions';
-import { PrintJSParams } from './init'; // Assuming PrintJSParams is defined in init.ts
+import { PrintJSParams } from './init';
 
 interface PrintModule {
   send: (params: PrintJSParams, printFrame: HTMLIFrameElement) => void;

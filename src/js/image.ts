@@ -1,7 +1,7 @@
 import { addHeader, addFooter } from './functions';
 import Print from './print';
 import Browser from './browser';
-import { PrintJSParams } from './init'; // Assuming PrintJSParams is defined in init.ts
+import { PrintJSParams } from './init';
 
 interface ImageModule {
   print: (params: PrintJSParams, printFrame: HTMLIFrameElement) => void;

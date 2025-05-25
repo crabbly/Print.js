@@ -1,6 +1,6 @@
 import { capitalizePrint, addHeader, addFooter } from './functions';
 import Print from './print';
-import { PrintJSParams, PrintJSProperty } from './init'; // Assuming PrintJSParams is defined in init.ts
+import { PrintJSParams, PrintJSProperty } from './init';
 
 interface JsonModule {
   print: (params: PrintJSParams, printFrame: HTMLIFrameElement) => void;

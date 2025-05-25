@@ -1,6 +1,6 @@
 import Modal from './modal';
 import Browser from './browser';
-import { PrintJSParams } from './init'; // Assuming PrintJSParams is defined in init.ts
+import { PrintJSParams } from './init';
 
 export function addWrapper(htmlData: string, params: PrintJSParams): string {
   const bodyStyle: string =

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vite - Print.js Dev</title>
+  <!-- Load the main library entry point -->
+  <script type="module" src="/src/index.ts"></script>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    button { margin-bottom: 10px; padding: 8px 12px; }
+    #test-form { border: 1px solid #ccc; padding: 15px; margin-top: 20px; }
+    #test-form h3 { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <h1>Print.js - Vite Development Page</h1>
+  <p>This page is used to load Print.js via Vite for development and basic testing.</p>
+  <p>Open your browser's developer console to see if there are any errors during loading.</p>
+
+  <!-- Simple PDF print test -->
+  <button onclick="printJS('test/manual/test.pdf')">Print PDF</button>
+  <br>
+
+  <!-- Simple Image print test -->
+  <button onclick="printJS('test/manual/test-01.jpg', 'image')">Print Image</button>
+  <br>
+
+  <!-- Simple HTML print test -->
+  <button onclick="printJS('test-html-element', 'html')">Print HTML Element</button>
+  <div id="test-html-element">
+    <h3>Test HTML Content</h3>
+    <p>This is a basic HTML element to test printing.</p>
+  </div>
+
+  <p>For more comprehensive tests, see <a href="/test/manual/index.html">test/manual/index.html</a> (note: this link will work when Vite serves the project root).</p>
+
+  <script type="module">
+    // This is to ensure printJS is available on the window if it's loaded as a module.
+    // However, Vite's direct script module loading should make it available.
+    // If printJS is properly exported and imported, direct calls in HTML event handlers work.
+    // If you encounter issues with printJS not being defined in onclick,
+    // you might need to explicitly attach it to the window in src/index.ts for this dev page,
+    // or rewrite these onclicks to be setup in a script block after import.
+
+    // For example, if printJS is default export from src/index.ts:
+    // import printJS_imported from '/src/index.ts';
+    // window.printJS = printJS_imported;
+    // Or if it's a named export:
+    // import { printJS as printJS_imported } from '/src/index.ts';
+    // window.printJS = printJS_imported;
+  </script>
+</body>
+</html>

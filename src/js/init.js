@@ -35,6 +35,7 @@ export default {
       frameRemoveDelay: null,
       printableElement: null,
       documentTitle: 'Document',
+      documentTitleHoldMs: 3000,
       targetStyle: ['clear', 'display', 'width', 'min-width', 'height', 'min-height', 'max-height'],
       targetStyles: ['border', 'box', 'break', 'text-decoration'],
       ignoreElements: [],

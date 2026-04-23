@@ -1,6 +1,29 @@
 import Browser from './browser'
 import { cleanUp } from './functions'
 
+function guardDocumentTitle (title, holdMs, onDone) {
+  if (!title) { onDone(); return }
+
+  var originalTitle = document.title
+  document.title = title
+
+  var titleEl = document.querySelector('title')
+  var observer = null
+
+  if (titleEl && typeof MutationObserver !== 'undefined') {
+    observer = new MutationObserver(function () {
+      if (document.title !== title) document.title = title
+    })
+    observer.observe(titleEl, { characterData: true, childList: true, subtree: true })
+  }
+
+  setTimeout(function () {
+    if (observer) observer.disconnect()
+    document.title = originalTitle
+    onDone()
+  }, holdMs)
+}
+
 const Print = {
   send: (params, printFrame) => {
     // Append iframe element to document body
@@ -51,6 +74,16 @@ const Print = {
 }
 
 function performPrint (iframeElement, params) {
+  var isPdfWithTitle = params.type === 'pdf' &&
+    params.documentTitle &&
+    params.documentTitle !== 'Document'
+
+  if (isPdfWithTitle) {
+    guardDocumentTitle(params.documentTitle, params.documentTitleHoldMs || 3000, function () {
+      cleanUp(params)
+    })
+  }
+
   try {
     iframeElement.focus()
 
@@ -59,15 +92,15 @@ function performPrint (iframeElement, params) {
       try {
         iframeElement.contentWindow.document.execCommand('print', false, null)
       } catch (e) {
-        setTimeout(function(){
+        setTimeout(function () {
           iframeElement.contentWindow.print()
-        },1000)
+        }, 1000)
       }
     } else {
       // Other browsers
-      setTimeout(function(){
+      setTimeout(function () {
         iframeElement.contentWindow.print()
-      },1000)
+      }, 1000)
     }
   } catch (error) {
     params.onError(error)
@@ -78,7 +111,9 @@ function performPrint (iframeElement, params) {
       iframeElement.style.left = '-1px'
     }
 
-    cleanUp(params)
+    if (!isPdfWithTitle) {
+      cleanUp(params)
+    }
   }
 }
 

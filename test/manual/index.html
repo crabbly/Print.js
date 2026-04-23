@@ -14,6 +14,30 @@
       })
     }
 
+    function printPdfWithDocumentTitle() {
+      printJS({
+        printable: '/test/manual/test.pdf',
+        type: 'pdf',
+        documentTitle: 'My Custom Report'
+      })
+    }
+
+    function printPdfWithDocumentTitleAndSimulatedReset() {
+      // Simulate a framework (React, Vue, etc.) aggressively resetting document.title
+      var interval = setInterval(function () {
+        document.title = 'RESET BY FRAMEWORK'
+      }, 50)
+
+      // Stop the simulation after 5s so it doesn't run forever
+      setTimeout(function () { clearInterval(interval) }, 5000)
+
+      printJS({
+        printable: '/test/manual/test.pdf',
+        type: 'pdf',
+        documentTitle: 'Guarded Title Test'
+      })
+    }
+
     function printPdfWithModal() {
       printJS({
         printable: '/test/manual/test.pdf',
@@ -288,7 +312,13 @@
         <button onClick='printPdfKioskPrint();'>
           Print PDF In --kiosk-printing Chrome frameRemoveDelay
         </button>
-        
+        <button onClick='printPdfWithDocumentTitle();'>
+          Print PDF with documentTitle
+        </button>
+        <button onClick='printPdfWithDocumentTitleAndSimulatedReset();'>
+          Print PDF with documentTitle (simulated framework reset)
+        </button>
+
       </p>
       <div>
         <h2>Form Elements</h2>

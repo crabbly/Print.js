@@ -9,6 +9,7 @@ declare namespace printJS {
     fallbackPrintable?: string;
     type?: PrintTypes;
     documentTitle?: string;
+    documentTitleHoldMs?: number;
     header?: any;
     headerStyle?: string;
     footer?: any;
